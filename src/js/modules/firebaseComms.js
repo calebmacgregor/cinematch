@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app"
+import { getAnalytics } from "firebase/analytics"
 import { firebaseConfig } from "./firebaseConfig"
 import { notifyOfMatch, populateLikedMovies } from "./misc"
 import {
@@ -18,7 +19,8 @@ import {
 } from "firebase/firestore"
 import { getMovieDetail } from "./getMovies"
 
-initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
+const analytics = getAnalytics(app)
 
 //Set up the db connection
 const db = getFirestore()
