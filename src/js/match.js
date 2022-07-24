@@ -1,0 +1,132 @@
+import {
+	joinSession,
+	listenToSession,
+	setEpoch
+} from "./modules/firebaseComms.js"
+import { initialiseMovie } from "./modules/handleMovieData.js"
+import {
+	elementState,
+	movieState,
+	thresholdState,
+	Coordinates,
+	dismissNotification
+} from "./modules/misc.js"
+import {
+	shrinkPoster,
+	expandPoster,
+	handleButtonPress,
+	handleSwipe,
+	handleTouchStart,
+	handleMove
+} from "./modules/interactions.js"
+
+//Get the session from the URL parameters
+const params = new URLSearchParams(window.location.search)
+let session = {
+	sessionName: params.get("session")
+}
+
+//Set up the global variables that are needed
+let coordinates = new Coordinates()
+let movieArray = []
+
+//Import the session
+joinSession(session.sessionName)
+	.then((data) => {
+		sessionStorage.setItem("matchyJoinEpoch", new Date().getTime())
+		console.log("Session joined successfully")
+		setHeaderName(session.sessionName)
+		listenToSession(session.sessionName)
+		movieArray = data.movies
+	})
+	.then(() => {
+		initialiseMovie(movieArray, 1).then((movie) => {
+			movieState.currentMovie = movie
+		})
+
+		initialiseMovie(movieArray, 2).then((movie) => {
+			movieState.nextMovie = movie
+		})
+	})
+	.catch(() => {
+		window.location.href = "../.."
+	})
+
+elementState.poster.addEventListener("touchstart", (e) =>
+	handleTouchStart(e, coordinates, window.innerHeight)
+)
+
+elementState.poster.addEventListener("touchmove", (e) =>
+	handleMove(e, coordinates, elementState)
+)
+
+elementState.poster.addEventListener("touchend", (e) =>
+	handleSwipe(
+		coordinates,
+		thresholdState,
+		movieState,
+		elementState,
+		movieArray,
+		session.sessionName
+	)
+)
+
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("btn")) return
+	handleButtonPress(
+		e,
+		coordinates,
+		movieState,
+		movieArray,
+		elementState,
+		session.sessionName
+	)
+})
+
+elementState.poster.addEventListener("click", () => {
+	if (elementState.poster.classList.contains("shrunk")) return
+	shrinkPoster(elementState)
+})
+
+document.addEventListener("click", (e) => {
+	const dismissable = e.target.closest(".dismissable")
+	if (!dismissable) return
+	expandPoster(elementState)
+})
+
+document.addEventListener("click", (e) => {
+	dismissNotification(e)
+})
+
+function setHeaderName(sessionName) {
+	const sessionHeaderName = document.querySelector(".session-name")
+	sessionHeaderName.textContent = sessionName
+}
+
+function hideLikedMovies() {
+	const likedMoviesContainer = document.querySelector(".liked-movies-container")
+	likedMoviesContainer.classList.add("hidden")
+	setTimeout(() => {
+		likedMoviesContainer.style.display = "none"
+	}, 250)
+}
+
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("close")) return
+	console.log("hiding")
+	hideLikedMovies()
+})
+
+function showLikedMovies() {
+	const likedMoviesContainer = document.querySelector(".liked-movies-container")
+	likedMoviesContainer.style.display = "block"
+	setTimeout(() => {
+		likedMoviesContainer.classList.remove("hidden")
+	}, 1)
+}
+
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("show-likes")) return
+	console.log("showing")
+	showLikedMovies()
+})

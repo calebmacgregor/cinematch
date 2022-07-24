@@ -1,0 +1,10 @@
+{
+	"name": "Matchy",
+	"short_name": "Matchy",
+	"theme_color": "#323650",
+	"background_color": "#323650",
+	"display": "standalone",
+	"orientation": "portrait",
+	"start_url": "index.html",
+	"scope": "/"
+}

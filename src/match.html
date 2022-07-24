@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+		/>
+		<meta name="apple-mobile-web-app-capable" content="black-translucent" />
+		<meta name="theme-color" content="#000000" />
+		<link rel="stylesheet" href="./styles/styles.css" />
+		<link rel="manifest" href="../manifest.json" />
+		<script type="module" src="./js/match.js"></script>
+		<title>Matchy</title>
+	</head>
+	<body>
+		<div class="header">
+			<div class="liked-icon">
+				<img src="../src/assets/heart-hollow.svg" alt="" class="show-likes" />
+			</div>
+			<div class="centre">
+				<h1>Matchy</h1>
+				<p class="session-name"></p>
+			</div>
+			<div class="right">
+				<a href="./index.html">Exit Session</a>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="background dismiss"></div>
+			<div class="next-background"></div>
+			<div class="poster"></div>
+			<div class="next-poster"></div>
+			<div class="liked">
+				<h1 class="liked-status"></h1>
+			</div>
+			<div class="detail-top dismiss">
+				<h2 class="title"></h2>
+				<p class="year"></p>
+				<p class="rating"></p>
+				<p class="runtime"></p>
+				<p class="genre"></p>
+				<a href="" class="imdb" target="_blank"></a>
+			</div>
+			<div class="detail-bottom">
+				<div class="dismissable hidden"></div>
+				<p class="synopsis visible"></p>
+				<p class="dismiss dismiss-text visible">Tap to dismiss</p>
+			</div>
+		</div>
+		<div class="buttons">
+			<div class="dislike">
+				<img
+					src="./assets/thumbs_down.png"
+					alt="Thumbs down"
+					class="btn dislike"
+				/>
+			</div>
+			<div class="like">
+				<img src="./assets/thumbs_up.png" alt="Thumbs up" class="btn like" />
+			</div>
+		</div>
+
+		<div class="notification hidden notification-dismiss">
+			<div class="notification-container notification-dismiss">
+				<h1 class="notification-dismiss">New Match!</h1>
+				<a
+					href="http://www.google.com"
+					target="_blank"
+					class="notification-movie poster"
+				></a>
+			</div>
+		</div>
+
+		<div class="liked-movies-container hidden">
+			<h1 class="empty-message">No matched movies yet</h1>
+			<div class="liked-movie-header">
+				<div class="liked-icon close">
+					<img src="../src/assets/heart-filled.svg" alt="" class="close" />
+				</div>
+				<h1 class="liked-header-title">Liked Movies</h1>
+			</div>
+			<ul class="liked-movies-list"></ul>
+		</div>
+	</body>
+</html>
