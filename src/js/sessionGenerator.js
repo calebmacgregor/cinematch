@@ -1,6 +1,6 @@
 import { getMovieArray } from "./modules/getMovies"
 import { createSession } from "./modules/firebaseComms"
-import { redirectToMatchy } from "./modules/misc"
+import { redirectToMatchy, setBodySize } from "./modules/misc"
 
 const selectedGenres = []
 const sessionObject = {}
@@ -153,6 +153,9 @@ function addToGenreList(e, selectedGenres, sessionObject) {
 		el.setAttribute("data-genre-id", genreID)
 		el.setAttribute("data-genre-name", genreName)
 		el.innerText = genreName
+		el.style.backgroundColor = `#${Math.floor(
+			Math.random() * 16777215
+		).toString(16)}`
 		genresList.appendChild(el)
 
 		//Adjust the class to highlight the selected
@@ -196,3 +199,5 @@ document.addEventListener("click", (e) => {
 document.addEventListener("input", () => {
 	sessionData(selectedGenres, sessionObject)
 })
+
+setBodySize()

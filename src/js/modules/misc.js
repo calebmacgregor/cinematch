@@ -112,6 +112,11 @@ export async function redirectToMatchy(sessionName) {
 	window.location.href = `match.html?session=${sessionName}`
 }
 
+export function setBodySize() {
+	const body = document.querySelector("body")
+	body.style.height = `${window.innerHeight}px`
+}
+
 export function notifyOfMatch(movieObject) {
 	//Get the viewable height of the viewport
 	const vh = window.innerHeight * 0.01

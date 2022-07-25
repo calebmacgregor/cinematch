@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
+* {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow: scroll;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100vh;
+  background: #1b1a1d;
+  background: linear-gradient(45deg, #1b1a1d 0%, #3f2337 50%, #1f304b 100%);
+}
+
+.session-generator-container {
+  color: white;
+  padding: 2rem;
+  height: 100%;
+}
+
+.session-generator-container h1 {
+  font-size: 32px;
+  text-align: left;
+}
+
+.session-generator-container .form-gen-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.session-generator-container .form-gen-container .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.3rem;
+  margin: 1rem 0rem;
+}
+
+.session-generator-container .form-gen-container .input-container input {
+  -webkit-appearance: none;
+  background-color: white;
+  min-width: 80%;
+  max-width: 30ch;
+  height: 2rem;
+  padding: 0rem 0.3rem;
+  border-radius: 5px;
+}
+
+.session-generator-container .form-gen-container .genre-trigger p {
+  display: inline-block;
+  padding: 0.5rem;
+  font-weight: 600;
+  background-color: #3b3e5e;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+          box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+}
+
+.session-generator-container .form-gen-container .genres-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: auto;
+  gap: 1rem;
+  padding: 1rem 0rem;
+}
+
+.session-generator-container .form-gen-container .genres-list .genre-tag {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.2rem;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  font-weight: 600;
+  color: white;
+  border-radius: 5px;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.session-generator-container .genres-container {
+  height: 30vh;
+  width: 75vw;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  background-color: #3b3e5e;
+  border-radius: 10px;
+  padding-bottom: 30rem;
+  -webkit-transition: opacity 250ms ease;
+  transition: opacity 250ms ease;
+  -webkit-box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028), 0px 12.5px 10px rgba(0, 0, 0, 0.035), 0px 22.3px 17.9px rgba(0, 0, 0, 0.042), 0px 41.8px 33.4px rgba(0, 0, 0, 0.05), 0px 100px 80px rgba(0, 0, 0, 0.07);
+          box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028), 0px 12.5px 10px rgba(0, 0, 0, 0.035), 0px 22.3px 17.9px rgba(0, 0, 0, 0.042), 0px 41.8px 33.4px rgba(0, 0, 0, 0.05), 0px 100px 80px rgba(0, 0, 0, 0.07);
+}
+
+.session-generator-container .genres-container .genres {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  padding: 1rem;
+  list-style: none;
+  color: white;
+}
+
+.session-generator-container .genres-container .genres li {
+  font-size: 16px;
+  color: white;
+  padding: 1rem;
+  width: auto;
+  cursor: pointer;
+}
+
+.session-generator-container .genres-container .genres li span {
+  pointer-events: none;
+}
+
+.session-generator-container .genres-container .genres li.selected span {
+  border-bottom: solid #ff336d 3px;
+}
+
+.session-generator-container .genres-container .genres .genres:last-child {
+  padding-bottom: 5rem;
+}
+
+.session-generator-container .genres-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.session-generator-container .submit-session {
+  margin: 1rem 0rem;
+  display: inline-block;
+  padding: 0.5rem;
+  font-weight: 600;
+  background-color: #fe336d;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+          box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+}
+/*# sourceMappingURL=sessionGenerator.css.map */

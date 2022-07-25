@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
+
+* {
+	font-family: "Montserrat", sans-serif;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+	box-sizing: border-box;
+	overflow: scroll;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	background: rgb(27, 26, 29);
+	background: linear-gradient(
+		45deg,
+		rgba(27, 26, 29, 1) 0%,
+		rgba(63, 35, 55, 1) 50%,
+		rgba(31, 48, 75, 1) 100%
+	);
+}
+
+.session-generator-container {
+	color: white;
+	padding: 2rem;
+	height: 100%;
+
+	h1 {
+		font-size: 32px;
+		text-align: left;
+	}
+
+	.form-gen-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+
+		.input-container {
+			display: flex;
+			flex-direction: column;
+			gap: 0.3rem;
+			margin: 1rem 0rem;
+
+			input {
+				-webkit-appearance: none;
+				background-color: white;
+				min-width: 80%;
+				max-width: 30ch;
+				height: 2rem;
+				padding: 0rem 0.3rem;
+				border-radius: 5px;
+			}
+		}
+
+		.genre-trigger p {
+			display: inline-block;
+			padding: 0.5rem;
+			font-weight: 600;
+			background-color: hsl(234, 23%, 30%);
+			border-radius: 5px;
+			cursor: pointer;
+			box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+				0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+		}
+
+		.genres-list {
+			display: flex;
+			overflow: auto;
+			gap: 1rem;
+			padding: 1rem 0rem;
+
+			.genre-tag {
+				display: flex;
+				gap: 0.2rem;
+				flex: 0 0 auto;
+				font-weight: 600;
+				color: white;
+				border-radius: 5px;
+				padding: 0.5rem;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.genres-container {
+		height: 30vh;
+		width: 75vw;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background-color: hsl(234, 23%, 30%);
+		border-radius: 10px;
+		padding-bottom: 30rem;
+		transition: opacity 250ms ease;
+		box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+			0px 6.7px 5.3px rgba(0, 0, 0, 0.028), 0px 12.5px 10px rgba(0, 0, 0, 0.035),
+			0px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+			0px 41.8px 33.4px rgba(0, 0, 0, 0.05), 0px 100px 80px rgba(0, 0, 0, 0.07);
+
+		.genres {
+			position: absolute;
+			top: 0;
+			height: 100%;
+			width: 100%;
+			overflow: scroll;
+			padding: 1rem;
+			list-style: none;
+			color: white;
+
+			li {
+				font-size: 16px;
+				color: white;
+				padding: 1rem;
+				width: auto;
+				cursor: pointer;
+
+				span {
+					pointer-events: none;
+				}
+
+				&.selected span {
+					border-bottom: solid #ff336d 3px;
+				}
+			}
+
+			.genres:last-child {
+				padding-bottom: 5rem;
+			}
+		}
+
+		&.hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+	.submit-session {
+		margin: 1rem 0rem;
+		display: inline-block;
+		padding: 0.5rem;
+		font-weight: 600;
+		background-color: #fe336d;
+		border-radius: 5px;
+		cursor: pointer;
+		box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+			0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+	}
+}
