@@ -1,3 +1,4 @@
+import { prepareSessionEnd } from "./misc.js"
 import { Movie, formatDate } from "./misc.js"
 
 export async function getMovieArray(sessionSize, genreArray, fromDate, toDate) {
@@ -44,7 +45,6 @@ export async function getMovieArray(sessionSize, genreArray, fromDate, toDate) {
 
 export async function getMovieDetail(movieID) {
 	if (movieID == undefined) {
-		console.log("thingo")
 		return new Movie(
 			0,
 			undefined,
@@ -81,6 +81,11 @@ export async function getMovieDetail(movieID) {
 
 export async function getRandomMovie(movieArray) {
 	const length = movieArray.length
+
+	//If this is the last movie, tag it
+	if (movieArray.length === 0) {
+		prepareSessionEnd()
+	}
 	const movies = movieArray
 	const randomNumber = Math.floor(Math.random() * length)
 	const randomMovie = movies[randomNumber]

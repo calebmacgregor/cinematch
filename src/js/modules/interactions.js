@@ -1,6 +1,6 @@
 import { rotateMovie } from "./handleMovieData.js"
 import { incrementMovie } from "./firebaseComms.js"
-import { renderBanner, removeBanner } from "./misc.js"
+import { renderBanner, removeBanner, endSession } from "./misc.js"
 
 export function handleTouchStart(e, coordinatesObject, viewportHeight) {
 	coordinatesObject.touchStartX = e.touches[0].clientX
@@ -127,7 +127,7 @@ export function handleSwipe(
 	sessionName,
 	likeThreshold
 ) {
-	const poster = document.querySelector(".poster")
+	const poster = elementState.poster
 	if (
 		coordinates.deltaX * -0.05 > thresholdState.edgeThreshold ||
 		coordinates.deltaX * -0.05 < -thresholdState.edgeThreshold
@@ -135,6 +135,9 @@ export function handleSwipe(
 		edgeSwipe(coordinates, movieState, movieArray, elementState)
 		if (poster.getBoundingClientRect().x > 0) {
 			incrementMovie(movieState.currentMovie.id, sessionName, likeThreshold)
+		}
+		if (poster.dataset.final === "true") {
+			endSession()
 		}
 	} else {
 		removeBanner()
@@ -169,6 +172,9 @@ export function handleButtonPress(
 
 	sessionStorage.setItem("MATCHY-posterLock", "true")
 	setTimeout(() => {
+		if (elementState.poster.dataset.final === "true") {
+			endSession()
+		}
 		rotateMovie(movieState, movieArray, elementState)
 		instantResetCardCoordinates(coordinates, elementState)
 	}, 250)

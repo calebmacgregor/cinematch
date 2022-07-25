@@ -340,6 +340,18 @@ body {
   z-index: 10;
 }
 
+.container .poster p,
+.container .next-poster p {
+  font-size: 52px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) rotate(-60deg);
+          transform: translate(-50%, -50%) rotate(-60deg);
+}
+
 .container .poster.shrunk,
 .container .next-poster.shrunk {
   position: absolute;
