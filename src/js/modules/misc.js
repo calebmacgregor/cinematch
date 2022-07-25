@@ -117,6 +117,18 @@ export function setBodySize() {
 	body.style.height = `${window.innerHeight}px`
 }
 
+export function formatDate(date) {
+	function padNumber(number) {
+		return number.toString().padStart(2, "0")
+	}
+	date = new Date(date)
+	return [
+		padNumber(date.getDate()),
+		padNumber(date.getMonth() + 1),
+		padNumber(date.getFullYear())
+	].join("/")
+}
+
 export function notifyOfMatch(movieObject) {
 	//Get the viewable height of the viewport
 	const vh = window.innerHeight * 0.01

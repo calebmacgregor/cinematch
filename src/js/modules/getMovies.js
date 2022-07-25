@@ -1,4 +1,4 @@
-import { Movie } from "./misc.js"
+import { Movie, formatDate } from "./misc.js"
 
 export async function getMovieArray(sessionSize, genreArray, fromDate, toDate) {
 	const API_KEY = "f1dbd004001c343c62d539bfaf7b8114"
@@ -70,7 +70,7 @@ export async function getMovieDetail(movieID) {
 		data.id,
 		data.title,
 		`${BASE_IMAGE_URL}${data.poster_path}`,
-		data.release_date,
+		formatDate(data.release_date),
 		`${data.vote_average.toFixed(1)}/10`,
 		genres.join(`/`),
 		data.runtime,
@@ -81,7 +81,6 @@ export async function getMovieDetail(movieID) {
 
 export async function getRandomMovie(movieArray) {
 	const length = movieArray.length
-	console.log(length)
 	const movies = movieArray
 	const randomNumber = Math.floor(Math.random() * length)
 	const randomMovie = movies[randomNumber]

@@ -59,6 +59,16 @@ export async function createMovie(movieID, sessionName) {
 	})
 }
 
+export async function checkIfSessionExists(sessionName) {
+	const sessionRef = doc(db, "sessions", sessionName)
+	docSnap = await getDoc(sessionRef)
+	if (docSnap.exists()) {
+		return true
+	} else {
+		return false
+	}
+}
+
 export async function joinSession(sessionName) {
 	let sessionQueryResult = await getDoc(doc(db, "sessions", sessionName))
 	if (!sessionQueryResult.data()) {
@@ -104,7 +114,10 @@ export async function listenToSession(sessionName) {
 export async function incrementMovie(movieID, sessionName, likeThreshold) {
 	//Query to find out if the movie exists
 	let movie = await queryMovie(movieID, sessionName)
+
 	//If the movie doesn't exist, create it
+	//Movies are created with a liked counter of 1,
+	//so there's no need to increment the counter
 	if (!movie) {
 		createMovie(movieID, sessionName)
 		return

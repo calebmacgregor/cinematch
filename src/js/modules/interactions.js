@@ -32,7 +32,6 @@ export function handleMove(e, coordinatesObject, elementState) {
 }
 
 export function instantResetCardCoordinates(coordinatesObject, elementState) {
-	console.log("instant reset")
 	elementState.poster.style.transition = ""
 	elementState.poster.style.transform = ""
 	removeBanner()

@@ -78,6 +78,7 @@ function submitSession(sessionObject) {
 		Date.parse(sessionObject.toDate) &&
 		sessionObject.genres.length > 0
 	) {
+		document.querySelector(".submit-session").innerText = "Loading..."
 		getMovieArray(
 			sessionObject.sessionSize,
 			sessionObject.genres,
@@ -102,7 +103,6 @@ function submitSession(sessionObject) {
 
 const submitButton = document.querySelector(".submit-session")
 submitButton.addEventListener("click", (e) => {
-	console.log("button pressed")
 	submitSession(sessionObject)
 })
 
