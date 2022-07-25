@@ -36,11 +36,13 @@ async function populateGenres() {
 function sessionData(selectedGenres, sessionObject) {
 	//Get data from all inputs on the page
 	const sessionName = document.querySelector("#session-name")
+	const likeThreshold = document.querySelector("#like-threshold")
 	const sessionSize = document.querySelector("#session-size")
 	const fromDate = document.querySelector("#from-date")
 	const toDate = document.querySelector("#to-date")
 
 	sessionObject.sessionName = sessionName.value
+	sessionObject.likeThreshold = likeThreshold.value
 	sessionObject.sessionSize = sessionSize.value
 	sessionObject.fromDate = fromDate.value
 	sessionObject.toDate = toDate.value
@@ -72,6 +74,8 @@ function submitSession(sessionObject) {
 	if (
 		//If all required fields exist, submit this.
 		sessionObject.sessionName &&
+		sessionObject.likeThreshold > 1 &&
+		!isNaN(sessionObject.likeThreshold) &&
 		sessionObject.sessionSize &&
 		!isNaN(sessionObject.sessionSize) &&
 		Date.parse(sessionObject.fromDate) &&
@@ -88,8 +92,8 @@ function submitSession(sessionObject) {
 			createSession(
 				data,
 				sessionObject.sessionName,
-				2,
-				sessionObject.sessionSize
+				parseInt(sessionObject.likeThreshold),
+				parseInt(sessionObject.sessionSize)
 			).then((result) => {
 				if (result.error == 1) {
 					console.log(result.errorMessage)

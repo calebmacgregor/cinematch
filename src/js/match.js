@@ -35,6 +35,7 @@ joinSession(session.sessionName)
 	.then((data) => {
 		sessionStorage.setItem("matchyJoinEpoch", new Date().getTime())
 		console.log("Session joined successfully")
+		session.likeThreshold = data.likeThreshold
 		setHeaderName(session.sessionName)
 		listenToSession(session.sessionName)
 		movieArray = data.movies
@@ -67,7 +68,8 @@ elementState.poster.addEventListener("touchend", (e) =>
 		movieState,
 		elementState,
 		movieArray,
-		session.sessionName
+		session.sessionName,
+		session.likeThreshold
 	)
 )
 
@@ -79,7 +81,8 @@ document.addEventListener("click", (e) => {
 		movieState,
 		movieArray,
 		elementState,
-		session.sessionName
+		session.sessionName,
+		session.likeThreshold
 	)
 })
 

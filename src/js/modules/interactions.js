@@ -124,7 +124,8 @@ export function handleSwipe(
 	movieState,
 	elementState,
 	movieArray,
-	sessionName
+	sessionName,
+	likeThreshold
 ) {
 	const poster = document.querySelector(".poster")
 	if (
@@ -133,7 +134,7 @@ export function handleSwipe(
 	) {
 		edgeSwipe(coordinates, movieState, movieArray, elementState)
 		if (poster.getBoundingClientRect().x > 0) {
-			incrementMovie(movieState.currentMovie.id, sessionName, 2)
+			incrementMovie(movieState.currentMovie.id, sessionName, likeThreshold)
 		}
 	} else {
 		removeBanner()
@@ -150,10 +151,11 @@ export function handleButtonPress(
 	movieState,
 	movieArray,
 	elementState,
-	sessionName
+	sessionName,
+	likeThreshold
 ) {
 	if (e.target.classList.contains("like")) {
-		incrementMovie(movieState.currentMovie.id, sessionName, 2)
+		incrementMovie(movieState.currentMovie.id, sessionName, likeThreshold)
 		coordinates.direction = "right"
 		elementState.poster.style.transition = `250ms linear`
 		elementState.poster.style.transform = "translateX(500px) rotate(15deg)"
