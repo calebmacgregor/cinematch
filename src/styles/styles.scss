@@ -121,7 +121,7 @@ body {
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.9);
 	color: white;
-	z-index: 100;
+	z-index: 9999;
 	padding: 2rem;
 	transition: 250ms ease;
 
@@ -343,7 +343,7 @@ body {
 		color: white;
 		flex-direction: column;
 		align-items: center;
-		z-index: 9999;
+		z-index: 100;
 		transition: opacity 150ms ease;
 
 		&.visible {
@@ -367,7 +367,6 @@ body {
 			z-index: 2;
 
 			&.hidden {
-				// display: none;
 				opacity: 0;
 			}
 		}

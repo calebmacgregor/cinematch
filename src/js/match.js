@@ -1,8 +1,4 @@
-import {
-	joinSession,
-	listenToSession,
-	setEpoch
-} from "./modules/firebaseComms.js"
+import { joinSession, listenToSession } from "./modules/firebaseComms.js"
 import { initialiseMovie } from "./modules/handleMovieData.js"
 import {
 	elementState,

@@ -127,16 +127,15 @@ export function handleSwipe(
 	sessionName,
 	likeThreshold
 ) {
-	const poster = elementState.poster
 	if (
 		coordinates.deltaX * -0.05 > thresholdState.edgeThreshold ||
 		coordinates.deltaX * -0.05 < -thresholdState.edgeThreshold
 	) {
 		edgeSwipe(coordinates, movieState, movieArray, elementState)
-		if (poster.getBoundingClientRect().x > 0) {
+		if (elementState.poster.getBoundingClientRect().x > 0) {
 			incrementMovie(movieState.currentMovie.id, sessionName, likeThreshold)
 		}
-		if (poster.dataset.final === "true") {
+		if (elementState.poster.dataset.final === "true") {
 			endSession()
 		}
 	} else {
