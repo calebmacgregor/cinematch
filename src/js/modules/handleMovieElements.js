@@ -76,3 +76,8 @@ export function setImages(movie, posterNumber) {
 	}
 	poster.style.display = "block"
 }
+
+export function rotateBackground(movieState) {
+	const background = document.querySelector(".background")
+	background.style.backgroundImage = `url(${movieState.nextMovie.poster})`
+}

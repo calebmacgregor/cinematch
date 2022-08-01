@@ -1,4 +1,4 @@
-import { rotateMovie } from "./handleMovieElements.js"
+import { rotateMovie, rotateBackground } from "./handleMovieElements.js"
 import { incrementMovie } from "./firebaseComms.js"
 import { renderBanner, removeBanner, endSession } from "./misc.js"
 
@@ -108,14 +108,15 @@ export function expandPoster(elementState) {
 }
 
 export function edgeSwipe(coordinates, movieState, movieArray, elementState) {
-	const speed = 100
+	rotateBackground(movieState)
+	const speed = 500
 	elementState.poster.style.transition = `${speed}ms linear`
 	elementState.poster.style.transform = `translateX(${
 		coordinates.deltaX * -5
 	}px) translateY(${coordinates.deltaY * -5}px)`
 	setTimeout(() => {
-		rotateMovie(movieState, movieArray, elementState)
 		instantResetCardCoordinates(coordinates, elementState)
+		rotateMovie(movieState, movieArray, elementState)
 	}, speed)
 	removeBanner()
 }
