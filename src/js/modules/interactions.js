@@ -5,7 +5,6 @@ import { renderBanner, removeBanner, endSession } from "./misc.js"
 export function handleTouchStart(e, coordinatesObject, viewportHeight) {
 	coordinatesObject.touchStartX = e.touches[0].clientX
 	coordinatesObject.touchStartY = e.touches[0].clientY
-	coordinatesObject.touchStartTime = e.timeStamp
 	if (coordinatesObject.touchStartY < viewportHeight / 2) {
 		coordinatesObject.rotationPivot = 1
 	} else {
@@ -51,10 +50,8 @@ export function smoothResetCardCoordinates(coordinatesObject, elementState) {
 export function resetCoordinateTracking(coordinatesObject) {
 	coordinatesObject.touchStartX = undefined
 	coordinatesObject.touchStartY = undefined
-	coordinatesObject.touchStartTime = undefined
 	coordinatesObject.touchCurrentX = undefined
 	coordinatesObject.touchCurrentY = undefined
-	coordinatesObject.touchCurrentTime = undefined
 	coordinatesObject.deltaX = undefined
 	coordinatesObject.deltaY = undefined
 	coordinatesObject.rotationPivot = undefined

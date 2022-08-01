@@ -12,7 +12,6 @@ export const elementState = {
 }
 
 export const thresholdState = {
-	speedThreshold: 0.3,
 	edgeThreshold: 5
 }
 

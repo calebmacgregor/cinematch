@@ -2,10 +2,8 @@ export class Coordinates {
 	constructor() {
 		this.touchStartX = undefined
 		this.touchStartY = undefined
-		this.touchStartTime = undefined
 		this.touchCurrentX = undefined
 		this.touchCurrentY = undefined
-		this.touchCurrentTime = undefined
 		this.deltaX = undefined
 		this.deltaY = undefined
 		this.rotationPivot = undefined
