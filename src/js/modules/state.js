@@ -6,7 +6,6 @@ export const elementState = {
 	likedStatus: document.querySelector(".liked-status"),
 	buttons: document.querySelector(".buttons"),
 	sessionID: document.querySelector("#session-id"),
-	loading: document.querySelector(".session-loading"),
 	detailTop: document.querySelector(".detail-top"),
 	detailBottom: document.querySelector(".detail-bottom")
 }

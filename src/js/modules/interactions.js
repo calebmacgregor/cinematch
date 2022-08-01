@@ -131,6 +131,7 @@ export function handleSwipe(
 		coordinates.deltaX * -0.05 > thresholdState.edgeThreshold ||
 		coordinates.deltaX * -0.05 < -thresholdState.edgeThreshold
 	) {
+		//Handle the swipe animation
 		edgeSwipe(coordinates, movieState, movieArray, elementState)
 		if (elementState.poster.getBoundingClientRect().x > 0) {
 			incrementMovie(movieState.currentMovie.id, sessionName, likeThreshold)
