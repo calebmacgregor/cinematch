@@ -1,5 +1,5 @@
 import { joinSession, listenToSession } from "./modules/firebaseComms.js"
-import { initialiseMovie } from "./modules/handleMovieData.js"
+import { initialiseMovie } from "./modules/handleMovieElements.js"
 import {
 	elementState,
 	movieState,

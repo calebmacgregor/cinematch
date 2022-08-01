@@ -1,4 +1,4 @@
-import { rotateMovie } from "./handleMovieData.js"
+import { rotateMovie } from "./handleMovieElements.js"
 import { incrementMovie } from "./firebaseComms.js"
 import { renderBanner, removeBanner, endSession } from "./misc.js"
 
@@ -63,8 +63,9 @@ export function resetCoordinateTracking(coordinatesObject) {
 }
 
 export function shrinkPoster(elementState) {
+	const speed = 250
 	//Adjust main poster styling
-	elementState.poster.style.transition = `350ms ease-in-out`
+	elementState.poster.style.transition = `${speed}ms ease-in-out`
 	elementState.poster.classList.add("shrunk")
 
 	//Adjust next poster styling
@@ -82,15 +83,16 @@ export function shrinkPoster(elementState) {
 		}px + 6rem)`
 		elementState.detailTop.classList.add("visible")
 		elementState.detailBottom.classList.add("visible")
-	}, 350)
+	}, speed)
 }
 
 export function expandPoster(elementState) {
+	const speed = 250
 	//Adjust button styling
 	elementState.buttons.classList.remove("hidden")
 
 	//Adjust main poster styling
-	elementState.poster.style.transition = `250ms ease`
+	elementState.poster.style.transition = `${speed}ms ease`
 	elementState.poster.classList.remove("shrunk")
 
 	//Adjust content visibility
@@ -102,11 +104,11 @@ export function expandPoster(elementState) {
 		//Adjust next poster styling
 		elementState.nextPoster.style.display = "block"
 		elementState.poster.style.transition = "none"
-	}, 250)
+	}, speed)
 }
 
 export function edgeSwipe(coordinates, movieState, movieArray, elementState) {
-	const speed = 550
+	const speed = 100
 	elementState.poster.style.transition = `${speed}ms linear`
 	elementState.poster.style.transform = `translateX(${
 		coordinates.deltaX * -5

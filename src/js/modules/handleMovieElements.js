@@ -70,11 +70,9 @@ export function setImages(movie, posterNumber) {
 		background.style.backgroundImage = `url(${movie.poster})`
 	} else if (posterNumber === 2) {
 		poster = document.querySelector(".next-poster")
+		const posterTwoImage = (new Image().src = movie.poster)
+		console.log(posterTwoImage)
 		poster.style.backgroundImage = `url(${movie.poster})`
 	}
 	poster.style.display = "block"
-}
-
-export function setBackground(background, backgroundElement) {
-	backgroundElement.style.backgroundImage = `url(${background.poster})`
 }
