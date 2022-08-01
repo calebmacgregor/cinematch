@@ -108,8 +108,8 @@ export function expandPoster(elementState) {
 }
 
 export function edgeSwipe(coordinates, movieState, movieArray, elementState) {
-	rotateBackground(movieState)
-	const speed = 500
+	rotateBackground(movieState, elementState)
+	const speed = 250
 	elementState.poster.style.transition = `${speed}ms linear`
 	elementState.poster.style.transform = `translateX(${
 		coordinates.deltaX * -5

@@ -1,35 +1,33 @@
 import { getRandomMovie, getMovieDetail } from "./getMovies.js"
+import { elementState } from "./state.js"
 
-export async function initialiseMovie(movieArray, posterNumber) {
+export async function initialiseMovie(
+	movieArray,
+	elementState,
+	posterNumber = 1
+) {
 	//Get a random movie from the session array
 	const movieID = await getRandomMovie(movieArray)
 	//Get the detail for that movie
 	const movie = await getMovieDetail(movieID)
 
-	//Set a placeholder poster value
-	let poster
-
+	//Set the metadata if relevant
 	if (posterNumber === 1) {
-		//Get the current poster and set the metadata
-		poster = document.querySelector(".poster")
 		setMetadata(movie)
-	} else if (posterNumber === 2) {
-		//Get the next poster
-		poster = document.querySelector(".next-poster")
 	}
 
 	//Set the images for the relevant poster
-	setImages(movie, posterNumber)
+	setImages(movie, posterNumber, elementState)
 
 	//Return the movie for use elsewhere
 	return movie
 }
 
-export function rotateMovie(movieState, movieArray) {
+export function rotateMovie(movieState, movieArray, elementState) {
 	movieState.currentMovie = movieState.nextMovie
-	setImages(movieState.nextMovie, 1)
-	setMetadata(movieState.nextMovie, 1)
-	initialiseMovie(movieArray, 2).then((movie) => {
+	setImages(movieState.nextMovie, 1, elementState)
+	setMetadata(movieState.nextMovie)
+	initialiseMovie(movieArray, elementState, 2).then((movie) => {
 		movieState.nextMovie = movie
 	})
 }
@@ -61,23 +59,17 @@ export function setMetadata(movie) {
 	}
 }
 
-export function setImages(movie, posterNumber) {
-	let poster
+export function setImages(movie, posterNumber, elementState) {
 	if (posterNumber === 1) {
-		let background = document.querySelector(".background")
-		poster = document.querySelector(".poster")
-		poster.style.backgroundImage = `url(${movie.poster})`
-		background.style.backgroundImage = `url(${movie.poster})`
+		elementState.poster.style.backgroundImage = `url(${movie.poster})`
+		elementState.background.style.backgroundImage = `url(${movie.poster})`
 	} else if (posterNumber === 2) {
-		poster = document.querySelector(".next-poster")
-		const posterTwoImage = (new Image().src = movie.poster)
-		console.log(posterTwoImage)
-		poster.style.backgroundImage = `url(${movie.poster})`
+		elementState.nextPoster.style.backgroundImage = `url(${movie.poster})`
 	}
-	poster.style.display = "block"
+	elementState.poster.style.display = "block"
+	elementState.nextPoster
 }
 
 export function rotateBackground(movieState) {
-	const background = document.querySelector(".background")
-	background.style.backgroundImage = `url(${movieState.nextMovie.poster})`
+	elementState.background.style.backgroundImage = `url(${movieState.nextMovie.poster})`
 }

@@ -1,12 +1,8 @@
 import { joinSession, listenToSession } from "./modules/firebaseComms.js"
 import { initialiseMovie } from "./modules/handleMovieElements.js"
-import {
-	elementState,
-	movieState,
-	thresholdState,
-	Coordinates,
-	dismissNotification
-} from "./modules/misc.js"
+import { dismissNotification } from "./modules/misc.js"
+import { elementState, movieState, thresholdState } from "./modules/state.js"
+import { Coordinates } from "./modules/classes.js"
 import {
 	shrinkPoster,
 	expandPoster,
@@ -37,11 +33,11 @@ joinSession(session.sessionName)
 		movieArray = data.movies
 	})
 	.then(() => {
-		initialiseMovie(movieArray, 1).then((movie) => {
+		initialiseMovie(movieArray, elementState).then((movie) => {
 			movieState.currentMovie = movie
 		})
 
-		initialiseMovie(movieArray, 2).then((movie) => {
+		initialiseMovie(movieArray, elementState, 2).then((movie) => {
 			movieState.nextMovie = movie
 		})
 	})

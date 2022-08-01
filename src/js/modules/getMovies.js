@@ -1,5 +1,6 @@
 import { prepareSessionEnd } from "./misc.js"
-import { Movie, formatDate } from "./misc.js"
+import { formatDate } from "./misc.js"
+import { Movie } from "./classes.js"
 
 export async function getMovieArray(sessionSize, genreArray, fromDate, toDate) {
 	const API_KEY = "f1dbd004001c343c62d539bfaf7b8114"
