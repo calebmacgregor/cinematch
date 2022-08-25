@@ -5,7 +5,6 @@
   padding: 0;
   border: 0;
   outline: 0;
-  font-size: 100%;
   vertical-align: baseline;
   background: transparent;
   -webkit-box-sizing: border-box;
@@ -20,26 +19,18 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   height: 100vh;
-  background: #1b1a1d;
-  background: linear-gradient(45deg, #1b1a1d 0%, #3f2337 50%, #1f304b 100%);
+  background-color: #0a2a41;
 }
 
 .session-generator-container {
+  position: relative;
+  background-color: #0a2a41;
   color: white;
-  padding: 2rem;
   height: 100%;
-}
-
-.session-generator-container h1 {
-  font-size: 32px;
-  text-align: left;
-}
-
-.session-generator-container .form-gen-container {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -47,12 +38,44 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 2rem;
+}
+
+.session-generator-container #welcome {
+  width: 85%;
+  text-align: left;
+}
+
+.session-generator-container .form-gen-container {
+  position: relative;
+  height: 65%;
+  width: 85%;
+  background-color: #0c3958;
+  padding: 2rem;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .session-generator-container .form-gen-container .input-container {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -61,115 +84,66 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 0.3rem;
-  margin: 1rem 0rem;
 }
 
-.session-generator-container .form-gen-container .input-container input {
-  -webkit-appearance: none;
-  background-color: white;
-  min-width: 80%;
-  max-width: 30ch;
-  height: 2rem;
-  padding: 0rem 0.3rem;
+.session-generator-container .form-gen-container .input-container label,
+.session-generator-container .form-gen-container .input-container .label {
+  font-weight: 500;
+}
+
+.session-generator-container .form-gen-container .input-container input,
+.session-generator-container .form-gen-container .input-container .input {
+  background-color: #f5f9ff;
+  width: 100%;
+  height: 1.6rem;
   border-radius: 5px;
-}
-
-.session-generator-container .form-gen-container .genre-trigger p {
-  display: inline-block;
   padding: 0.5rem;
-  font-weight: 600;
-  background-color: #3b3e5e;
-  border-radius: 5px;
-  cursor: pointer;
-  -webkit-box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
-          box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+  color: #3a3a3a;
 }
 
-.session-generator-container .form-gen-container .genres-list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.session-generator-container .form-gen-container .input-container .input {
   overflow: auto;
-  gap: 1rem;
-  padding: 1rem 0rem;
 }
 
-.session-generator-container .form-gen-container .genres-list .genre-tag {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 0.2rem;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  font-weight: 600;
-  color: white;
-  border-radius: 5px;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-.session-generator-container .genres-container {
-  height: 30vh;
-  width: 75vw;
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  background-color: #3b3e5e;
-  border-radius: 10px;
-  padding-bottom: 30rem;
-  -webkit-transition: opacity 250ms ease;
-  transition: opacity 250ms ease;
-  -webkit-box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028), 0px 12.5px 10px rgba(0, 0, 0, 0.035), 0px 22.3px 17.9px rgba(0, 0, 0, 0.042), 0px 41.8px 33.4px rgba(0, 0, 0, 0.05), 0px 100px 80px rgba(0, 0, 0, 0.07);
-          box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028), 0px 12.5px 10px rgba(0, 0, 0, 0.035), 0px 22.3px 17.9px rgba(0, 0, 0, 0.042), 0px 41.8px 33.4px rgba(0, 0, 0, 0.05), 0px 100px 80px rgba(0, 0, 0, 0.07);
-}
-
-.session-generator-container .genres-container .genres {
+.session-generator-container .form-gen-container .genres-container {
   position: absolute;
   top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
-  overflow: scroll;
-  padding: 1rem;
-  list-style: none;
-  color: white;
+  background-color: #0c3958;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  -webkit-transition: 50ms ease;
+  transition: 50ms ease;
 }
 
-.session-generator-container .genres-container .genres li {
-  font-size: 16px;
-  color: white;
-  padding: 1rem;
-  width: auto;
-  cursor: pointer;
+.session-generator-container .form-gen-container .genres-container.hidden {
+  display: none;
 }
 
-.session-generator-container .genres-container .genres li span {
-  pointer-events: none;
+.session-generator-container .form-gen-container .genres-container .genre-li {
+  padding: 0.4rem 0rem;
 }
 
-.session-generator-container .genres-container .genres li.selected span {
+.session-generator-container .form-gen-container .genres-container .genre-li.selected span {
   border-bottom: solid #ff336d 3px;
 }
 
-.session-generator-container .genres-container .genres .genres:last-child {
-  padding-bottom: 5rem;
-}
-
-.session-generator-container .genres-container.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
 .session-generator-container .submit-session {
-  margin: 1rem 0rem;
-  display: inline-block;
-  padding: 0.5rem;
-  font-weight: 600;
-  background-color: #fe336d;
+  background-color: #0c3958;
+  width: 85%;
+  height: 3.5rem;
+  font-weight: bold;
   border-radius: 5px;
-  cursor: pointer;
-  -webkit-box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
-          box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02), 0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=sessionGenerator.css.map */

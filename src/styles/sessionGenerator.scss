@@ -1,12 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
 
+$width: 85%;
+
 * {
 	font-family: "Montserrat", sans-serif;
 	margin: 0;
 	padding: 0;
 	border: 0;
 	outline: 0;
-	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
 	box-sizing: border-box;
@@ -16,139 +17,99 @@
 body {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-around;
 	height: 100vh;
-	background: rgb(27, 26, 29);
-	background: linear-gradient(
-		45deg,
-		rgba(27, 26, 29, 1) 0%,
-		rgba(63, 35, 55, 1) 50%,
-		rgba(31, 48, 75, 1) 100%
-	);
+	background-color: #0a2a41;
 }
 
 .session-generator-container {
+	position: relative;
+	background-color: #0a2a41;
 	color: white;
-	padding: 2rem;
 	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
 
-	h1 {
-		font-size: 32px;
+	#welcome {
+		width: $width;
 		text-align: left;
 	}
 
 	.form-gen-container {
+		position: relative;
+		height: 65%;
+		width: $width;
+		background-color: #0c3958;
+		padding: 2rem;
+		border-radius: 5px;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-start;
+		align-items: center;
+		justify-content: space-between;
 
 		.input-container {
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			gap: 0.3rem;
-			margin: 1rem 0rem;
 
-			input {
-				-webkit-appearance: none;
-				background-color: white;
-				min-width: 80%;
-				max-width: 30ch;
-				height: 2rem;
-				padding: 0rem 0.3rem;
-				border-radius: 5px;
+			label,
+			.label {
+				font-weight: 500;
 			}
-		}
 
-		.genre-trigger p {
-			display: inline-block;
-			padding: 0.5rem;
-			font-weight: 600;
-			background-color: hsl(234, 23%, 30%);
-			border-radius: 5px;
-			cursor: pointer;
-			box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-				0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
-		}
-
-		.genres-list {
-			display: flex;
-			overflow: auto;
-			gap: 1rem;
-			padding: 1rem 0rem;
-
-			.genre-tag {
-				display: flex;
-				gap: 0.2rem;
-				flex: 0 0 auto;
-				font-weight: 600;
-				color: white;
+			input,
+			.input {
+				background-color: #f5f9ff;
+				width: 100%;
+				height: 1.6rem;
 				border-radius: 5px;
 				padding: 0.5rem;
-				cursor: pointer;
+				color: #3a3a3a;
+			}
+
+			.input {
+				overflow: auto;
 			}
 		}
-	}
 
-	.genres-container {
-		height: 30vh;
-		width: 75vw;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		background-color: hsl(234, 23%, 30%);
-		border-radius: 10px;
-		padding-bottom: 30rem;
-		transition: opacity 250ms ease;
-		box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-			0px 6.7px 5.3px rgba(0, 0, 0, 0.028), 0px 12.5px 10px rgba(0, 0, 0, 0.035),
-			0px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-			0px 41.8px 33.4px rgba(0, 0, 0, 0.05), 0px 100px 80px rgba(0, 0, 0, 0.07);
-
-		.genres {
+		.genres-container {
 			position: absolute;
 			top: 0;
+			left: 0;
 			height: 100%;
 			width: 100%;
-			overflow: scroll;
-			padding: 1rem;
-			list-style: none;
-			color: white;
+			background-color: #0c3958;
+			padding: 1rem 2rem;
+			border-radius: 5px;
+			transition: 50ms ease;
 
-			li {
-				font-size: 16px;
-				color: white;
-				padding: 1rem;
-				width: auto;
-				cursor: pointer;
+			&.hidden {
+				display: none;
+			}
 
-				span {
-					pointer-events: none;
-				}
+			.genre-li {
+				padding: 0.4rem 0rem;
 
 				&.selected span {
 					border-bottom: solid #ff336d 3px;
 				}
 			}
-
-			.genres:last-child {
-				padding-bottom: 5rem;
-			}
-		}
-
-		&.hidden {
-			opacity: 0;
-			pointer-events: none;
 		}
 	}
+
 	.submit-session {
-		margin: 1rem 0rem;
-		display: inline-block;
-		padding: 0.5rem;
-		font-weight: 600;
-		background-color: #fe336d;
+		background-color: #0c3958;
+		width: $width;
+		height: 3.5rem;
+		font-weight: bold;
 		border-radius: 5px;
-		cursor: pointer;
-		box-shadow: 0px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-			0px 6.7px 5.3px rgba(0, 0, 0, 0.028);
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }

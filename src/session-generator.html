@@ -20,11 +20,11 @@
 
 			<form class="form-gen-container">
 				<div class="input-container">
-					<label for="session-name">Session Name</label>
+					<label for="session-name">Session name</label>
 					<input type="text" name="session-name" id="session-name" />
 				</div>
 				<div class="input-container">
-					<label for="like-threshold">How many likes does a movie need?</label>
+					<label for="like-threshold">Number of likes</label>
 					<input
 						inputmode="numeric"
 						pattern="[0-9]*"
@@ -34,7 +34,7 @@
 					/>
 				</div>
 				<div class="input-container">
-					<label for="session-size">How many movies do you want?</label>
+					<label for="session-size">Number of movies</label>
 					<input
 						inputmode="numeric"
 						pattern="[0-9]*"
@@ -44,26 +44,34 @@
 					/>
 				</div>
 				<div class="input-container">
-					<label for="session-from-date"
-						>What date should the earliest movie come from?</label
-					>
-					<input type="date" name="session-from-date" id="from-date" />
+					<label for="session-from-date">Starting year</label>
+					<input
+						inputmode="numeric"
+						pattern="[0-9]*"
+						type="text"
+						name="session-from-date"
+						id="from-date"
+					/>
 				</div>
 				<div class="input-container">
-					<label for="session-to-date"
-						>What date should the latest movie come from?</label
-					>
-					<input type="date" name="session-to-date" id="to-date" />
+					<label for="session-to-date">Ending year</label>
+					<input
+						inputmode="numeric"
+						pattern="[0-9]*"
+						type="text"
+						name="session-to-date"
+						id="to-date"
+					/>
 				</div>
-				<div class="genre-trigger">
-					<p>Choose your genres</p>
+				<div class="input-container">
+					<p class="label">Genres</p>
+					<div class="genre-trigger input"></div>
 				</div>
-				<div class="genres-list"></div>
+				<div class="genres-container hidden">
+					<ul class="genres"></ul>
+				</div>
 			</form>
-			<div class="genres-container hidden">
-				<ul class="genres"></ul>
-			</div>
-			<div class="submit-session">Submit Session</div>
+			<div class="submit-session">Create</div>
 		</div>
 	</body>
 </html>

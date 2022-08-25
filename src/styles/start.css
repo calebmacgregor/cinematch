@@ -22,8 +22,7 @@
   top: 0;
   height: 100%;
   width: 100vw;
-  background: #1b1a1d;
-  background: linear-gradient(45deg, #1b1a1d 0%, #3f2337 50%, #1f304b 100%);
+  background-color: #0a2a41;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -87,7 +86,7 @@
   height: 3.5rem;
   width: 50vw;
   max-width: 300px;
-  background-color: #c42c47;
+  background-color: #0c3958;
   color: white;
   font-weight: 700;
   border-radius: 10px;

@@ -22,13 +22,7 @@
 	top: 0;
 	height: 100%;
 	width: 100vw;
-	background: rgb(27, 26, 29);
-	background: linear-gradient(
-		45deg,
-		rgba(27, 26, 29, 1) 0%,
-		rgba(63, 35, 55, 1) 50%,
-		rgba(31, 48, 75, 1) 100%
-	);
+	background-color: #0a2a41;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -69,7 +63,7 @@
 		height: 3.5rem;
 		width: 50vw;
 		max-width: 300px;
-		background-color: #c42c47;
+		background-color: #0c3958;
 		color: white;
 		font-weight: 700;
 		border-radius: 10px;
