@@ -5,7 +5,6 @@ import { redirectToMatchy, setBodySize } from "./modules/misc"
 const selectedGenres = []
 const sessionObject = {}
 
-defaultDates()
 sessionData(selectedGenres, sessionObject)
 populateGenres()
 
@@ -38,36 +37,15 @@ function sessionData(selectedGenres, sessionObject) {
 	const sessionName = document.querySelector("#session-name")
 	const likeThreshold = document.querySelector("#like-threshold")
 	const sessionSize = document.querySelector("#session-size")
-	const fromDate = document.querySelector("#from-date")
-	const toDate = document.querySelector("#to-date")
+	const fromYear = document.querySelector("#from-date")
+	const toYear = document.querySelector("#to-date")
 
 	sessionObject.sessionName = sessionName.value
 	sessionObject.likeThreshold = likeThreshold.value
 	sessionObject.sessionSize = sessionSize.value
-	sessionObject.fromDate = fromDate.value
-	sessionObject.toDate = toDate.value
+	sessionObject.fromYear = convertYear(fromYear.value, "first")
+	sessionObject.toYear = convertYear(toYear.value, "last")
 	sessionObject.genres = selectedGenres
-}
-
-function defaultDates() {
-	//Get the date input elements
-	const fromDateElement = document.querySelector("#from-date")
-	const toDateElement = document.querySelector("#to-date")
-
-	//Generate two current date objects
-	let toDate = new Date()
-	let fromDate = new Date()
-
-	//Set the from date to be 6 months prior to today
-	fromDate.setMonth(fromDate.getMonth() - 6)
-
-	//Format the dates properly
-	fromDate = fromDate.toISOString().split("T")[0]
-	toDate = toDate.toISOString().split("T")[0]
-
-	//Set the value of the elements to their associated dates
-	fromDateElement.value = fromDate
-	toDateElement.value = toDate
 }
 
 function submitSession(sessionObject) {
@@ -78,16 +56,16 @@ function submitSession(sessionObject) {
 		!isNaN(sessionObject.likeThreshold) &&
 		sessionObject.sessionSize &&
 		!isNaN(sessionObject.sessionSize) &&
-		Date.parse(sessionObject.fromDate) &&
-		Date.parse(sessionObject.toDate) &&
+		Date.parse(sessionObject.fromYear) &&
+		Date.parse(sessionObject.toYear) &&
 		sessionObject.genres.length > 0
 	) {
 		document.querySelector(".submit-session").innerText = "Loading..."
 		getMovieArray(
 			sessionObject.sessionSize,
 			sessionObject.genres,
-			sessionObject.fromDate,
-			sessionObject.toDate
+			sessionObject.fromYear,
+			sessionObject.toYear
 		).then((data) => {
 			createSession(
 				data,
@@ -133,40 +111,40 @@ function closeGenreSelector(e) {
 	const genresContainer = document.querySelector(".genres-container")
 	genresContainer.classList.add("hidden")
 }
+
 document.addEventListener("click", closeGenreSelector)
 document.addEventListener("click", openGenreSelector)
 
 //Handle adding items to the genre list
 function addToGenreList(e, selectedGenres, sessionObject) {
-	if (!e.target.classList.contains("genre-li")) return
-	const genreID = e.target.dataset.genreId
-	const genreName = e.target.dataset.genreName
-	const genresList = document.querySelector(".genres-list")
+	if (!e.target.matches(".genre-li, .genre-span")) return
+	const elem = e.target.closest(".genre-li")
+	const genreTrigger = document.querySelector(".genre-trigger")
+	const genreID = elem.dataset.genreId
 	if (selectedGenres.includes(genreID)) {
-		//Grab the element tag that needs removing
-		const el = document.querySelector(`.tag-${genreName}`)
-		el.remove()
-
 		const idIndex = selectedGenres.indexOf(genreID)
 		selectedGenres.splice(idIndex, 1)
-		e.target.classList.remove("selected")
+		elem.classList.remove("selected")
 	} else {
-		//Create the tag element
-		const el = document.createElement("p")
-		el.classList = `genre-tag tag-${genreName}`
-		el.setAttribute("data-genre-id", genreID)
-		el.setAttribute("data-genre-name", genreName)
-		el.innerText = genreName
-		el.style.backgroundColor = `#${Math.floor(
-			Math.random() * 16777215
-		).toString(16)}`
-		genresList.appendChild(el)
-
 		//Adjust the class to highlight the selected
-		e.target.classList.add("selected")
+		elem.classList.add("selected")
 
 		//Add the genre id to the array
 		selectedGenres.push(genreID)
+	}
+
+	//Set the content of the text
+	if (selectedGenres.length === 1) {
+		genreTrigger.innerText = selectedGenres[0]
+		console.log(selectedGenres)
+	} else if (selectedGenres.length > 1) {
+		let genres = ""
+		selectedGenres.forEach((genre) => {
+			genres += `${genre}, `
+		})
+		genreTrigger.innerText = genres.slice(0, -2)
+	} else {
+		genreTrigger.innerText = ""
 	}
 	sessionData(selectedGenres, sessionObject)
 }
@@ -203,5 +181,21 @@ document.addEventListener("click", (e) => {
 document.addEventListener("input", () => {
 	sessionData(selectedGenres, sessionObject)
 })
+
+function convertYear(year, firstLast) {
+	let date
+	const currentYear = new Date().getFullYear()
+	if (year > currentYear) {
+		year = currentYear
+	} else if (year < 1900) {
+		year = 1900
+	}
+	if (firstLast === "first") {
+		date = new Date(year, 0, 2)
+	} else if (firstLast === "last") {
+		date = new Date(year, 11, 32)
+	}
+	return date.toISOString().split("T")[0]
+}
 
 setBodySize()
