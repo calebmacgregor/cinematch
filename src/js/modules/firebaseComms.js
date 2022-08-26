@@ -43,7 +43,8 @@ export async function createSession(
 		movies: movieArray,
 		sessionSize: sessionSize,
 		likeThreshold: likeThreshold,
-		likedMovies: []
+		likedMovies: [],
+		expiryDate: new Date(new Date().getTime + 86400000)
 	}
 
 	//Create it in Firestore
@@ -55,7 +56,8 @@ export async function createMovie(movieID, sessionName) {
 	await addDoc(collection(db, "movies"), {
 		movieID: movieID,
 		sessionName: sessionName,
-		likedCounter: 1
+		likedCounter: 1,
+		expiryDate: new Date(new Date().getTime() + 86400000)
 	})
 }
 
@@ -125,7 +127,8 @@ export async function incrementMovie(movieID, sessionName, likeThreshold) {
 
 	//If the movie does exist, increment the likedCounter
 	await updateDoc(doc(db, "movies", movie.id), {
-		likedCounter: increment(1)
+		likedCounter: increment(1),
+		expiryDate: new Date(new Date().getTime() + 86400000)
 	})
 	//Check whether the movie has reached the like threshold
 	likeThresholdCheck(movie, likeThreshold, sessionName)
