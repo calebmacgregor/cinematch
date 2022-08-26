@@ -22,12 +22,12 @@ body {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   height: 100vh;
-  background-color: #0a2a41;
+  background-color: #1c1e2b;
 }
 
 .session-generator-container {
   position: relative;
-  background-color: #0a2a41;
+  background-color: #1c1e2b;
   color: white;
   height: 100%;
   width: 100%;
@@ -56,7 +56,7 @@ body {
   position: relative;
   height: 65%;
   width: 85%;
-  background-color: #0c3958;
+  background-color: #202331;
   padding: 2rem;
   border-radius: 5px;
   display: -webkit-box;
@@ -157,7 +157,8 @@ body {
 }
 
 .session-generator-container .submit-session {
-  background-color: #0c3958;
+  background-color: #94e7f7;
+  color: black;
   width: 85%;
   height: 3.5rem;
   font-weight: bold;
