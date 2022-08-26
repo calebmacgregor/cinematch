@@ -105,6 +105,15 @@ body {
   overflow: auto;
 }
 
+.session-generator-container .form-gen-container .input-container .genre-trigger {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .session-generator-container .form-gen-container .genres-container {
   position: absolute;
   top: 0;
@@ -128,6 +137,23 @@ body {
 
 .session-generator-container .form-gen-container .genres-container .genre-li.selected span {
   border-bottom: solid #ff336d 3px;
+}
+
+.session-generator-container .form-gen-container .selected-genres {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+}
+
+.session-generator-container .form-gen-container .selected-genres li {
+  background-color: red;
 }
 
 .session-generator-container .submit-session {

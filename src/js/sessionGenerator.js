@@ -4,9 +4,12 @@ import { redirectToMatchy, setBodySize } from "./modules/misc"
 
 const selectedGenres = []
 const sessionObject = {}
+let genreArray = ""
 
 sessionData(selectedGenres, sessionObject)
-populateGenres()
+populateGenres().then((data) => {
+	genreArray = data.genres
+})
 
 async function populateGenres() {
 	const API_KEY = "f1dbd004001c343c62d539bfaf7b8114"
@@ -30,6 +33,7 @@ async function populateGenres() {
 
 		genreList.appendChild(li)
 	})
+	return genres
 }
 
 function sessionData(selectedGenres, sessionObject) {
@@ -74,7 +78,11 @@ function submitSession(sessionObject) {
 				parseInt(sessionObject.sessionSize)
 			).then((result) => {
 				if (result.error == 1) {
-					console.log(result.errorMessage)
+					document.querySelector(".submit-session").innerText =
+						"That name is taken 😢"
+					setTimeout(() => {
+						document.querySelector(".submit-session").innerText = "Create"
+					}, 3000)
 					return
 				}
 				redirectToMatchy(sessionObject.sessionName)
@@ -133,19 +141,23 @@ function addToGenreList(e, selectedGenres, sessionObject) {
 		selectedGenres.push(genreID)
 	}
 
+	console.log(selectedGenres)
+
+	const genreNames = document.querySelector(".genre-names")
+	// const genreNamesArray = []
+	// selectedGenres.forEach((selectedGenre) => {
+	// 	genreArray.forEach((genre) => {
+	// 		if (selectedGenre == genre.id) {
+	// 			genreNamesArray.push(genre.name)
+	// 		}
+	// 	})
+	// })
+
+	// genreNames.innerText = genreNamesArray.join(", ")
+	genreNames.innerText = `${selectedGenres.length} selected`
 	//Set the content of the text
-	if (selectedGenres.length === 1) {
-		genreTrigger.innerText = selectedGenres[0]
-		console.log(selectedGenres)
-	} else if (selectedGenres.length > 1) {
-		let genres = ""
-		selectedGenres.forEach((genre) => {
-			genres += `${genre}, `
-		})
-		genreTrigger.innerText = genres.slice(0, -2)
-	} else {
-		genreTrigger.innerText = ""
-	}
+	// genreTrigger.innerText = resultString
+
 	sessionData(selectedGenres, sessionObject)
 }
 
@@ -154,7 +166,7 @@ document.addEventListener("click", (e) => {
 })
 
 //Handle removing items from the genre list
-function removeGenreTag(e, selectedGenres, sessionObject) {
+function removeFromGenreList(e, selectedGenres, sessionObject) {
 	const genreTag = e.target.closest(".genre-tag")
 	if (!genreTag) return
 
@@ -174,7 +186,7 @@ function removeGenreTag(e, selectedGenres, sessionObject) {
 }
 
 document.addEventListener("click", (e) => {
-	removeGenreTag(e, selectedGenres, sessionObject)
+	removeFromGenreList(e, selectedGenres, sessionObject)
 })
 
 //Keep track of the inputs
