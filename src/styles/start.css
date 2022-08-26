@@ -62,7 +62,7 @@
 
 .start-container .posters .front-poster {
   width: 45%;
-  background-image: url("/src/assets/poster2.png");
+  background-image: url("/src/assets/poster2.webp");
   background-size: cover;
   z-index: 3;
 }
@@ -74,7 +74,7 @@
   -webkit-filter: blur(2px);
           filter: blur(2px);
   width: 40%;
-  background-image: url("/src/assets/poster1.png");
+  background-image: url("/src/assets/poster1.webp");
   background-size: cover;
   z-index: 2;
 }
@@ -86,7 +86,7 @@
   -webkit-filter: blur(4px);
           filter: blur(4px);
   width: 35%;
-  background-image: url("/src/assets/poster3.png");
+  background-image: url("/src/assets/poster3.webp");
   background-size: cover;
   z-index: 2;
 }

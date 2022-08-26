@@ -44,7 +44,7 @@
 
 		.front-poster {
 			width: 45%;
-			background-image: url("/src/assets/poster2.png");
+			background-image: url("/src/assets/poster2.webp");
 			background-size: cover;
 			z-index: 3;
 		}
@@ -54,7 +54,7 @@
 			transform: translateX(-60%) rotate(-10deg);
 			filter: blur(2px);
 			width: 40%;
-			background-image: url("/src/assets/poster1.png");
+			background-image: url("/src/assets/poster1.webp");
 			background-size: cover;
 			z-index: 2;
 		}
@@ -64,7 +64,7 @@
 			transform: translateX(70%) rotate(10deg);
 			filter: blur(4px);
 			width: 35%;
-			background-image: url("/src/assets/poster3.png");
+			background-image: url("/src/assets/poster3.webp");
 			background-size: cover;
 			z-index: 2;
 		}
