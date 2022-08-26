@@ -94,3 +94,5 @@ export async function getRandomMovie(movieArray) {
 	movieArray.splice(randomNumber, 1)
 	return randomMovie
 }
+
+export async function getGenreName(genreID) {}
