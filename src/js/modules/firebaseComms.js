@@ -44,7 +44,7 @@ export async function createSession(
 		sessionSize: sessionSize,
 		likeThreshold: likeThreshold,
 		likedMovies: [],
-		expiryDate: new Date(new Date().getTime + 86400000)
+		expiryDate: new Date(new Date().getTime() + 86400000)
 	}
 
 	//Create it in Firestore
