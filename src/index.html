@@ -16,15 +16,22 @@
 	</head>
 	<body>
 		<div class="start-container">
-			<div class="header">Match</div>
+			<div class="posters">
+				<div class="front-poster poster"></div>
+				<div class="left-poster poster"></div>
+				<div class="right-poster poster"></div>
+			</div>
 			<div class="join-session">
+				<h1 class="header">Get matching</h1>
 				<form class="join-session-form" autocomplete="off">
 					<input type="text" name="session-name" id="session-name-input" />
-					<button class="join-session-btn btn">Join Session</button>
+					<div class="buttons">
+						<button class="join-session-btn btn">Join</button>
+						<a href="./session-generator.html" class="btn new-session"
+							>Create
+						</a>
+					</div>
 				</form>
-				<a href="./session-generator.html" class="btn new-session"
-					>Create new session</a
-				>
 			</div>
 		</div>
 	</body>

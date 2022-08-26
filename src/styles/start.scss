@@ -22,20 +22,68 @@
 	top: 0;
 	height: 100%;
 	width: 100vw;
-	background-color: #0a2a41;
+	background-color: #1b1e2b;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 
-	.header {
+	.posters {
 		position: absolute;
-		margin-left: auto;
 		top: 10%;
-		font-size: 64px;
-		font-weight: 700;
-		color: white;
-		background: none;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.poster {
+			aspect-ratio: 2/3;
+			border-radius: 10px;
+			box-shadow: 0px 10px 64px -3px rgba(0, 0, 0, 0.1);
+		}
+
+		.front-poster {
+			width: 45%;
+			background-image: url("/src/assets/poster2.png");
+			background-size: cover;
+			z-index: 3;
+		}
+
+		.left-poster {
+			position: absolute;
+			transform: translateX(-60%) rotate(-10deg);
+			filter: blur(2px);
+			width: 40%;
+			background-image: url("/src/assets/poster1.png");
+			background-size: cover;
+			z-index: 2;
+		}
+
+		.right-poster {
+			position: absolute;
+			transform: translateX(70%) rotate(10deg);
+			filter: blur(4px);
+			width: 35%;
+			background-image: url("/src/assets/poster3.png");
+			background-size: cover;
+			z-index: 2;
+		}
+	}
+
+	.join-session {
+		position: absolute;
+		bottom: 3rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.header {
+			font-size: 28px;
+			font-weight: 700;
+			color: white;
+			background: none;
+			padding-bottom: 2rem;
+		}
 	}
 
 	.join-session-form {
@@ -45,7 +93,7 @@
 		gap: 1rem;
 
 		#session-name-input {
-			background-color: #f9f9f9;
+			background-color: #c2eaf2;
 			height: 3rem;
 			width: 80vw;
 			max-width: 500px;
@@ -56,24 +104,29 @@
 		}
 	}
 
-	.btn {
+	.buttons {
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		height: 3.5rem;
-		width: 50vw;
-		max-width: 300px;
-		background-color: #0c3958;
-		color: white;
-		font-weight: 700;
-		border-radius: 10px;
-	}
+		gap: 1rem;
+		width: 100%;
 
-	.new-session {
-		position: absolute;
-		bottom: 2rem;
-		left: 50%;
-		transform: translateX(-50%);
-		text-decoration: none;
+		.btn {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 3rem;
+			width: 90%;
+			max-width: 300px;
+			background-color: #94e7f7;
+			color: black;
+			font-weight: 700;
+			border-radius: 10px;
+
+			&.new-session {
+				text-decoration: none;
+			}
+		}
 	}
 }

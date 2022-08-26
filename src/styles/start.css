@@ -22,7 +22,7 @@
   top: 0;
   height: 100%;
   width: 100vw;
-  background-color: #0a2a41;
+  background-color: #1b1e2b;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -38,14 +38,80 @@
           justify-content: center;
 }
 
-.start-container .header {
+.start-container .posters {
   position: absolute;
-  margin-left: auto;
   top: 10%;
-  font-size: 64px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.start-container .posters .poster {
+  aspect-ratio: 2/3;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 10px 64px -3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 10px 64px -3px rgba(0, 0, 0, 0.1);
+}
+
+.start-container .posters .front-poster {
+  width: 45%;
+  background-image: url("/src/assets/poster2.png");
+  background-size: cover;
+  z-index: 3;
+}
+
+.start-container .posters .left-poster {
+  position: absolute;
+  -webkit-transform: translateX(-60%) rotate(-10deg);
+          transform: translateX(-60%) rotate(-10deg);
+  -webkit-filter: blur(2px);
+          filter: blur(2px);
+  width: 40%;
+  background-image: url("/src/assets/poster1.png");
+  background-size: cover;
+  z-index: 2;
+}
+
+.start-container .posters .right-poster {
+  position: absolute;
+  -webkit-transform: translateX(70%) rotate(10deg);
+          transform: translateX(70%) rotate(10deg);
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
+  width: 35%;
+  background-image: url("/src/assets/poster3.png");
+  background-size: cover;
+  z-index: 2;
+}
+
+.start-container .join-session {
+  position: absolute;
+  bottom: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.start-container .join-session .header {
+  font-size: 28px;
   font-weight: 700;
   color: white;
   background: none;
+  padding-bottom: 2rem;
 }
 
 .start-container .join-session-form {
@@ -63,7 +129,7 @@
 }
 
 .start-container .join-session-form #session-name-input {
-  background-color: #f9f9f9;
+  background-color: #c2eaf2;
   height: 3rem;
   width: 80vw;
   max-width: 500px;
@@ -73,7 +139,25 @@
   text-align: center;
 }
 
-.start-container .btn {
+.start-container .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.start-container .buttons .btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -83,21 +167,16 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 3.5rem;
-  width: 50vw;
+  height: 3rem;
+  width: 90%;
   max-width: 300px;
-  background-color: #0c3958;
-  color: white;
+  background-color: #94e7f7;
+  color: black;
   font-weight: 700;
   border-radius: 10px;
 }
 
-.start-container .new-session {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+.start-container .buttons .btn.new-session {
   text-decoration: none;
 }
 /*# sourceMappingURL=start.css.map */
