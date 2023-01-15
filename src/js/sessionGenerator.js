@@ -2,6 +2,8 @@ import { getMovieArray } from "./modules/getMovies"
 import { createSession } from "./modules/firebaseComms"
 import { redirectToMatchy, setBodySize } from "./modules/misc"
 
+const genreCloseButton = document.querySelector(".genre-close")
+
 const selectedGenres = []
 const sessionObject = {}
 let genreArray = ""
@@ -53,17 +55,7 @@ function sessionData(selectedGenres, sessionObject) {
 }
 
 function submitSession(sessionObject) {
-	if (
-		//If all required fields exist, submit this.
-		sessionObject.sessionName &&
-		sessionObject.likeThreshold > 1 &&
-		!isNaN(sessionObject.likeThreshold) &&
-		sessionObject.sessionSize &&
-		!isNaN(sessionObject.sessionSize) &&
-		Date.parse(sessionObject.fromYear) &&
-		Date.parse(sessionObject.toYear) &&
-		sessionObject.genres.length > 0
-	) {
+	if (checkSessionCompleteness(sessionObject)) {
 		document.querySelector(".submit-session").innerText = "Loading..."
 		getMovieArray(
 			sessionObject.sessionSize,
@@ -113,14 +105,12 @@ function openGenreSelector(e) {
 	genresContainer.classList.remove("hidden")
 }
 
-function closeGenreSelector(e) {
-	const trigger = e.target.closest(".genres-container")
-	if (trigger) return
+function closeGenreSelector() {
 	const genresContainer = document.querySelector(".genres-container")
 	genresContainer.classList.add("hidden")
 }
 
-document.addEventListener("click", closeGenreSelector)
+genreCloseButton.addEventListener("click", closeGenreSelector)
 document.addEventListener("click", openGenreSelector)
 
 //Handle adding items to the genre list
@@ -211,3 +201,77 @@ function convertYear(year, firstLast) {
 }
 
 setBodySize()
+
+const prevButton = document.querySelector(".previous-page")
+const nextButton = document.querySelector(".next-page")
+// const submitButton = document.querySelector('.submit-session')
+const firstPage = document.querySelector(".input-page-1")
+const secondPage = document.querySelector(".input-page-2")
+
+function nextPage() {
+	secondPage.classList.remove("hidden")
+	firstPage.classList.add("hidden")
+
+	secondPage.dataset.status = "active"
+	firstPage.dataset.status = "inactive"
+
+	nextButton.classList.add("hidden")
+	submitButton.classList.remove("hidden")
+	prevButton.classList.remove("hidden")
+}
+
+function previousPage() {
+	secondPage.classList.add("hidden")
+	firstPage.classList.remove("hidden")
+
+	secondPage.dataset.status = "inactive"
+	firstPage.dataset.status = "active"
+
+	nextButton.classList.remove("hidden")
+	submitButton.classList.add("hidden")
+	prevButton.classList.add("hidden")
+}
+
+nextButton.addEventListener("click", () => {
+	nextPage()
+})
+
+prevButton.addEventListener("click", () => {
+	previousPage()
+})
+
+document.body.addEventListener("keydown", (e) => {
+	if (e.key !== "Enter") return
+	const activePage = document.querySelector('[data-status="active"]')
+	e.preventDefault()
+
+	if (activePage.dataset.page == 1) {
+		if (
+			sessionObject.sessionName &&
+			sessionObject.likeThreshold &&
+			sessionObject.sessionSize
+		) {
+			nextPage()
+		}
+	} else if (
+		activePage.dataset.page == 2 &&
+		checkSessionCompleteness(sessionObject)
+	) {
+		submitSession(sessionObject)
+	}
+})
+
+function checkSessionCompleteness(sessionObject) {
+	if (
+		//If all required fields exist, submit this.
+		sessionObject.sessionName &&
+		sessionObject.likeThreshold > 1 &&
+		!isNaN(sessionObject.likeThreshold) &&
+		sessionObject.sessionSize &&
+		!isNaN(sessionObject.sessionSize) &&
+		Date.parse(sessionObject.fromYear) &&
+		Date.parse(sessionObject.toYear) &&
+		sessionObject.genres.length > 0
+	)
+		return true
+}

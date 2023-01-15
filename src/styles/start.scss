@@ -117,7 +117,7 @@
 			justify-content: center;
 			align-items: center;
 			height: 3rem;
-			width: 90%;
+			width: 70%;
 			max-width: 300px;
 			background-color: #94e7f7;
 			color: black;
@@ -126,6 +126,9 @@
 
 			&.new-session {
 				text-decoration: none;
+				background-color: hsl(230, 22%, 35%);
+				// border: 2px solid #94e7f7;
+				color: white;
 			}
 		}
 	}

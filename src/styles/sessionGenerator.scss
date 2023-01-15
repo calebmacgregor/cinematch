@@ -31,8 +31,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	gap: 2rem;
+	justify-content: space-between;
+	padding: 3rem 0rem;
 
 	#welcome {
 		width: $width;
@@ -41,35 +41,51 @@ body {
 
 	.form-gen-container {
 		position: relative;
-		height: 65%;
 		width: $width;
-		background-color: hsl(232, 21%, 16%);
-		padding: 2rem;
 		border-radius: 5px;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: space-between;
+		gap: 3rem;
+
+		.input-page-1,
+		.input-page-2 {
+			display: none;
+			display: flex;
+			flex-direction: column;
+			gap: 3rem;
+			width: 100%;
+			justify-content: space-between;
+
+			&.hidden {
+				display: none;
+			}
+		}
 
 		.input-container {
-			width: 100%;
 			display: flex;
 			flex-direction: column;
 			gap: 0.3rem;
+			width: 100%;
 
 			label,
 			.label {
-				font-weight: 500;
+				font-weight: 400;
+				font-size: 16px;
+				color: #f3f7ff;
 			}
 
 			input,
 			.input {
-				background-color: #f5f9ff;
 				width: 100%;
-				height: 1.6rem;
+				height: 2.5rem;
 				border-radius: 5px;
 				padding: 0.5rem;
-				color: #3a3a3a;
+				background-color: hsl(226, 18%, 30%);
+				color: white;
+				font-size: 16px;
+				font-weight: 400;
 			}
 
 			.input {
@@ -83,12 +99,17 @@ body {
 		}
 
 		.genres-container {
-			position: absolute;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			position: fixed;
+			top: 50%;
+			height: 100%;
+			width: $width;
 			top: 0;
 			left: 0;
-			height: 100%;
 			width: 100%;
-			background-color: #0c3958;
+			background-color: hsl(230, 22%, 25%);
 			padding: 1rem 2rem;
 			border-radius: 5px;
 			transition: 50ms ease;
@@ -99,6 +120,7 @@ body {
 
 			.genre-li {
 				padding: 0.4rem 0rem;
+				font-size: 22px;
 
 				&.selected span {
 					border-bottom: solid #ff336d 3px;
@@ -118,15 +140,30 @@ body {
 		}
 	}
 
-	.submit-session {
-		background-color: #94e7f7;
-		color: black;
-		width: $width;
-		height: 3.5rem;
-		font-weight: bold;
-		border-radius: 5px;
+	.buttons {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		width: $width;
+		gap: 1rem;
+	}
+}
+
+button {
+	background-color: hsl(230, 22%, 20%);
+	border: 3px solid hsl(205, 100%, 49%);
+	color: white;
+	height: 3.5rem;
+	font-weight: bold;
+	border-radius: 5px;
+	width: 100%;
+	font-size: 16px;
+
+	&.hidden {
+		display: none;
+	}
+
+	&.primary {
+		background-color: hsl(205, 100%, 49%);
 	}
 }

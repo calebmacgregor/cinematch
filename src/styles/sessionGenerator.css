@@ -41,10 +41,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  gap: 2rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 3rem 0rem;
 }
 
 .session-generator-container #welcome {
@@ -54,10 +54,7 @@ body {
 
 .session-generator-container .form-gen-container {
   position: relative;
-  height: 65%;
   width: 85%;
-  background-color: #202331;
-  padding: 2rem;
   border-radius: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -66,16 +63,38 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 3rem;
+}
+
+.session-generator-container .form-gen-container .input-page-1,
+.session-generator-container .form-gen-container .input-page-2 {
+  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 3rem;
+  width: 100%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
 
+.session-generator-container .form-gen-container .input-page-1.hidden,
+.session-generator-container .form-gen-container .input-page-2.hidden {
+  display: none;
+}
+
 .session-generator-container .form-gen-container .input-container {
-  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -84,21 +103,26 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 0.3rem;
+  width: 100%;
 }
 
 .session-generator-container .form-gen-container .input-container label,
 .session-generator-container .form-gen-container .input-container .label {
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 16px;
+  color: #f3f7ff;
 }
 
 .session-generator-container .form-gen-container .input-container input,
 .session-generator-container .form-gen-container .input-container .input {
-  background-color: #f5f9ff;
   width: 100%;
-  height: 1.6rem;
+  height: 2.5rem;
   border-radius: 5px;
   padding: 0.5rem;
-  color: #3a3a3a;
+  background-color: #3f455a;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .session-generator-container .form-gen-container .input-container .input {
@@ -115,12 +139,23 @@ body {
 }
 
 .session-generator-container .form-gen-container .genres-container {
-  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  position: fixed;
+  top: 50%;
+  height: 100%;
+  width: 85%;
   top: 0;
   left: 0;
-  height: 100%;
   width: 100%;
-  background-color: #0c3958;
+  background-color: #32364e;
   padding: 1rem 2rem;
   border-radius: 5px;
   -webkit-transition: 50ms ease;
@@ -133,6 +168,7 @@ body {
 
 .session-generator-container .form-gen-container .genres-container .genre-li {
   padding: 0.4rem 0rem;
+  font-size: 22px;
 }
 
 .session-generator-container .form-gen-container .genres-container .genre-li.selected span {
@@ -156,13 +192,7 @@ body {
   background-color: red;
 }
 
-.session-generator-container .submit-session {
-  background-color: #94e7f7;
-  color: black;
-  width: 85%;
-  height: 3.5rem;
-  font-weight: bold;
-  border-radius: 5px;
+.session-generator-container .buttons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -172,5 +202,26 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  width: 85%;
+  gap: 1rem;
+}
+
+button {
+  background-color: #282c3e;
+  border: 3px solid #0092fa;
+  color: white;
+  height: 3.5rem;
+  font-weight: bold;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+}
+
+button.hidden {
+  display: none;
+}
+
+button.primary {
+  background-color: #0092fa;
 }
 /*# sourceMappingURL=sessionGenerator.css.map */
