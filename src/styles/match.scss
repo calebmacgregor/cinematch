@@ -285,6 +285,11 @@ body {
 
 	.next-poster {
 		z-index: 9;
+		display: block;
+
+		&.hidden {
+			display: none;
+		}
 	}
 
 	.liked {

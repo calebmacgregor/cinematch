@@ -66,7 +66,8 @@ export function shrinkPoster(elementState) {
 	elementState.poster.classList.add("shrunk")
 
 	//Adjust next poster styling
-	elementState.nextPoster.style.display = "none"
+	elementState.nextPoster.classList.add("hidden")
+	// elementState.nextPoster.style.display = "none"
 
 	//Adjust button styling
 	elementState.buttons.classList.add("hidden")
@@ -99,7 +100,8 @@ export function expandPoster(elementState) {
 	//Remove the transition from the poster after it has expanded
 	setTimeout(() => {
 		//Adjust next poster styling
-		elementState.nextPoster.style.display = "block"
+		elementState.nextPoster.classList.remove("hidden")
+		// elementState.nextPoster.style.display = "block"
 		elementState.poster.style.transition = "none"
 	}, speed)
 }

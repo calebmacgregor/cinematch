@@ -364,6 +364,11 @@ body {
 
 .container .next-poster {
   z-index: 9;
+  display: block;
+}
+
+.container .next-poster.hidden {
+  display: none;
 }
 
 .container .liked {
