@@ -153,19 +153,6 @@ body {
 	h1 {
 		font-size: 2rem;
 	}
-
-	.close {
-		position: absolute;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		top: 0;
-		right: 0;
-		width: 2rem;
-		height: 2rem;
-		background-color: #fe336d;
-		border-radius: 10px;
-	}
 }
 
 .header {
@@ -195,6 +182,12 @@ body {
 		transform: translateY(-50%);
 		right: 2rem;
 		fill: white;
+
+		.close-icon {
+			width: 2.5rem;
+			height: 2.5rem;
+			color: white;
+		}
 	}
 
 	.liked-icon {

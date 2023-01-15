@@ -83,7 +83,8 @@ export async function joinSession(sessionName) {
 
 export async function listenToSession(sessionName) {
 	onSnapshot(doc(db, "sessions", sessionName), (doc) => {
-		const arr = doc.data().likedMovies
+		let arr = []
+		arr = doc.data().likedMovies
 
 		//Check if the liked movies array actually exists
 		if (arr) {
