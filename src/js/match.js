@@ -3,6 +3,7 @@ import { initialiseMovie } from "./modules/handleMovieElements.js"
 import { dismissNotification } from "./modules/misc.js"
 import { elementState, movieState, thresholdState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
+import { fadePageIn, fadePageOut } from "./modules/misc.js"
 import {
 	shrinkPoster,
 	expandPoster,
@@ -11,6 +12,10 @@ import {
 	handleTouchStart,
 	handleMove
 } from "./modules/interactions.js"
+
+setTimeout(() => {
+	fadePageOut("loading-container")
+}, 250)
 
 //Get the session from the URL parameters
 const params = new URLSearchParams(window.location.search)
@@ -26,7 +31,7 @@ let movieArray = []
 joinSession(session.sessionName)
 	.then((data) => {
 		sessionStorage.setItem("matchyJoinEpoch", new Date().getTime())
-		console.log("Session joined successfully")
+
 		session.likeThreshold = data.likeThreshold
 		setHeaderName(session.sessionName)
 		listenToSession(session.sessionName)
@@ -35,6 +40,13 @@ joinSession(session.sessionName)
 	.then(() => {
 		initialiseMovie(movieArray, elementState).then((movie) => {
 			movieState.currentMovie = movie
+			const image = new Image()
+
+			image.addEventListener("load", () => {
+				console.log("loaded")
+			})
+
+			image.src = `url(${movie.poster})`
 		})
 
 		initialiseMovie(movieArray, elementState, 2).then((movie) => {

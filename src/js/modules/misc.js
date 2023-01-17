@@ -148,3 +148,13 @@ export function endSession() {
 	const buttons = document.querySelector(".buttons")
 	buttons.remove()
 }
+
+export function fadePageOut(containerClassName) {
+	const container = document.querySelector(`.${containerClassName}`)
+	container.classList.add("hidden")
+}
+
+export function fadePageIn(containerClassName) {
+	const container = document.querySelector(`.${containerClassName}`)
+	container.classList.remove("hidden")
+}

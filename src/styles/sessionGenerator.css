@@ -7,20 +7,15 @@
   outline: 0;
   vertical-align: baseline;
   background: transparent;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   overflow: scroll;
 }
 
 body {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   height: 100vh;
   background-color: #1c1e2b;
 }
@@ -31,128 +26,82 @@ body {
   color: white;
   height: 100%;
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   padding: 3rem 0rem;
+  transition: 250ms ease;
 }
-
+.session-generator-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 .session-generator-container #welcome {
   width: 85%;
   text-align: left;
+  color: white;
 }
-
 .session-generator-container .form-gen-container {
   position: relative;
   width: 85%;
   border-radius: 5px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 3rem;
   overflow-x: hidden;
 }
-
 .session-generator-container .form-gen-container .input-page-1,
 .session-generator-container .form-gen-container .input-page-2 {
   display: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   gap: 3rem;
   width: 100%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-animation-duration: 100ms;
-          animation-duration: 100ms;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  justify-content: space-between;
+  transition: 250ms ease;
+  opacity: 1;
 }
-
 .session-generator-container .form-gen-container .input-page-1.hidden,
 .session-generator-container .form-gen-container .input-page-2.hidden {
   display: none;
 }
-
 .session-generator-container .form-gen-container .input-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   gap: 0.3rem;
   width: 100%;
 }
-
 .session-generator-container .form-gen-container .input-container label,
 .session-generator-container .form-gen-container .input-container .label {
   font-weight: 400;
   font-size: 16px;
   color: #f3f7ff;
 }
-
 .session-generator-container .form-gen-container .input-container input,
 .session-generator-container .form-gen-container .input-container .input {
   width: 100%;
   height: 2.5rem;
   border-radius: 5px;
   padding: 0.5rem;
-  background-color: #3f455a;
+  background-color: hsl(226deg, 18%, 30%);
   color: white;
   font-size: 16px;
   font-weight: 400;
 }
-
 .session-generator-container .form-gen-container .input-container .input {
   overflow: auto;
 }
-
 .session-generator-container .form-gen-container .input-container .genre-trigger {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 .session-generator-container .form-gen-container .genres-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-around;
   position: fixed;
   top: 50%;
   height: 100%;
@@ -160,59 +109,41 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #32364e;
+  background-color: hsl(230deg, 22%, 25%);
   padding: 1rem 2rem;
   border-radius: 5px;
-  -webkit-transition: 50ms ease;
-  transition: 50ms ease;
+  transition: 250ms ease;
 }
-
 .session-generator-container .form-gen-container .genres-container.hidden {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 }
-
 .session-generator-container .form-gen-container .genres-container .genre-li {
   padding: 0.4rem 0rem;
   font-size: 22px;
 }
-
 .session-generator-container .form-gen-container .genres-container .genre-li.selected span {
   border-bottom: solid #ff336d 3px;
 }
-
 .session-generator-container .form-gen-container .selected-genres {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   height: 100%;
 }
-
 .session-generator-container .form-gen-container .selected-genres li {
   background-color: red;
 }
-
 .session-generator-container .buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   width: 85%;
   gap: 1rem;
 }
 
 button {
-  background-color: #464c6d;
+  background-color: hsl(230deg, 22%, 35%);
   color: white;
   height: 3.5rem;
   font-weight: bold;
@@ -220,65 +151,50 @@ button {
   width: 100%;
   font-size: 16px;
 }
-
 button.hidden {
   display: none;
 }
-
 button.primary {
-  background-color: #0092fa;
+  background-color: hsl(205deg, 100%, 49%);
 }
 
 @-webkit-keyframes slide-out-left {
   100% {
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
+    transform: translateX(-100%);
   }
 }
 
 @keyframes slide-out-left {
   100% {
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
+    transform: translateX(-100%);
   }
 }
-
 @-webkit-keyframes slide-out-right {
   100% {
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
+    transform: translateX(100%);
   }
 }
-
 @keyframes slide-out-right {
   100% {
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
+    transform: translateX(100%);
   }
 }
-
 @-webkit-keyframes slide-in-right {
   0% {
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
+    transform: translateX(100%);
   }
   100% {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
+    transform: translateX(0%);
   }
 }
-
 @keyframes slide-in-right {
   0% {
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
+    transform: translateX(100%);
   }
   100% {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
+    transform: translateX(0%);
   }
 }
-
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -287,7 +203,6 @@ button.primary {
     opacity: 1;
   }
 }
-
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -296,7 +211,6 @@ button.primary {
     opacity: 1;
   }
 }
-
 @-webkit-keyframes fade-out {
   0% {
     opacity: 1;
@@ -305,7 +219,6 @@ button.primary {
     opacity: 0;
   }
 }
-
 @keyframes fade-out {
   0% {
     opacity: 1;
@@ -313,5 +226,4 @@ button.primary {
   100% {
     opacity: 0;
   }
-}
-/*# sourceMappingURL=sessionGenerator.css.map */
+}/*# sourceMappingURL=sessionGenerator.css.map */

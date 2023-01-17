@@ -64,16 +64,9 @@ export function setImages(movie, posterNumber, elementState) {
 		elementState.poster.style.backgroundImage = `url(${movie.poster})`
 		elementState.background.style.backgroundImage = `url(${movie.poster})`
 	} else if (posterNumber === 2) {
-		const poster = document.querySelector(".poster")
-		if (poster.classList.contains("shrunk")) {
-			console.log("shrunk")
-		}
 		elementState.nextPoster.style.backgroundImage = `url(${movie.poster})`
 	}
-
 	elementState.poster.style.display = "block"
-
-	// elementState.nextPoster.style.display = "block"
 }
 
 export function rotateBackground(movieState) {

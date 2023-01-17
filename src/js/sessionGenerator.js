@@ -1,6 +1,11 @@
 import { getMovieArray } from "./modules/getMovies"
 import { createSession } from "./modules/firebaseComms"
 import { redirectToMatchy, setBodySize } from "./modules/misc"
+import { fadePageIn, fadePageOut } from "./modules/misc"
+
+setTimeout(() => {
+	fadePageIn("session-generator-container")
+}, 250)
 
 const genreCloseButton = document.querySelector(".genre-close")
 
@@ -194,27 +199,35 @@ const firstPage = document.querySelector(".input-page-1")
 const secondPage = document.querySelector(".input-page-2")
 
 function nextPage() {
-	secondPage.classList.remove("hidden")
-	firstPage.classList.add("hidden")
+	fadePageOut("session-generator-container")
+	setTimeout(() => {
+		secondPage.classList.remove("hidden")
+		firstPage.classList.add("hidden")
 
-	secondPage.dataset.status = "active"
-	firstPage.dataset.status = "inactive"
+		secondPage.dataset.status = "active"
+		firstPage.dataset.status = "inactive"
 
-	nextButton.classList.add("hidden")
-	submitButton.classList.remove("hidden")
-	prevButton.classList.remove("hidden")
+		nextButton.classList.add("hidden")
+		submitButton.classList.remove("hidden")
+		prevButton.classList.remove("hidden")
+		fadePageIn("session-generator-container")
+	}, 250)
 }
 
 function previousPage() {
-	secondPage.classList.add("hidden")
-	firstPage.classList.remove("hidden")
+	fadePageOut("session-generator-container")
+	setTimeout(() => {
+		secondPage.classList.add("hidden")
+		firstPage.classList.remove("hidden")
 
-	secondPage.dataset.status = "inactive"
-	firstPage.dataset.status = "active"
+		secondPage.dataset.status = "inactive"
+		firstPage.dataset.status = "active"
 
-	nextButton.classList.remove("hidden")
-	submitButton.classList.add("hidden")
-	prevButton.classList.add("hidden")
+		nextButton.classList.remove("hidden")
+		submitButton.classList.add("hidden")
+		prevButton.classList.add("hidden")
+		fadePageIn("session-generator-container")
+	}, 250)
 }
 
 nextButton.addEventListener("click", () => {
