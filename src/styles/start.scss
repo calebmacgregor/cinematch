@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
 
+$animation-timing: 1000ms;
+$animation-delay: 200ms;
+
 * {
 	font-family: "Montserrat", sans-serif;
 	margin: 0;
@@ -35,11 +38,13 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		z-index: 1;
 
 		.poster {
 			aspect-ratio: 2/3;
 			border-radius: 10px;
 			box-shadow: 0px 10px 64px -3px rgba(0, 0, 0, 0.1);
+			width: 20%;
 		}
 
 		.front-poster {
@@ -47,26 +52,36 @@
 			background-image: url("/src/assets/poster2.webp");
 			background-size: cover;
 			z-index: 3;
+			transform: translate(200%, 0%);
+			animation: main-entrance $animation-timing;
+			animation-delay: $animation-delay;
+			animation-fill-mode: forwards;
 		}
 
 		.left-poster {
 			position: absolute;
-			transform: translateX(-60%) rotate(-10deg);
+			transform: translate(-200%, 0%) rotate(0deg);
 			filter: blur(2px);
 			width: 40%;
 			background-image: url("/src/assets/poster1.webp");
 			background-size: cover;
 			z-index: 2;
+			animation: left-entrance $animation-timing;
+			animation-delay: $animation-delay;
+			animation-fill-mode: forwards;
 		}
 
 		.right-poster {
 			position: absolute;
-			transform: translateX(70%) rotate(10deg);
+			transform: translateX(200%) rotate(0deg);
 			filter: blur(4px);
 			width: 35%;
 			background-image: url("/src/assets/poster3.webp");
 			background-size: cover;
 			z-index: 2;
+			animation: right-entrance $animation-timing;
+			animation-delay: $animation-delay;
+			animation-fill-mode: forwards;
 		}
 	}
 
@@ -76,6 +91,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		z-index: 2;
 
 		.header {
 			font-size: 28px;
@@ -93,14 +109,19 @@
 		gap: 1rem;
 
 		#session-name-input {
-			background-color: #c2eaf2;
+			background-color: hsl(226, 18%, 30%);
 			height: 3rem;
 			width: 80vw;
 			max-width: 500px;
 			border-radius: 10px;
-			font-size: 24px;
+			font-size: 16px;
 			font-weight: bold;
 			text-align: center;
+			color: hsl(230, 22%, 90%);
+
+			&::placeholder {
+				color: hsl(230, 22%, 70%);
+			}
 		}
 	}
 
@@ -119,8 +140,8 @@
 			height: 3rem;
 			width: 70%;
 			max-width: 300px;
-			background-color: #94e7f7;
-			color: black;
+			background-color: hsl(205, 100%, 49%);
+			color: white;
 			font-weight: 700;
 			border-radius: 10px;
 
@@ -131,5 +152,23 @@
 				color: white;
 			}
 		}
+	}
+}
+
+@keyframes main-entrance {
+	100% {
+		transform: translate(0%, 0%);
+	}
+}
+
+@keyframes left-entrance {
+	100% {
+		transform: translateX(-60%) rotate(-10deg);
+	}
+}
+
+@keyframes right-entrance {
+	100% {
+		transform: translateX(70%) rotate(10deg);
 	}
 }

@@ -131,23 +131,8 @@ function addToGenreList(e, selectedGenres, sessionObject) {
 		selectedGenres.push(genreID)
 	}
 
-	console.log(selectedGenres)
-
 	const genreNames = document.querySelector(".genre-names")
-	// const genreNamesArray = []
-	// selectedGenres.forEach((selectedGenre) => {
-	// 	genreArray.forEach((genre) => {
-	// 		if (selectedGenre == genre.id) {
-	// 			genreNamesArray.push(genre.name)
-	// 		}
-	// 	})
-	// })
-
-	// genreNames.innerText = genreNamesArray.join(", ")
 	genreNames.innerText = `${selectedGenres.length} selected`
-	//Set the content of the text
-	// genreTrigger.innerText = resultString
-
 	sessionData(selectedGenres, sessionObject)
 }
 

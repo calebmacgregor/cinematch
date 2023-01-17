@@ -48,6 +48,7 @@ body {
 		align-items: flex-start;
 		justify-content: space-between;
 		gap: 3rem;
+		overflow-x: hidden;
 
 		.input-page-1,
 		.input-page-2 {
@@ -57,6 +58,8 @@ body {
 			gap: 3rem;
 			width: 100%;
 			justify-content: space-between;
+			animation-duration: 100ms;
+			animation-fill-mode: forwards;
 
 			&.hidden {
 				display: none;
@@ -150,8 +153,7 @@ body {
 }
 
 button {
-	background-color: hsl(230, 22%, 20%);
-	border: 3px solid hsl(205, 100%, 49%);
+	background-color: hsl(230, 22%, 35%);
 	color: white;
 	height: 3.5rem;
 	font-weight: bold;
@@ -165,5 +167,45 @@ button {
 
 	&.primary {
 		background-color: hsl(205, 100%, 49%);
+	}
+}
+
+@keyframes slide-out-left {
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes slide-out-right {
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+@keyframes slide-in-right {
+	0% {
+		transform: translateX(100%);
+	}
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
