@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="black-translucent">
+		<meta name="theme-color" content="#000000">
+		<link rel="stylesheet" href="/session-generator.9e25f1ec.css">
+		<link rel="manifest" href="/up_/manifest.webmanifest">
+		<script src="/session-generator.31412fc9.js" defer=""></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="session-generator-container hidden">
+			<form class="form-gen-container hidden">
+				<h2 id="welcome">Create a session</h2>
+				<div class="input-page-1" data-status="active" data-page="1">
+					<div class="input-container">
+						<label for="session-name">Session name</label>
+						<input type="text" name="session-name" id="session-name">
+					</div>
+					<div class="input-container">
+						<label for="like-threshold">Number of likes</label>
+						<input inputmode="numeric" pattern="[0-9]*" type="text" name="like-threshold" id="like-threshold">
+					</div>
+					<div class="input-container">
+						<label for="session-size">Number of movies</label>
+						<input inputmode="numeric" pattern="[0-9]*" type="text" name="session-size" id="session-size">
+					</div>
+				</div>
+				<div class="input-page-2 hidden" data-status="inactive" data-page="2">
+					<div class="input-container">
+						<label for="session-from-date">Starting year</label>
+						<input inputmode="numeric" pattern="[0-9]*" type="text" name="session-from-date" id="from-date">
+					</div>
+					<div class="input-container">
+						<label for="session-to-date">Ending year</label>
+						<input inputmode="numeric" pattern="[0-9]*" type="text" name="session-to-date" id="to-date">
+					</div>
+					<div class="input-container">
+						<p class="label">Genres</p>
+						<div class="genre-trigger input">
+							<span class="genre-names"></span>
+						</div>
+					</div>
+					<div class="genres-container hidden">
+						<ul class="genres"></ul>
+						<button class="genre-close primary">Confirm</button>
+					</div>
+				</div>
+			</form>
+			<div class="buttons">
+				<button class="previous-page hidden">Previous</button>
+				<button class="next-page primary">Next</button>
+				<button class="submit-session primary hidden">Create</button>
+			</div>
+		</div>
+	</body>
+</html>
