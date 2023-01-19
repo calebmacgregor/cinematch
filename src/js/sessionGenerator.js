@@ -3,15 +3,23 @@ import { createSession } from "./modules/firebaseComms"
 import { redirectToMatchy, setBodySize } from "./modules/misc"
 import { fadePageIn, fadePageOut } from "./modules/misc"
 
-setTimeout(() => {
-	fadePageIn("session-generator-container")
-}, 250)
-
+const prevButton = document.querySelector(".previous-page")
+const nextButton = document.querySelector(".next-page")
+const firstPage = document.querySelector(".input-page-1")
+const secondPage = document.querySelector(".input-page-2")
 const genreCloseButton = document.querySelector(".genre-close")
+
+setTimeout(() => {
+	fadePageIn("form-gen-container")
+}, 250)
 
 const selectedGenres = []
 const sessionObject = {}
 let genreArray = ""
+
+prevButton.addEventListener("click", () => {
+	previousPage()
+})
 
 sessionData(selectedGenres, sessionObject)
 populateGenres().then((data) => {
@@ -60,7 +68,7 @@ function sessionData(selectedGenres, sessionObject) {
 }
 
 function submitSession(sessionObject) {
-	if (checkSessionCompleteness(sessionObject)) {
+	if (validateCompleteSession(sessionObject)) {
 		document.querySelector(".submit-session").innerText = "Loading..."
 		getMovieArray(
 			sessionObject.sessionSize,
@@ -192,14 +200,9 @@ function convertYear(year, firstLast) {
 
 setBodySize()
 
-const prevButton = document.querySelector(".previous-page")
-const nextButton = document.querySelector(".next-page")
-// const submitButton = document.querySelector('.submit-session')
-const firstPage = document.querySelector(".input-page-1")
-const secondPage = document.querySelector(".input-page-2")
-
-function nextPage() {
-	fadePageOut("session-generator-container")
+function nextPage(sessionObject) {
+	// if (!validateFirstPage(sessionObject))
+	fadePageOut("form-gen-container")
 	setTimeout(() => {
 		secondPage.classList.remove("hidden")
 		firstPage.classList.add("hidden")
@@ -210,12 +213,12 @@ function nextPage() {
 		nextButton.classList.add("hidden")
 		submitButton.classList.remove("hidden")
 		prevButton.classList.remove("hidden")
-		fadePageIn("session-generator-container")
+		fadePageIn("form-gen-container")
 	}, 250)
 }
 
 function previousPage() {
-	fadePageOut("session-generator-container")
+	fadePageOut("form-gen-container")
 	setTimeout(() => {
 		secondPage.classList.add("hidden")
 		firstPage.classList.remove("hidden")
@@ -226,17 +229,9 @@ function previousPage() {
 		nextButton.classList.remove("hidden")
 		submitButton.classList.add("hidden")
 		prevButton.classList.add("hidden")
-		fadePageIn("session-generator-container")
+		fadePageIn("form-gen-container")
 	}, 250)
 }
-
-nextButton.addEventListener("click", () => {
-	nextPage()
-})
-
-prevButton.addEventListener("click", () => {
-	previousPage()
-})
 
 document.body.addEventListener("keydown", (e) => {
 	if (e.key !== "Enter") return
@@ -249,17 +244,32 @@ document.body.addEventListener("keydown", (e) => {
 			sessionObject.likeThreshold &&
 			sessionObject.sessionSize
 		) {
+			console.log(sessionObject)
 			nextPage()
 		}
 	} else if (
 		activePage.dataset.page == 2 &&
-		checkSessionCompleteness(sessionObject)
+		validateCompleteSession(sessionObject)
 	) {
 		submitSession(sessionObject)
 	}
 })
 
-function checkSessionCompleteness(sessionObject) {
+nextButton.addEventListener("click", () => {
+	if (
+		sessionObject.sessionName &&
+		sessionObject.likeThreshold &&
+		sessionObject.sessionSize
+	) {
+		console.log(sessionObject)
+		nextPage()
+	} else {
+		console.log("incomplete")
+		indicateMissingData(sessionObject)
+	}
+})
+
+function validateCompleteSession(sessionObject) {
 	if (
 		//If all required fields exist, submit this.
 		sessionObject.sessionName &&
@@ -272,4 +282,26 @@ function checkSessionCompleteness(sessionObject) {
 		sessionObject.genres.length > 0
 	)
 		return true
+}
+
+// function validateFirstPage(sessionObject) {
+// 	if (
+// 		//If all required fields exist, submit this.
+// 		sessionObject.sessionName &&
+// 		sessionObject.likeThreshold > 1 &&
+// 		!isNaN(sessionObject.likeThreshold) &&
+// 		sessionObject.sessionSize &&
+// 		!isNaN(sessionObject.sessionSize)
+// 	)
+// 		return true
+// }
+
+function indicateMissingData(sessionObject) {
+	nameField = document.querySelector("#session-name")
+	likeField = document.querySelector("#like-threshold")
+	sizeField = document.querySelector("#session-name")
+
+	if (!sessionObject.sessionName) {
+		nameField.style.border = "1px solid red"
+	}
 }

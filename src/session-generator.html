@@ -15,9 +15,9 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<div class="session-generator-container hidden">
+		<div class="session-generator-container">
+			<h2 id="welcome">Create a session</h2>
 			<form class="form-gen-container hidden">
-				<h2 id="welcome">Create a session</h2>
 				<div class="input-page-1" data-status="active" data-page="1">
 					<div class="input-container">
 						<label for="session-name">Session name</label>
@@ -31,6 +31,7 @@
 							type="text"
 							name="like-threshold"
 							id="like-threshold"
+							class="invalid-input"
 						/>
 					</div>
 					<div class="input-container">
@@ -76,12 +77,12 @@
 						<button class="genre-close primary">Confirm</button>
 					</div>
 				</div>
+				<div class="buttons">
+					<button class="previous-page hidden">Previous</button>
+					<button class="next-page primary">Next</button>
+					<button class="submit-session primary hidden">Create</button>
+				</div>
 			</form>
-			<div class="buttons">
-				<button class="previous-page hidden">Previous</button>
-				<button class="next-page primary">Next</button>
-				<button class="submit-session primary hidden">Create</button>
-			</div>
 		</div>
 	</body>
 </html>

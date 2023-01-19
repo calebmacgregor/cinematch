@@ -40,13 +40,10 @@ joinSession(session.sessionName)
 	.then(() => {
 		initialiseMovie(movieArray, elementState).then((movie) => {
 			movieState.currentMovie = movie
-			const image = new Image()
-
-			image.addEventListener("load", () => {
-				console.log("loaded")
-			})
-
-			image.src = `url(${movie.poster})`
+			const poster = document.querySelector(".poster")
+			// 	poster.addEventListener("load", () => {
+			// 		console.log("loaded")
+			// 	})
 		})
 
 		initialiseMovie(movieArray, elementState, 2).then((movie) => {
