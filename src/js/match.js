@@ -120,7 +120,6 @@ function hideLikedMovies() {
 
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("close")) return
-	console.log("hiding")
 	hideLikedMovies()
 })
 
@@ -134,6 +133,5 @@ function showLikedMovies() {
 
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("show-likes")) return
-	console.log("showing")
 	showLikedMovies()
 })

@@ -58,7 +58,7 @@ export async function getMovieDetail(movieID) {
 			undefined
 		)
 	}
-	const API_KEY = "f1dbd004001c343c62d539bfaf7b8114"
+	const API_KEY = process.env.TMDB_API_KEY
 	const movieURL = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=en-US`
 	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w342"
 	const imdbBaseURL = "https://www.imdb.com/title/"
