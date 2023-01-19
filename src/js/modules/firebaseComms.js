@@ -63,7 +63,7 @@ export async function createMovie(movieID, sessionName) {
 
 export async function checkIfSessionExists(sessionName) {
 	const sessionRef = doc(db, "sessions", sessionName)
-	docSnap = await getDoc(sessionRef)
+	const docSnap = await getDoc(sessionRef)
 	if (docSnap.exists()) {
 		return true
 	} else {
