@@ -95,7 +95,7 @@ elementState.poster.addEventListener("click", () => {
 })
 
 document.addEventListener("click", (e) => {
-	const dismissable = e.target.closest(".dismissable")
+	const dismissable = e.target.closest(".dismiss-text")
 	if (!dismissable) return
 	expandPoster(elementState)
 })
