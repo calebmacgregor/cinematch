@@ -7,7 +7,6 @@
 	},
 	"name": "match",
 	"version": "1.0.0",
-	"source": "src/index.html",
 	"dependencies": {
 		"abortcontroller-polyfill": "^1.7.3",
 		"acorn": "^8.7.1",
@@ -99,7 +98,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "parcel src/*.html",
-		"build": "parcel build"
+		"build": "parcel build src/*.html"
 	},
 	"keywords": [],
 	"author": "",
