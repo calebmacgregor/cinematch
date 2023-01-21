@@ -3,7 +3,8 @@ import { initialiseMovie } from "./modules/handleMovieElements.js"
 import { dismissNotification } from "./modules/misc.js"
 import { elementState, movieState, thresholdState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
-import { fadePageIn, fadePageOut } from "./modules/misc.js"
+import { fadePageOut } from "./modules/misc.js"
+import { checkAspectRatio } from "./modules/misc.js"
 import {
 	shrinkPoster,
 	expandPoster,
@@ -22,6 +23,10 @@ let session = {
 //Set up the global variables that are needed
 let coordinates = new Coordinates()
 let movieArray = []
+
+checkAspectRatio()
+
+window.addEventListener("resize", checkAspectRatio)
 
 //Import the session
 joinSession(session.sessionName)

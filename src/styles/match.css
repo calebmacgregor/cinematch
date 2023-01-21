@@ -20,6 +20,28 @@ body {
   background-color: #1c1e2b;
 }
 
+.size-warning-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #1c1e2b;
+  z-index: 9999;
+  padding: 4rem;
+  display: none;
+}
+.size-warning-container.visible {
+  display: block;
+}
+.size-warning-container p {
+  font-size: 26px;
+  color: white;
+}
+
 .loading-container {
   display: flex;
   align-items: center;
@@ -37,6 +59,7 @@ body {
 }
 .loading-container p {
   font-size: 26px;
+  font-weight: 600;
 }
 .loading-container.hidden {
   opacity: 0;

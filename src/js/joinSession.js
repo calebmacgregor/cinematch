@@ -1,10 +1,15 @@
 import { checkIfSessionExists } from "./modules/firebaseComms.js"
 import { redirectToMatchy } from "./modules/misc.js"
 import { fadePageOut, fadePageIn } from "./modules/misc.js"
+import { checkAspectRatio } from "./modules/misc.js"
 
 const form = document.querySelector(".join-session-form")
 const input = document.querySelector("#session-name-input")
 const createSessionButton = document.querySelector(".new-session")
+
+checkAspectRatio()
+
+window.addEventListener("resize", checkAspectRatio)
 
 setTimeout(() => {
 	fadePageIn("start-container")
