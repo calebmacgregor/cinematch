@@ -17,21 +17,30 @@
 	<body>
 		<div class="session-generator-container">
 			<h2 id="welcome">Create a session</h2>
+
 			<form class="form-gen-container hidden">
 				<div class="input-page-1" data-status="active" data-page="1">
 					<div class="input-container">
 						<label for="session-name">Session name</label>
-						<input type="text" name="session-name" id="session-name" />
+						<input
+							type="text"
+							name="session-name"
+							id="session-name"
+							required
+							autocomplete="off"
+						/>
 					</div>
 					<div class="input-container">
 						<label for="like-threshold">Number of likes</label>
 						<input
 							inputmode="numeric"
 							pattern="[0-9]*"
-							type="text"
+							type="number"
 							name="like-threshold"
 							id="like-threshold"
-							class="invalid-input"
+							min="0"
+							required
+							autocomplete="off"
 						/>
 					</div>
 					<div class="input-container">
@@ -39,9 +48,11 @@
 						<input
 							inputmode="numeric"
 							pattern="[0-9]*"
-							type="text"
+							type="number"
 							name="session-size"
 							id="session-size"
+							required
+							autocomplete="off"
 						/>
 					</div>
 				</div>
@@ -51,9 +62,13 @@
 						<input
 							inputmode="numeric"
 							pattern="[0-9]*"
-							type="text"
+							type="number"
 							name="session-from-date"
 							id="from-date"
+							min="1800"
+							max="3000"
+							required
+							autocomplete="off"
 						/>
 					</div>
 					<div class="input-container">
@@ -64,6 +79,10 @@
 							type="text"
 							name="session-to-date"
 							id="to-date"
+							min="1800"
+							max="3000"
+							required
+							autocomplete="off"
 						/>
 					</div>
 					<div class="input-container">

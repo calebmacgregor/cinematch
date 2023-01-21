@@ -13,10 +13,6 @@ import {
 	handleMove
 } from "./modules/interactions.js"
 
-setTimeout(() => {
-	fadePageOut("loading-container")
-}, 250)
-
 //Get the session from the URL parameters
 const params = new URLSearchParams(window.location.search)
 let session = {
@@ -41,9 +37,10 @@ joinSession(session.sessionName)
 		initialiseMovie(movieArray, elementState).then((movie) => {
 			movieState.currentMovie = movie
 			const poster = document.querySelector(".poster")
-			// 	poster.addEventListener("load", () => {
-			// 		console.log("loaded")
-			// 	})
+			poster.addEventListener("load", () => {
+				console.log("loaded")
+				fadePageOut("loading-container")
+			})
 		})
 
 		initialiseMovie(movieArray, elementState, 2).then((movie) => {

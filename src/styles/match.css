@@ -21,6 +21,9 @@ body {
 }
 
 .loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 0;
   left: 0;
@@ -30,6 +33,10 @@ body {
   z-index: 9999;
   transition: 250ms ease;
   opacity: 1;
+  color: white;
+}
+.loading-container p {
+  font-size: 26px;
 }
 .loading-container.hidden {
   opacity: 0;

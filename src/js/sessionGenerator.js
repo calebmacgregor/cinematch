@@ -8,6 +8,10 @@ const nextButton = document.querySelector(".next-page")
 const firstPage = document.querySelector(".input-page-1")
 const secondPage = document.querySelector(".input-page-2")
 const genreCloseButton = document.querySelector(".genre-close")
+const submitButton = document.querySelector(".submit-session")
+
+const pageOneInputs = [...document.querySelectorAll(".input-page-1  input")]
+const pageTwoInputs = [...document.querySelectorAll(".input-page-2  input")]
 
 setTimeout(() => {
 	fadePageIn("form-gen-container")
@@ -96,8 +100,7 @@ function submitSession(sessionObject) {
 	}
 }
 
-const submitButton = document.querySelector(".submit-session")
-submitButton.addEventListener("click", (e) => {
+submitButton.addEventListener("click", () => {
 	submitSession(sessionObject)
 })
 
@@ -256,16 +259,13 @@ document.body.addEventListener("keydown", (e) => {
 })
 
 nextButton.addEventListener("click", () => {
-	if (
-		sessionObject.sessionName &&
-		sessionObject.likeThreshold &&
-		sessionObject.sessionSize
-	) {
-		console.log(sessionObject)
+	pageOneInputs.forEach((input) => {
+		input.classList.add("check-for-validation")
+	})
+	if (validateFirstPage(sessionObject)) {
 		nextPage()
 	} else {
 		console.log("incomplete")
-		indicateMissingData(sessionObject)
 	}
 })
 
@@ -284,24 +284,14 @@ function validateCompleteSession(sessionObject) {
 		return true
 }
 
-// function validateFirstPage(sessionObject) {
-// 	if (
-// 		//If all required fields exist, submit this.
-// 		sessionObject.sessionName &&
-// 		sessionObject.likeThreshold > 1 &&
-// 		!isNaN(sessionObject.likeThreshold) &&
-// 		sessionObject.sessionSize &&
-// 		!isNaN(sessionObject.sessionSize)
-// 	)
-// 		return true
-// }
-
-function indicateMissingData(sessionObject) {
-	nameField = document.querySelector("#session-name")
-	likeField = document.querySelector("#like-threshold")
-	sizeField = document.querySelector("#session-name")
-
-	if (!sessionObject.sessionName) {
-		nameField.style.border = "1px solid red"
-	}
+function validateFirstPage(sessionObject) {
+	if (
+		//If all required fields exist, submit this.
+		sessionObject.sessionName &&
+		sessionObject.likeThreshold > 1 &&
+		!isNaN(sessionObject.likeThreshold) &&
+		sessionObject.sessionSize &&
+		!isNaN(sessionObject.sessionSize)
+	)
+		return true
 }
