@@ -1,6 +1,7 @@
 import { prepareSessionEnd } from "./misc.js"
 import { formatDate } from "./misc.js"
 import { Movie } from "./classes.js"
+import { elementState } from "./state.js"
 
 export async function getMovieArray(sessionSize, genreArray, fromDate, toDate) {
 	const API_KEY = "f1dbd004001c343c62d539bfaf7b8114"
@@ -80,12 +81,12 @@ export async function getMovieDetail(movieID) {
 	)
 }
 
-export async function getRandomMovie(movieArray) {
+export async function getRandomMovie(movieArray, elementState) {
 	const length = movieArray.length
 
 	//If this is the last movie, tag it
 	if (movieArray.length === 0) {
-		prepareSessionEnd()
+		prepareSessionEnd(elementState)
 	}
 	const movies = movieArray
 	const randomNumber = Math.floor(Math.random() * length)

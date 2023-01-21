@@ -139,7 +139,7 @@ export function handleSwipe(
 			incrementMovie(movieState.currentMovie.id, sessionName, likeThreshold)
 		}
 		if (elementState.poster.dataset.final === "true") {
-			endSession()
+			endSession(elementState)
 		}
 	} else {
 		removeBanner()
@@ -175,7 +175,7 @@ export function handleButtonPress(
 	sessionStorage.setItem("MATCHY-posterLock", "true")
 	setTimeout(() => {
 		if (elementState.poster.dataset.final === "true") {
-			endSession()
+			endSession(elementState)
 		}
 		rotateMovie(movieState, movieArray, elementState)
 		instantResetCardCoordinates(coordinates, elementState)

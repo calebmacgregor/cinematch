@@ -179,7 +179,8 @@ body {
   background-size: cover;
 }
 .notification p {
-  font-weight: 700;
+  font-weight: 400;
+  padding-top: 4rem;
 }
 .notification h1 {
   font-size: 2rem;

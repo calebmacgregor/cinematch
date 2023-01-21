@@ -7,7 +7,7 @@ export async function initialiseMovie(
 	posterNumber = 1
 ) {
 	//Get a random movie from the session array
-	const movieID = await getRandomMovie(movieArray)
+	const movieID = await getRandomMovie(movieArray, elementState)
 	//Get the detail for that movie
 	const movie = await getMovieDetail(movieID)
 

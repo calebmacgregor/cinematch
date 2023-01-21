@@ -1,4 +1,5 @@
 import { getMovieDetail } from "./getMovies"
+import { elementState } from "./state"
 
 export function renderBanner(coordinatesObject) {
 	const likedStatus = document.querySelector(".liked-status")
@@ -123,26 +124,10 @@ export function prepareSessionEnd() {
 	//Tag the poster as the final movie
 	const poster = document.querySelector(".poster")
 	poster.dataset.final = "true"
-
-	//Grab the 'next-poster' element
-	const nextPoster = document.querySelector(".next-poster")
-
-	//Remove any prior children. This prevents
-	//multiple p fields from being added
-	nextPoster.innerHTML = ""
-
-	//Set the colour of the 'out of movies' poster
-	nextPoster.style.backgroundColor = "#282a36"
-
-	//Create the text element and populate it
-	const p = document.createElement("p")
-	p.innerText = "Out of movies"
-
-	//Append it to the poster
-	nextPoster.appendChild(p)
+	elementState.nextPoster.remove()
 }
 
-export function endSession() {
+export function endSession(elementState) {
 	elementState.poster.remove()
 	const buttons = document.querySelector(".buttons")
 	buttons.remove()
