@@ -16,7 +16,8 @@ export const elementState = {
 	dismissNotification: document.querySelector(".dismiss-notification"),
 	notificationContainer: document.querySelector(".notification-container"),
 	notificationTitle: document.querySelector("#notification-title"),
-	notificationMovie: document.querySelector(".notification-movie")
+	notificationMovie: document.querySelector(".notification-movie"),
+	likedMoviesContainer: document.querySelector(".liked-movies-container")
 }
 
 export const thresholdState = {

@@ -92,10 +92,6 @@ export async function listenToSession(sessionName, elementState) {
 			//Get the most recently liked movie in the array
 			const newMovie = arr[arr.length - 1]
 
-			//Populate the list of liked movies
-			const likedMoviesList = document.querySelector(".liked-movies-list")
-			//Clear out the rendered list of liked movies
-			// likedMoviesList.innerHTML = ""
 			if (arr.length > 0) {
 				//If the movie was liked after the user joined the session,
 				//notify the user

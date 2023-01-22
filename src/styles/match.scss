@@ -1,12 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
 
-$base-colour: hsl(232, 96%, 92%);
-$main-font-colour: hsl(238, 76%, 20%);
-$faded-font-colour: hsl(238, 76%, 90%);
-$main-accent-colour: hsl(237, 87%, 74%);
-$transparent-base: hsl(232, 96%, 3%, 0.95);
+:root {
+	--base-colour: hsl(232, 96%, 92%);
+	--main-font-colour: hsl(238, 76%, 20%);
+	--faded-font-colour: hsl(238, 76%, 90%);
+	--main-accent-colour: hsl(237, 87%, 74%);
+	--transparent-base: hsl(232, 96%, 3%, 0.95);
 
-$border-radius: 20px;
+	--border-radius: 20px;
+}
+
+:root.dark {
+	--base-colour: hsl(231, 25%, 40%);
+	--main-font-colour: hsl(231, 25%, 90%);
+}
 
 * {
 	font-family: "Montserrat", sans-serif;
@@ -26,7 +33,7 @@ body {
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-	background-color: $base-colour;
+	background-color: var(--base-colour);
 }
 
 .liked {
@@ -58,7 +65,7 @@ body {
 	justify-content: center;
 	height: 100vh;
 	width: 100vw;
-	background-color: $base-colour;
+	background-color: --base-colour;
 	z-index: 9999;
 	padding: 4rem;
 	display: none;
@@ -69,7 +76,7 @@ body {
 
 	p {
 		font-size: 26px;
-		color: $main-font-colour;
+		color: var(--main-font-colour);
 	}
 }
 
@@ -82,11 +89,11 @@ body {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-color: $base-colour;
+	background-color: var(--base-colour);
 	z-index: 9999;
 	transition: 250ms ease;
 	opacity: 1;
-	color: $main-font-colour;
+	color: var(--main-font-colour);
 
 	p {
 		font-size: 26px;
@@ -105,7 +112,7 @@ body {
 	left: 0;
 	height: 100vh;
 	width: 100vw;
-	background-color: $transparent-base;
+	background-color: var(--transparent-base);
 	color: white;
 	z-index: 9999;
 	overflow: scroll;
@@ -136,7 +143,7 @@ body {
 		align-items: center;
 		text-align: center;
 		height: 4rem;
-		background-color: $transparent-base;
+		background-color: var(--transparent-base);
 
 		.liked-movies {
 			position: absolute;
@@ -197,7 +204,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: $transparent-base;
+	background-color: var(--transparent-base);
 	padding-top: 4rem;
 	z-index: 999;
 	transition: 250ms ease;
@@ -209,7 +216,7 @@ body {
 	}
 
 	img {
-		border-radius: $border-radius;
+		border-radius: var(--border-radius);
 		width: 60%;
 		margin: 2rem 0rem;
 	}
@@ -221,7 +228,7 @@ body {
 	#dismiss-notification {
 		font-size: 10px;
 		padding-top: 2rem;
-		color: $faded-font-colour;
+		color: var(--faded-font-colour);
 	}
 }
 
@@ -233,7 +240,7 @@ body {
 	align-items: center;
 	width: 100%;
 	height: 50px;
-	color: $main-font-colour;
+	color: var(--main-font-colour);
 	padding: 2rem;
 
 	.nav-content-centre {
@@ -270,8 +277,8 @@ body {
 	transform: translate(-50%);
 	width: 90%;
 	aspect-ratio: 2 / 3;
-	border-radius: $border-radius;
-	color: $main-font-colour;
+	border-radius: var(--border-radius);
+	color: var(--main-font-colour);
 	font-weight: 600;
 	overflow: visible;
 
@@ -283,7 +290,7 @@ body {
 	.next-poster {
 		height: 100%;
 		width: 100%;
-		border-radius: $border-radius;
+		border-radius: var(--border-radius);
 
 		&.shrunk {
 			scale: 0.4;
@@ -306,7 +313,11 @@ body {
 
 		a {
 			text-decoration: underline;
-			color: blue;
+			color: var(--main-font-colour);
+
+			&:visited {
+				color: var(--main-font-colour);
+			}
 		}
 
 		&.visible {
