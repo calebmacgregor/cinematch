@@ -35,7 +35,7 @@ joinSession(session.sessionName)
 
 		session.likeThreshold = data.likeThreshold
 		setHeaderName(session.sessionName)
-		listenToSession(session.sessionName)
+		listenToSession(session.sessionName, elementState)
 		movieArray = data.movies
 	})
 	.then(() => {
@@ -94,9 +94,7 @@ elementState.poster.addEventListener("click", () => {
 	shrinkPoster(elementState)
 })
 
-document.addEventListener("click", (e) => {
-	const dismissable = e.target.closest(".dismiss-text")
-	if (!dismissable) return
+elementState.dismiss.addEventListener("click", () => {
 	expandPoster(elementState)
 })
 

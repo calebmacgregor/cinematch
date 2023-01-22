@@ -18,6 +18,7 @@ import {
 	onSnapshot
 } from "firebase/firestore"
 import { getMovieDetail } from "./getMovies"
+import { elementState } from "./state"
 
 const app = initializeApp(firebaseConfig)
 const analytics = getAnalytics(app)
@@ -81,7 +82,7 @@ export async function joinSession(sessionName) {
 	}
 }
 
-export async function listenToSession(sessionName) {
+export async function listenToSession(sessionName, elementState) {
 	onSnapshot(doc(db, "sessions", sessionName), (doc) => {
 		let arr = []
 		arr = doc.data().likedMovies
@@ -94,7 +95,7 @@ export async function listenToSession(sessionName) {
 			//Populate the list of liked movies
 			const likedMoviesList = document.querySelector(".liked-movies-list")
 			//Clear out the rendered list of liked movies
-			likedMoviesList.innerHTML = ""
+			// likedMoviesList.innerHTML = ""
 			if (arr.length > 0) {
 				//If the movie was liked after the user joined the session,
 				//notify the user
@@ -102,7 +103,7 @@ export async function listenToSession(sessionName) {
 					doc.data().lastLikedEpoch >
 					parseInt(sessionStorage.getItem("matchyJoinEpoch"))
 				) {
-					notifyOfMatch(newMovie)
+					notifyOfMatch(newMovie, elementState)
 				}
 				arr.forEach((movieID) => {
 					getMovieDetail(movieID).then((movie) => {

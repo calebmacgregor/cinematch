@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
 
+$base-colour: hsl(232, 96%, 92%);
+$main-font-colour: hsl(238, 76%, 20%);
+$faded-font-colour: hsl(238, 76%, 90%);
+$main-accent-colour: hsl(237, 87%, 74%);
+$transparent-base: hsl(232, 96%, 3%, 0.95);
+
+$border-radius: 20px;
+
 * {
 	font-family: "Montserrat", sans-serif;
 	margin: 0;
@@ -18,7 +26,27 @@ body {
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-	background-color: #1c1e2b;
+	background-color: $base-colour;
+}
+
+.liked {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	pointer-events: none;
+
+	.liked-status {
+		position: absolute;
+		display: none;
+		top: 6rem;
+		border: 0.5rem;
+		border-style: solid;
+		border-radius: 5px;
+		font-size: 50px;
+		z-index: 100;
+	}
 }
 
 .size-warning-container {
@@ -30,7 +58,7 @@ body {
 	justify-content: center;
 	height: 100vh;
 	width: 100vw;
-	background-color: #1c1e2b;
+	background-color: $base-colour;
 	z-index: 9999;
 	padding: 4rem;
 	display: none;
@@ -41,7 +69,7 @@ body {
 
 	p {
 		font-size: 26px;
-		color: white;
+		color: $main-font-colour;
 	}
 }
 
@@ -54,11 +82,11 @@ body {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-color: #1c1e2b;
+	background-color: $base-colour;
 	z-index: 9999;
 	transition: 250ms ease;
 	opacity: 1;
-	color: white;
+	color: $main-font-colour;
 
 	p {
 		font-size: 26px;
@@ -77,7 +105,7 @@ body {
 	left: 0;
 	height: 100vh;
 	width: 100vw;
-	background-color: rgba(0, 0, 0, 0.9);
+	background-color: $transparent-base;
 	color: white;
 	z-index: 9999;
 	overflow: scroll;
@@ -108,7 +136,7 @@ body {
 		align-items: center;
 		text-align: center;
 		height: 4rem;
-		background-color: #000;
+		background-color: $transparent-base;
 
 		.liked-movies {
 			position: absolute;
@@ -133,11 +161,11 @@ body {
 
 	.liked-movies-list {
 		margin-top: 4rem;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		width: 100%;
-		padding: 2rem;
+		padding: 1rem;
+		gap: 1rem;
 
 		.liked-movie-container {
 			display: flex;
@@ -160,276 +188,167 @@ body {
 	}
 }
 
-.notification {
+.notification-container {
 	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
 	align-items: center;
-	width: 100vw;
-	top: 0;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.9);
-	color: white;
-	z-index: 9999;
-	padding: 2rem;
+	background-color: $transparent-base;
+	padding-top: 4rem;
+	z-index: 999;
 	transition: 250ms ease;
+	color: white;
+	transform: translateY(100vh);
 
-	&.hidden {
-		transform: translateY(100%);
+	h2 {
+		font-size: 26px;
 	}
 
-	.notification-container {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		gap: 4rem;
-		align-items: center;
-		height: 90%;
-		width: 100%;
+	img {
+		border-radius: $border-radius;
+		width: 60%;
+		margin: 2rem 0rem;
 	}
 
-	.notification-movie {
-		width: 75%;
-		border-radius: 10px;
-		aspect-ratio: 2 / 3;
-		background-size: cover;
+	&.visible {
+		transform: translate(0);
 	}
 
-	p {
-		font-weight: 400;
-		// padding-top: 1rem;
-	}
-
-	h1 {
-		font-size: 2rem;
+	#dismiss-notification {
+		padding-top: 2rem;
+		color: $faded-font-colour;
 	}
 }
 
 .header {
 	position: fixed;
+	top: 0;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
-	top: 0rem;
 	width: 100%;
-	height: 4rem;
-	color: white;
-	background-color: rgba(0, 0, 0, 0.2);
-	font-weight: 700;
-	z-index: 100;
+	height: 50px;
+	color: $main-font-colour;
+	padding: 2rem;
 
-	.centre {
-		position: absolute;
-		top: 1rem;
-		left: 50%;
-		transform: translateX(-50%);
-		transform: translateY(-50%);
-	}
+	.nav-content-centre {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 
-	.right {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		right: 2rem;
-		fill: white;
+		h2 {
+			font-size: 14px;
+		}
 
-		.close-icon {
-			width: 2.5rem;
-			height: 2.5rem;
-			color: white;
+		p {
+			font-weight: 700;
+			font-size: 10px;
 		}
 	}
 
-	.liked-icon {
-		position: absolute;
-		top: 1rem;
-		left: 2rem;
-		fill: white;
-	}
-
-	* {
-		flex: 1;
-		text-align: center;
-	}
-
-	.centre {
-		display: flex;
-		flex-direction: column;
-	}
-
-	p {
-		font-size: 10px;
-	}
-
-	a {
-		color: white;
+	.nav-icon {
+		height: 30px;
+		width: 30px;
 	}
 }
 
-.container {
-	display: flex;
-	position: relative;
-	height: 100%;
-	width: 100%;
-	align-items: center;
-	justify-content: center;
+.poster-container {
+	z-index: 2;
+}
 
-	.background,
-	.next-background {
-		position: fixed;
-		opacity: 1;
-		display: block;
-		top: 0rem;
-		height: 100%;
-		width: 100%;
-		width: 100%;
-		background-size: cover;
-		filter: blur(20px) brightness(0.6);
-		transform: scale(1.3);
-		transition: 150ms ease;
-		overflow: none;
-		z-index: 2;
-	}
+.poster-container,
+.next-poster-container {
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%);
+	width: 90%;
+	aspect-ratio: 2 / 3;
+	border-radius: $border-radius;
+	color: $main-font-colour;
+	font-weight: 600;
+	overflow: visible;
 
-	.next-background {
-		z-index: 1;
+	&.hidden {
+		display: none;
 	}
 
 	.poster,
 	.next-poster {
-		position: absolute;
-		display: none;
-		top: 6rem;
-		// left: 50%;
-		// transform: translateX(-50%);
-		color: white;
-		height: 60%;
-		aspect-ratio: 2 / 3;
-		border-radius: 10px;
-		background-size: cover;
-		background-repeat: no-repeat;
-		background-position: center;
-		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-		z-index: 10;
-
-		p {
-			font-size: 52px;
-			color: white;
-			font-weight: bold;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%) rotate(-60deg);
-		}
+		height: 100%;
+		width: 100%;
+		border-radius: $border-radius;
 
 		&.shrunk {
-			position: absolute;
-			display: none;
-			transform-origin: top left;
-			transform: translateX(-2rem) scale(0.5);
+			scale: 0.4;
+			transform: scale(0.45) translate(-60%, -60%);
 		}
 	}
 
-	.next-poster {
-		z-index: 9;
-		display: block;
-
-		&.hidden {
-			display: none;
-		}
-	}
-
-	.liked {
-		display: flex;
-		justify-content: center;
-
-		.liked-status {
-			position: fixed;
-			display: none;
-			top: 6rem;
-			border: 0.5rem;
-			border-style: solid;
-			border-radius: 5px;
-			font-size: 50px;
-			z-index: 100;
-		}
-	}
-
-	.detail-top {
-		display: flex;
-		opacity: 0;
-		pointer-events: none;
-		color: white;
+	.movie-metadata {
 		position: absolute;
+		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
-		text-align: left;
-		font-weight: 600;
+		padding: 0.5rem 0rem;
+		gap: 10px;
+		top: 0;
+		right: 0;
 		width: 50%;
-		gap: 0.5rem;
-		right: 1rem;
-		top: 6rem;
-		margin-bottom: 2rem;
-		z-index: 100;
-		transition: opacity 150ms ease;
+		transition: 150ms ease;
+		opacity: 0;
+		pointer-events: none;
+
+		a {
+			text-decoration: underline;
+			color: blue;
+		}
 
 		&.visible {
 			opacity: 1;
+			display: flex;
 			pointer-events: all;
-		}
-
-		.imdb {
-			text-decoration: none;
-			border-bottom: 2px solid white;
-			color: white;
 		}
 	}
 
-	.detail-bottom {
+	.synopsis {
 		position: absolute;
-		display: flex;
+		top: 50%;
+		overflow: scroll;
+		height: 40%;
+		transition: 150ms ease;
 		opacity: 0;
 		pointer-events: none;
-		height: 60%;
-		width: 100%;
-		color: white;
-		flex-direction: column;
-		align-items: center;
-		z-index: 100;
-		transition: opacity 150ms ease;
 
 		&.visible {
 			opacity: 1;
+			display: flex;
+		}
+	}
+
+	.dismiss {
+		font-weight: 400;
+		position: absolute;
+		height: 4rem;
+		width: 100%;
+		bottom: 0;
+		padding-top: 3rem;
+		text-align: center;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		transition: 150ms ease;
+		opacity: 0;
+		pointer-events: none;
+
+		&.visible {
+			opacity: 1;
+			display: flex;
 			pointer-events: all;
-		}
-
-		.synopsis {
-			font-weight: 500;
-			color: white;
-			margin: 1rem;
-			max-height: 50%;
-			overflow: auto;
-		}
-
-		.dismissable {
-			position: absolute;
-			width: 100%;
-			height: 30vh;
-			bottom: 0;
-			z-index: 2;
-
-			&.hidden {
-				opacity: 0;
-			}
-		}
-
-		.dismiss-text {
-			position: absolute;
-			bottom: 8rem;
-			color: #d4d4d4;
-			padding: 2rem;
-			z-index: 1;
 		}
 	}
 }
