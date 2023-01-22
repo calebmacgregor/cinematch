@@ -18,28 +18,27 @@
 		<div class="loading-container"><p>Loading...</p></div>
 		<div class="header">
 			<div class="liked-icon">
-				<img src="../src/assets/heart-hollow.svg" alt="" class="show-likes" />
+				<img
+					src="../src/assets/show-liked-new.svg"
+					alt=""
+					class="show-likes nav-icon"
+				/>
 			</div>
-			<div class="centre">
+			<div class="nav-content-centre">
 				<h1>Matchy</h1>
 				<p class="session-name"></p>
 			</div>
-			<div class="right">
-				<a href="./index.html"
-					><img src="../src/assets/close.svg" alt="" class="close-icon"
-				/></a>
-			</div>
+			<a href="./index.html"
+				><img
+					src="../src/assets/new-close.svg"
+					alt=""
+					class="close-icon nav-icon"
+			/></a>
 		</div>
 
-		<div class="container">
-			<div class="background dismiss"></div>
-			<div class="next-background"></div>
+		<div class="poster-container">
 			<img class="poster" />
-			<img class="next-poster" />
-			<div class="liked">
-				<h1 class="liked-status"></h1>
-			</div>
-			<div class="detail-top dismiss">
+			<div class="movie-metadata">
 				<h2 class="title"></h2>
 				<p class="year"></p>
 				<p class="rating"></p>
@@ -47,46 +46,42 @@
 				<p class="genre"></p>
 				<a href="" class="imdb" target="_blank"></a>
 			</div>
-			<div class="detail-bottom">
-				<!-- <div class="dismissable hidden"></div> -->
-				<p class="synopsis visible"></p>
-				<p class="dismiss dismiss-text visible">Tap to dismiss</p>
-			</div>
+			<p class="synopsis"></p>
+			<p class="dismiss">Tap to dismiss</p>
+		</div>
+		<div class="next-poster-container">
+			<img class="next-poster" />
 		</div>
 		<div class="buttons">
 			<div class="dislike">
 				<img
-					src="./assets/thumbs_down.png"
+					src="./assets/new-dislike.svg"
 					alt="Thumbs down"
 					class="btn dislike"
 				/>
 			</div>
 			<div class="like">
-				<img src="./assets/thumbs_up.png" alt="Thumbs up" class="btn like" />
+				<img src="./assets/new-like.svg" alt="Thumbs up" class="btn like" />
 			</div>
 		</div>
-
-		<div class="notification hidden notification-dismiss">
-			<div class="notification-container notification-dismiss">
-				<h1 class="notification-dismiss">New Match!</h1>
-				<a
-					href="http://www.google.com"
-					target="_blank"
-					class="notification-movie poster"
-				></a>
-				<p>Tap to dismiss</p>
-			</div>
+		<div class="notification-container">
+			<h2>You've got a new match!</h2>
+			<img alt="" class="notification-movie" />
+			<p id="notification-title"></p>
+			<p id="dismiss-notification">Tap to dismiss</p>
 		</div>
-
 		<div class="liked-movies-container hidden">
 			<h1 class="empty-message">No matched movies yet</h1>
 			<div class="liked-movie-header">
 				<div class="liked-icon close">
-					<img src="../src/assets/heart-filled.svg" alt="" class="close" />
+					<img alt="" class="close" src="./assets/heart-filled.svg" />
 				</div>
 				<h1 class="liked-header-title">Matched Movies</h1>
 			</div>
 			<ul class="liked-movies-list"></ul>
+		</div>
+		<div class="liked">
+			<h1 class="liked-status"></h1>
 		</div>
 	</body>
 </html>

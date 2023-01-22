@@ -62,13 +62,8 @@ export function setMetadata(movie) {
 export function setImages(movie, posterNumber, elementState) {
 	if (posterNumber === 1) {
 		elementState.poster.src = movie.poster
-		elementState.background.style.backgroundImage = `url(${movie.poster})`
 	} else if (posterNumber === 2) {
 		elementState.nextPoster.src = movie.poster
 	}
 	elementState.poster.style.display = "block"
-}
-
-export function rotateBackground(movieState) {
-	elementState.background.style.backgroundImage = `url(${movieState.nextMovie.poster})`
 }

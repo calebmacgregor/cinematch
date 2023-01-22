@@ -35,15 +35,13 @@ joinSession(session.sessionName)
 
 		session.likeThreshold = data.likeThreshold
 		setHeaderName(session.sessionName)
-		listenToSession(session.sessionName)
+		listenToSession(session.sessionName, elementState)
 		movieArray = data.movies
 	})
 	.then(() => {
 		initialiseMovie(movieArray, elementState).then((movie) => {
 			movieState.currentMovie = movie
-			const poster = document.querySelector(".poster")
-			poster.addEventListener("load", () => {
-				console.log("loaded")
+			elementState.poster.addEventListener("load", () => {
 				fadePageOut("loading-container")
 			})
 		})
@@ -55,6 +53,19 @@ joinSession(session.sessionName)
 	.catch(() => {
 		window.location.href = "../.."
 	})
+
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("btn")) return
+	handleButtonPress(
+		e,
+		coordinates,
+		movieState,
+		movieArray,
+		elementState,
+		session.sessionName,
+		session.likeThreshold
+	)
+})
 
 elementState.poster.addEventListener("touchstart", (e) =>
 	handleTouchStart(e, coordinates, window.innerHeight)
@@ -76,27 +87,12 @@ elementState.poster.addEventListener("touchend", (e) =>
 	)
 )
 
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("btn")) return
-	handleButtonPress(
-		e,
-		coordinates,
-		movieState,
-		movieArray,
-		elementState,
-		session.sessionName,
-		session.likeThreshold
-	)
-})
-
 elementState.poster.addEventListener("click", () => {
 	if (elementState.poster.classList.contains("shrunk")) return
 	shrinkPoster(elementState)
 })
 
-document.addEventListener("click", (e) => {
-	const dismissable = e.target.closest(".dismiss-text")
-	if (!dismissable) return
+elementState.dismiss.addEventListener("click", () => {
 	expandPoster(elementState)
 })
 
@@ -104,33 +100,31 @@ document.addEventListener("click", (e) => {
 	dismissNotification(e)
 })
 
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("close")) return
+	hideLikedMovies(elementState)
+})
+
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("show-likes")) return
+	showLikedMovies(elementState)
+})
+
 function setHeaderName(sessionName) {
 	const sessionHeaderName = document.querySelector(".session-name")
 	sessionHeaderName.textContent = sessionName
 }
 
-function hideLikedMovies() {
-	const likedMoviesContainer = document.querySelector(".liked-movies-container")
-	likedMoviesContainer.classList.add("hidden")
+function hideLikedMovies(elementState) {
+	elementState.likedMoviesContainer.classList.add("hidden")
 	setTimeout(() => {
-		likedMoviesContainer.style.display = "none"
+		elementState.likedMoviesContainer.style.display = "none"
 	}, 250)
 }
 
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("close")) return
-	hideLikedMovies()
-})
-
-function showLikedMovies() {
-	const likedMoviesContainer = document.querySelector(".liked-movies-container")
-	likedMoviesContainer.style.display = "block"
+function showLikedMovies(elementState) {
+	elementState.likedMoviesContainer.style.display = "block"
 	setTimeout(() => {
-		likedMoviesContainer.classList.remove("hidden")
+		elementState.likedMoviesContainer.classList.remove("hidden")
 	}, 1)
 }
-
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("show-likes")) return
-	showLikedMovies()
-})

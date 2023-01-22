@@ -1,4 +1,4 @@
-import { rotateMovie, rotateBackground } from "./handleMovieElements.js"
+import { rotateMovie } from "./handleMovieElements.js"
 import { incrementMovie } from "./firebaseComms.js"
 import { renderBanner, removeBanner, endSession } from "./misc.js"
 
@@ -61,26 +61,27 @@ export function resetCoordinateTracking(coordinatesObject) {
 
 export function shrinkPoster(elementState) {
 	const speed = 250
+	//Adjust parent container styling
+	elementState.posterContainer.classList.add("shrunk")
+	elementState.nextPosterContainer.classList.add("hidden")
+
 	//Adjust main poster styling
 	elementState.poster.style.transition = `${speed}ms ease-in-out`
 	elementState.poster.classList.add("shrunk")
 
 	//Adjust next poster styling
 	elementState.nextPoster.classList.add("hidden")
-	// elementState.nextPoster.style.display = "none"
 
 	//Adjust button styling
 	elementState.buttons.classList.add("hidden")
 
-	//The rest of the adjustments happen once the shrinking animation is done
+	// The rest of the adjustments happen once the shrinking animation is done
 	setTimeout(() => {
 		//Adjust content visibility and
 		//dynamically set the location of the synopsis
-		elementState.detailBottom.style.top = `calc(${
-			elementState.poster.offsetHeight * 0.5
-		}px + 6rem)`
-		elementState.detailTop.classList.add("visible")
-		elementState.detailBottom.classList.add("visible")
+		elementState.movieMetadata.classList.add("visible")
+		elementState.synopsis.classList.add("visible")
+		elementState.dismiss.classList.add("visible")
 	}, speed)
 }
 
@@ -92,22 +93,21 @@ export function expandPoster(elementState) {
 	//Adjust main poster styling
 	elementState.poster.style.transition = `${speed}ms ease`
 	elementState.poster.classList.remove("shrunk")
+	elementState.posterContainer.classList.remove("shrunk")
 
-	//Adjust content visibility
-	elementState.detailTop.classList.remove("visible")
-	elementState.detailBottom.classList.remove("visible")
-
+	elementState.movieMetadata.classList.remove("visible")
+	elementState.synopsis.classList.remove("visible")
+	elementState.dismiss.classList.remove("visible")
 	//Remove the transition from the poster after it has expanded
 	setTimeout(() => {
 		//Adjust next poster styling
-		elementState.nextPoster.classList.remove("hidden")
+		elementState.nextPosterContainer.classList.remove("hidden")
 		// elementState.nextPoster.style.display = "block"
 		elementState.poster.style.transition = "none"
 	}, speed)
 }
 
 export function edgeSwipe(coordinates, movieState, movieArray, elementState) {
-	rotateBackground(movieState, elementState)
 	const speed = 250
 	elementState.poster.style.transition = `${speed}ms linear`
 	elementState.poster.style.transform = `translateX(${

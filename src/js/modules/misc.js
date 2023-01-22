@@ -57,29 +57,24 @@ export function formatDate(date) {
 	].join("/")
 }
 
-export function notifyOfMatch(movieObject) {
-	//Get the viewable height of the viewport
-	const vh = window.innerHeight * 0.01
-	const notification = document.querySelector(".notification")
-	if (window.innerHeight != window.outerHeight) {
-		notification.style.bottom = `${vh}vh`
-	}
-
+export function notifyOfMatch(movieObject, elementState) {
 	const movie = getMovieDetail(movieObject)
 	movie.then((data) => {
-		notification.classList.remove("hidden")
-
-		const notificationMovie = document.querySelector(".notification-movie")
-		notificationMovie.style.backgroundImage = `url(${data.poster})`
-		notificationMovie.setAttribute("href", data.imdbLink)
+		console.log(data)
+		elementState.notificationTitle.innerText = data.title
+		elementState.notificationMovie.src = data.poster
+		elementState.notificationContainer.classList.add("visible")
 	})
+	setTimeout(() => {
+		elementState.notificationContainer.classList.remove("visible")
+	}, 5000)
 }
 
 export function dismissNotification(e) {
-	if (!e.target.classList.contains("notification-dismiss")) {
+	if (!e.target.classList.contains("notification-container")) {
 		return
 	}
-	e.target.closest(".notification").classList.add("hidden")
+	e.target.classList.remove("visible")
 }
 
 export function populateLikedMovies(movie) {
@@ -103,18 +98,11 @@ export function populateLikedMovies(movie) {
 	likedPoster.setAttribute("href", movie.imdbLink)
 	likedPoster.setAttribute("target", "_blank")
 
-	const likedTitle = document.createElement("h3")
-	likedTitle.className = "liked-title"
-
 	//Set the poster
 	likedPoster.style.backgroundImage = `url(${movie.poster})`
 
-	//Set the title
-	likedTitle.innerText = movie.title
-
 	//Construct the element
 	likedMovieContainer.appendChild(likedPoster)
-	likedMovieContainer.appendChild(likedTitle)
 
 	//Insert the element into the list
 	likedMoviesList.appendChild(likedMovieContainer)
