@@ -50,7 +50,7 @@ export async function getMovieDetail(movieID) {
 		return new Movie(
 			0,
 			undefined,
-			"src/assets/thumbs_up.png",
+			undefined,
 			undefined,
 			undefined,
 			undefined,
@@ -61,7 +61,7 @@ export async function getMovieDetail(movieID) {
 	}
 	const API_KEY = process.env.TMDB_API_KEY
 	const movieURL = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=en-US`
-	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w342"
+	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 	const imdbBaseURL = "https://www.imdb.com/title/"
 
 	const fetched = await fetch(movieURL)

@@ -192,6 +192,7 @@ body {
   transform: translate(0);
 }
 .notification-container #dismiss-notification {
+  font-size: 10px;
   padding-top: 2rem;
   color: hsl(238deg, 76%, 90%);
 }
