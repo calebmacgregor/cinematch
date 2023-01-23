@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
 
 :root {
-	--base-colour: hsl(232, 96%, 92%);
+	--base-colour: hsl(232, 96%, 99%);
 	--main-font-colour: hsl(238, 76%, 20%);
 	--faded-font-colour: hsl(238, 76%, 90%);
 	--main-accent-colour: hsl(237, 87%, 74%);
@@ -296,6 +296,10 @@ body {
 			scale: 0.4;
 			transform: scale(0.45) translate(-60%, -60%);
 		}
+	}
+
+	.next-poster {
+		box-shadow: 0px 10px 38px -19px rgba(0, 0, 0, 0.5);
 	}
 
 	.movie-metadata {
