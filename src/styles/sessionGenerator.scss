@@ -19,14 +19,13 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	// height: 100vh;
-	background-color: #1c1e2b;
+	background-color: var(--base-colour);
 }
 
 .session-generator-container {
 	position: relative;
-	background-color: #1c1e2b;
-	color: white;
+	background-color: var(--base-colour);
+	color: var(--main-font-colour);
 	height: 100%;
 	width: 100%;
 	display: flex;
@@ -38,7 +37,6 @@ body {
 	h2 {
 		width: $width;
 		text-align: left;
-		color: white;
 	}
 	p {
 		width: $width;
@@ -46,6 +44,7 @@ body {
 
 	.form-gen-container {
 		position: relative;
+		color: var(--main-font-colour);
 		width: $width;
 		border-radius: 5px;
 		display: flex;
@@ -87,7 +86,7 @@ body {
 			.label {
 				font-weight: 400;
 				font-size: 16px;
-				color: #f3f7ff;
+				color: var(--main-font-colour);
 			}
 
 			input,
@@ -96,8 +95,8 @@ body {
 				height: 2.5rem;
 				border-radius: 5px;
 				padding: 0.5rem;
-				background-color: hsl(226, 18%, 30%);
-				color: white;
+				background-color: var(--input-colour);
+				color: var(--main-font-colour);
 				font-size: 16px;
 				font-weight: 400;
 				transition: 250ms ease;
@@ -119,7 +118,7 @@ body {
 			top: 0;
 			left: 0;
 			width: 100%;
-			background-color: hsl(230, 22%, 25%);
+			background-color: var(--base-colour);
 			padding: 1rem 2rem;
 			border-radius: 5px;
 			transition: 250ms ease;
@@ -134,7 +133,7 @@ body {
 				font-size: 22px;
 
 				&.selected span {
-					border-bottom: solid #ff336d 3px;
+					border-bottom: solid var(--secondary-accent-colour) 3px;
 				}
 			}
 		}
@@ -161,7 +160,7 @@ body {
 }
 
 button {
-	background-color: hsl(230, 22%, 35%);
+	background-color: var(--secondary-button);
 	color: white;
 	height: 3.5rem;
 	font-weight: bold;
@@ -174,7 +173,7 @@ button {
 	}
 
 	&.primary {
-		background-color: hsl(205, 100%, 49%);
+		background-color: var(--primary-button);
 	}
 }
 

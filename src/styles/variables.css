@@ -1,0 +1,19 @@
+:root {
+	--base-colour: hsl(232, 96%, 99%);
+	--input-colour: hsl(232, 96%, 93%);
+	--main-font-colour: hsl(238, 76%, 20%);
+	--dark-font-colour: hsl(238, 76%, 10%);
+	--faded-font-colour: hsl(238, 76%, 90%);
+	--main-accent-colour: hsl(237, 87%, 74%);
+	--secondary-accent-colour: hsl(343, 100%, 60%);
+	--transparent-base: hsl(232, 96%, 3%, 0.95);
+	--primary-button: hsl(205, 100%, 49%);
+	--secondary-button: hsl(230, 22%, 35%);
+
+	--border-radius: 20px;
+}
+
+:root.dark {
+	--base-colour: hsl(231, 25%, 40%);
+	--main-font-colour: hsl(231, 25%, 90%);
+}

@@ -25,7 +25,8 @@ body {
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	background-color: #1b1e2b;
+	background-color: var(--base-colour);
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -103,7 +104,7 @@ body {
 		.header {
 			font-size: 28px;
 			font-weight: 700;
-			color: white;
+			color: var(--dark-font-colour);
 			background: none;
 			padding-bottom: 2rem;
 		}
@@ -116,7 +117,7 @@ body {
 		gap: 1rem;
 
 		#session-name-input {
-			background-color: hsl(226, 18%, 30%);
+			background-color: var(--input-colour);
 			height: 3rem;
 			width: 80vw;
 			max-width: 500px;
@@ -124,10 +125,10 @@ body {
 			font-size: 16px;
 			font-weight: bold;
 			text-align: center;
-			color: hsl(230, 22%, 90%);
+			color: var(--dark-font-colour);
 
 			&::placeholder {
-				color: hsl(230, 22%, 70%);
+				color: var(--dark-font-colour);
 			}
 		}
 	}
@@ -147,15 +148,14 @@ body {
 			height: 3rem;
 			width: 70%;
 			max-width: 300px;
-			background-color: hsl(205, 100%, 49%);
+			background-color: var(--primary-button);
 			color: white;
 			font-weight: 700;
 			border-radius: 10px;
 
 			&.new-session {
 				text-decoration: none;
-				background-color: hsl(230, 22%, 35%);
-				// border: 2px solid #94e7f7;
+				background-color: var(--secondary-button);
 				color: white;
 			}
 		}

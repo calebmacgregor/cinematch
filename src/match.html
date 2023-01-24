@@ -8,7 +8,8 @@
 			content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
 		/>
 		<meta name="apple-mobile-web-app-capable" content="black-translucent" />
-		<meta name="theme-color" content="#000000" />
+		<meta name="theme-color" content="#fafbff" />
+		<link rel="stylesheet" href="./styles/variables.css" />
 		<link rel="stylesheet" href="./styles/match.css" />
 		<link rel="manifest" href="../manifest.json" />
 		<script type="module" src="./js/match.js"></script>
@@ -17,23 +18,19 @@
 	<body>
 		<div class="loading-container"><p>Loading...</p></div>
 		<div class="header">
-			<div class="liked-icon">
-				<img
-					src="../src/assets/show-liked-new.svg"
-					alt=""
-					class="show-likes nav-icon"
-				/>
-			</div>
+			<div class="spacer"></div>
 			<div class="nav-content-centre">
 				<h1>Matchy</h1>
 				<p class="session-name"></p>
 			</div>
-			<a href="./index.html"
-				><img
-					src="../src/assets/new-close.svg"
-					alt=""
-					class="close-icon nav-icon"
-			/></a>
+			<div class="spacer menu-container">
+				<img class="menu-icon" src="./assets/menu.svg" />
+				<div class="menu-panel hidden">
+					<ul>
+						<li><a href="./index.html">Close session</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 
 		<div class="poster-container">
@@ -54,14 +51,17 @@
 		</div>
 		<div class="buttons">
 			<div class="dislike">
+				<img src="./assets/cross.svg" alt="Thumbs down" class="btn dislike" />
+			</div>
+			<div class="liked-icon">
 				<img
-					src="./assets/new-dislike.svg"
-					alt="Thumbs down"
-					class="btn dislike"
+					src="../src/assets/show-liked-new.svg"
+					alt=""
+					class="show-likes nav-icon"
 				/>
 			</div>
 			<div class="like">
-				<img src="./assets/new-like.svg" alt="Thumbs up" class="btn like" />
+				<img src="./assets/tick.svg" alt="Thumbs up" class="btn like" />
 			</div>
 		</div>
 		<div class="notification-container">
@@ -72,8 +72,8 @@
 		<div class="liked-movies-container hidden">
 			<h1 class="empty-message">No matched movies yet</h1>
 			<div class="liked-movie-header">
-				<div class="liked-icon close">
-					<img alt="" class="close" src="./assets/heart-filled.svg" />
+				<div class="close-liked-movies">
+					<img alt="" class="close" src="./assets/new-close.svg" />
 				</div>
 				<h1 class="liked-header-title">Matched Movies</h1>
 			</div>

@@ -128,3 +128,14 @@ function showLikedMovies(elementState) {
 		elementState.likedMoviesContainer.classList.remove("hidden")
 	}, 1)
 }
+
+elementState.menuContainer.addEventListener("click", (e) => {
+	elementState.menuPanel.classList.toggle("hidden")
+})
+
+document.addEventListener("click", (e) => {
+	if (e.target.classList.contains("menu-icon")) return
+	if (!elementState.menuPanel.classList.contains("hidden")) {
+		elementState.menuPanel.classList.add("hidden")
+	}
+})

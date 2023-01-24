@@ -16,13 +16,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #1c1e2b;
+  background-color: var(--base-colour);
 }
 
 .session-generator-container {
   position: relative;
-  background-color: #1c1e2b;
-  color: white;
+  background-color: var(--base-colour);
+  color: var(--main-font-colour);
   height: 100%;
   width: 100%;
   display: flex;
@@ -34,13 +34,13 @@ body {
 .session-generator-container h2 {
   width: 85%;
   text-align: left;
-  color: white;
 }
 .session-generator-container p {
   width: 85%;
 }
 .session-generator-container .form-gen-container {
   position: relative;
+  color: var(--main-font-colour);
   width: 85%;
   border-radius: 5px;
   display: flex;
@@ -80,7 +80,7 @@ body {
 .session-generator-container .form-gen-container .input-container .label {
   font-weight: 400;
   font-size: 16px;
-  color: #f3f7ff;
+  color: var(--main-font-colour);
 }
 .session-generator-container .form-gen-container .input-container input,
 .session-generator-container .form-gen-container .input-container .genre-trigger {
@@ -88,8 +88,8 @@ body {
   height: 2.5rem;
   border-radius: 5px;
   padding: 0.5rem;
-  background-color: hsl(226deg, 18%, 30%);
-  color: white;
+  background-color: var(--input-colour);
+  color: var(--main-font-colour);
   font-size: 16px;
   font-weight: 400;
   transition: 250ms ease;
@@ -109,7 +109,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: hsl(230deg, 22%, 25%);
+  background-color: var(--base-colour);
   padding: 1rem 2rem;
   border-radius: 5px;
   transition: 250ms ease;
@@ -123,7 +123,7 @@ body {
   font-size: 22px;
 }
 .session-generator-container .form-gen-container .genres-container .genre-li.selected span {
-  border-bottom: solid #ff336d 3px;
+  border-bottom: solid var(--secondary-accent-colour) 3px;
 }
 .session-generator-container .form-gen-container .selected-genres {
   display: flex;
@@ -143,7 +143,7 @@ body {
 }
 
 button {
-  background-color: hsl(230deg, 22%, 35%);
+  background-color: var(--secondary-button);
   color: white;
   height: 3.5rem;
   font-weight: bold;
@@ -155,7 +155,7 @@ button.hidden {
   display: none;
 }
 button.primary {
-  background-color: hsl(205deg, 100%, 49%);
+  background-color: var(--primary-button);
 }
 
 @-webkit-keyframes slide-out-left {
