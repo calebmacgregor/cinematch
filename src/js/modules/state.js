@@ -19,7 +19,8 @@ export const elementState = {
 	notificationMovie: document.querySelector(".notification-movie"),
 	likedMoviesContainer: document.querySelector(".liked-movies-container"),
 	menuContainer: document.querySelector(".menu-container"),
-	menuPanel: document.querySelector(".menu-panel")
+	menuPanel: document.querySelector(".menu-panel"),
+	clearSwipeCache: document.querySelector("#clear-swipe-cache")
 }
 
 export const thresholdState = {

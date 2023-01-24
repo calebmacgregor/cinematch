@@ -171,3 +171,8 @@ export function updateSwipedMovies(sessionName, movieID) {
 
 	localStorage.setItem(sessionName, JSON.stringify(swipedMovies))
 }
+
+export function clearSwipedCache(sessionName) {
+	localStorage.removeItem(sessionName)
+	location.reload()
+}

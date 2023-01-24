@@ -4,7 +4,7 @@ import { dismissNotification } from "./modules/misc.js"
 import { elementState, movieState, thresholdState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
 import { fadePageOut } from "./modules/misc.js"
-import { checkAspectRatio } from "./modules/misc.js"
+import { checkAspectRatio, clearSwipedCache } from "./modules/misc.js"
 import {
 	shrinkPoster,
 	expandPoster,
@@ -95,6 +95,10 @@ elementState.dismiss.addEventListener("click", () => {
 
 elementState.menuContainer.addEventListener("click", (e) => {
 	elementState.menuPanel.classList.toggle("hidden")
+})
+
+elementState.clearSwipeCache.addEventListener("click", () => {
+	clearSwipedCache(session.sessionName)
 })
 
 document.addEventListener("click", (e) => {
