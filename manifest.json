@@ -1,8 +1,8 @@
 {
 	"name": "Matchy",
 	"short_name": "Matchy",
-	"theme_color": "#323650",
-	"background_color": "#323650",
+	"theme_color": "#fafbff",
+	"background_color": "#fafbff",
 	"display": "standalone",
 	"orientation": "portrait",
 	"start_url": "../..",
