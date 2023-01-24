@@ -32,11 +32,21 @@ window.addEventListener("resize", checkAspectRatio)
 joinSession(session.sessionName)
 	.then((data) => {
 		sessionStorage.setItem("matchyJoinEpoch", new Date().getTime())
+		//Check whether the user has been part of this session before
+		let swipedMovies = localStorage.getItem(`${session.sessionName}`)
+		if (!swipedMovies) {
+			localStorage.setItem(`${session.sessionName}`, JSON.stringify([]))
+		}
 
 		session.likeThreshold = data.likeThreshold
 		setHeaderName(session.sessionName)
 		listenToSession(session.sessionName, elementState)
-		movieArray = data.movies
+
+		//Only include movies that aren't in the array
+		movieArray = data.movies.filter((movie) => !swipedMovies.includes(movie))
+		if (movieArray.length === 0) {
+			fadePageOut("loading-container")
+		}
 	})
 	.then(() => {
 		initialiseMovie(movieArray, elementState).then((movie) => {

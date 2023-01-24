@@ -163,3 +163,11 @@ export function checkAspectRatio() {
 		if (elementCheck) elementCheck.classList.remove("visible")
 	}
 }
+
+export function updateSwipedMovies(sessionName, movieID) {
+	const swipedMovies = JSON.parse(localStorage.getItem(sessionName))
+
+	swipedMovies.push(movieID)
+
+	localStorage.setItem(sessionName, JSON.stringify(swipedMovies))
+}

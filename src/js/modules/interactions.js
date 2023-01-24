@@ -1,6 +1,11 @@
 import { rotateMovie } from "./handleMovieElements.js"
 import { incrementMovie } from "./firebaseComms.js"
-import { renderBanner, removeBanner, endSession } from "./misc.js"
+import {
+	renderBanner,
+	removeBanner,
+	endSession,
+	updateSwipedMovies
+} from "./misc.js"
 
 export function handleTouchStart(e, coordinatesObject, viewportHeight) {
 	coordinatesObject.touchStartX = e.touches[0].clientX
@@ -148,6 +153,8 @@ export function handleSwipe(
 			smoothResetCardCoordinates(coordinates, elementState)
 		}
 	}
+
+	updateSwipedMovies(sessionName, movieState.currentMovie.id)
 }
 
 export function handleButtonPress(
@@ -180,4 +187,6 @@ export function handleButtonPress(
 		rotateMovie(movieState, movieArray, elementState)
 		instantResetCardCoordinates(coordinates, elementState)
 	}, 250)
+
+	updateSwipedMovies(sessionName, movieState.currentMovie.id)
 }
