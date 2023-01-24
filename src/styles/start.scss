@@ -118,6 +118,7 @@ body {
 
 		#session-name-input {
 			background-color: var(--input-colour);
+			border: 1px solid var(--input-border-colour);
 			height: 3rem;
 			width: 80vw;
 			max-width: 500px;
@@ -125,10 +126,9 @@ body {
 			font-size: 16px;
 			font-weight: bold;
 			text-align: center;
-			color: var(--dark-font-colour);
 
 			&::placeholder {
-				color: var(--dark-font-colour);
+				color: gray;
 			}
 		}
 	}

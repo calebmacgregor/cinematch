@@ -356,6 +356,7 @@ body {
 .next-poster-container .synopsis.visible {
   opacity: 1;
   display: flex;
+  pointer-events: all;
 }
 .poster-container .dismiss,
 .next-poster-container .dismiss {
@@ -378,6 +379,8 @@ body {
   opacity: 1;
   display: flex;
   pointer-events: all;
+  height: auto;
+  width: 100%;
 }
 
 .buttons {

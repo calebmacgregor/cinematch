@@ -99,6 +99,10 @@ elementState.poster.addEventListener("click", () => {
 	shrinkPoster(elementState)
 })
 
+elementState.synopsis.addEventListener("click", () => {
+	expandPoster(elementState)
+})
+
 elementState.dismiss.addEventListener("click", () => {
 	expandPoster(elementState)
 })

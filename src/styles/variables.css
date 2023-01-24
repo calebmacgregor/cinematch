@@ -1,6 +1,7 @@
 :root {
 	--base-colour: hsl(232, 96%, 99%);
-	--input-colour: hsl(226, 83%, 90%);
+	--input-colour: hsl(226, 10%, 98%);
+	--input-border-colour: hsl(0, 0%, 85%);
 	--main-font-colour: hsl(238, 76%, 20%);
 	--dark-font-colour: hsl(238, 76%, 10%);
 	--faded-font-colour: hsl(238, 76%, 90%);
