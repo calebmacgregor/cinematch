@@ -33,9 +33,13 @@ joinSession(session.sessionName)
 	.then((data) => {
 		sessionStorage.setItem("matchyJoinEpoch", new Date().getTime())
 		//Check whether the user has been part of this session before
-		let swipedMovies = localStorage.getItem(`${session.sessionName}`)
+		let swipedMovies = JSON.parse(
+			localStorage.getItem(`${session.sessionName}`)
+		)
+
 		if (!swipedMovies) {
 			localStorage.setItem(`${session.sessionName}`, JSON.stringify([]))
+			swipedMovies = []
 		}
 
 		session.likeThreshold = data.likeThreshold
@@ -44,6 +48,7 @@ joinSession(session.sessionName)
 
 		//Only include movies that aren't in the array
 		movieArray = data.movies.filter((movie) => !swipedMovies.includes(movie))
+
 		if (movieArray.length === 0) {
 			fadePageOut("loading-container")
 		}
@@ -60,7 +65,8 @@ joinSession(session.sessionName)
 			movieState.nextMovie = movie
 		})
 	})
-	.catch(() => {
+	.catch((err) => {
+		console.log(err)
 		window.location.href = "../.."
 	})
 
