@@ -17,7 +17,7 @@ $animation-delay: 300ms;
 }
 
 body {
-	background-color: #1b1e2b;
+	background-color: var(--base-colour);
 }
 
 .start-container {
