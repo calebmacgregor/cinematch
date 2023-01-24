@@ -12,13 +12,12 @@ import {
 	doc,
 	setDoc,
 	addDoc,
+	deleteDoc,
 	increment,
 	updateDoc,
 	arrayUnion,
 	onSnapshot
 } from "firebase/firestore"
-import { getMovieDetail } from "./getMovies"
-import { elementState } from "./state"
 
 const app = initializeApp(firebaseConfig)
 const analytics = getAnalytics(app)
@@ -82,6 +81,12 @@ export async function joinSession(sessionName) {
 	}
 }
 
+export async function deleteSession(sessionName) {
+	await deleteDoc(doc(db, "sessions", sessionName)).then(() => {
+		window.location.href = "../.."
+	})
+}
+
 export async function listenToSession(sessionName, elementState) {
 	onSnapshot(doc(db, "sessions", sessionName), (doc) => {
 		let arr = []
@@ -101,11 +106,8 @@ export async function listenToSession(sessionName, elementState) {
 				) {
 					notifyOfMatch(newMovie, elementState)
 				}
-				arr.forEach((movieID) => {
-					getMovieDetail(movieID).then((movie) => {
-						populateLikedMovies(movie)
-					})
-				})
+				// elementState.likedMoviesContainer.innerHTML = ""
+				populateLikedMovies(arr)
 			}
 		}
 	})

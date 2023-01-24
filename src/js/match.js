@@ -1,4 +1,8 @@
-import { joinSession, listenToSession } from "./modules/firebaseComms.js"
+import {
+	joinSession,
+	deleteSession,
+	listenToSession
+} from "./modules/firebaseComms.js"
 import { initialiseMovie } from "./modules/handleMovieElements.js"
 import { dismissNotification } from "./modules/misc.js"
 import { elementState, movieState, thresholdState } from "./modules/state.js"
@@ -107,6 +111,10 @@ elementState.clearSwipeCache.addEventListener("click", () => {
 	clearSwipedCache(session.sessionName)
 })
 
+elementState.deleteSession.addEventListener("click", () => {
+	deleteSession(session.sessionName)
+})
+
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("btn")) return
 	handleButtonPress(
@@ -119,6 +127,7 @@ document.addEventListener("click", (e) => {
 		session.likeThreshold
 	)
 })
+
 document.addEventListener("click", (e) => {
 	if (e.target.classList.contains("menu-icon")) return
 	if (!elementState.menuPanel.classList.contains("hidden")) {

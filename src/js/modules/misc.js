@@ -77,35 +77,35 @@ export function dismissNotification(e) {
 	e.target.classList.remove("visible")
 }
 
-export function populateLikedMovies(movie) {
+export async function populateLikedMovies(movieArray) {
 	const emptyMessage = document.querySelector(".empty-message")
 	if (emptyMessage) {
 		emptyMessage.remove()
 	}
 
-	const likedMoviesContainer = document.querySelector(".liked-movies-container")
-
-	likedMoviesContainer.style.paddingBottom = `${
-		(window.outerHeight - window.innerHeight) / 1.5
-	}px`
 	const likedMoviesList = document.querySelector(".liked-movies-list")
+	likedMoviesList.innerHTML = ""
 
-	const likedMovieContainer = document.createElement("div")
-	likedMovieContainer.className = "liked-movie-container"
+	movieArray.forEach((item) => {
+		getMovieDetail(item).then((movie) => {
+			const likedMovieContainer = document.createElement("div")
+			likedMovieContainer.className = "liked-movie-container"
 
-	const likedPoster = document.createElement("a")
-	likedPoster.className = "liked-poster"
-	likedPoster.setAttribute("href", movie.imdbLink)
-	likedPoster.setAttribute("target", "_blank")
+			const likedPoster = document.createElement("a")
+			likedPoster.className = "liked-poster"
+			likedPoster.setAttribute("href", movie.imdbLink)
+			likedPoster.setAttribute("target", "_blank")
 
-	//Set the poster
-	likedPoster.style.backgroundImage = `url(${movie.poster})`
+			//Set the poster
+			likedPoster.style.backgroundImage = `url(${movie.poster})`
 
-	//Construct the element
-	likedMovieContainer.appendChild(likedPoster)
+			//Construct the element
+			likedMovieContainer.appendChild(likedPoster)
 
-	//Insert the element into the list
-	likedMoviesList.appendChild(likedMovieContainer)
+			//Insert the element into the list
+			likedMoviesList.appendChild(likedMovieContainer)
+		})
+	})
 }
 
 export function prepareSessionEnd() {
