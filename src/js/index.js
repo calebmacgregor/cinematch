@@ -20,7 +20,7 @@ setTimeout(() => {
 createSessionButton.addEventListener("click", (e) => {
 	fadePageOut("start-container")
 	setTimeout(() => {
-		window.location.assign("/session-generator.html")
+		window.location.assign("/create.html")
 	}, 250)
 })
 

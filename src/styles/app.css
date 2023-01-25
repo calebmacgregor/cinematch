@@ -281,11 +281,6 @@ body {
   z-index: 2;
 }
 
-.next-poster-container {
-  background-image: url("../assets/poster1.webp");
-  background-size: cover;
-}
-
 .poster-container,
 .next-poster-container {
   position: absolute;
@@ -438,4 +433,4 @@ body {
 .buttons .btn:active,
 .buttons .btn:focus {
   transform: scale(0.9);
-}/*# sourceMappingURL=match.css.map */
+}/*# sourceMappingURL=app.css.map */

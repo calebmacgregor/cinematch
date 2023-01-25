@@ -37,7 +37,7 @@ export function removeBanner() {
 }
 
 export async function redirectToMatchy(sessionName) {
-	window.location.href = `match.html?session=${sessionName}`
+	window.location.href = `app.html?session=${sessionName}`
 }
 
 export function setBodySize() {

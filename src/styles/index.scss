@@ -21,9 +21,35 @@ body {
 	overflow-x: hidden;
 }
 
+section {
+	height: 100%;
+	padding: 2rem;
+}
+
+h1 {
+	font-size: 44px;
+
+	.pink {
+		color: #fd366c;
+	}
+
+	.purple {
+		color: #8288fe;
+	}
+}
+
+.description {
+	h2 {
+		padding-top: 2rem;
+	}
+
+	p {
+		padding: 1rem 0rem;
+	}
+}
+
 .start-container {
 	height: 100%;
-	padding-top: 2rem;
 	background-color: var(--base-colour);
 	display: flex;
 	flex-direction: column;
@@ -31,20 +57,7 @@ body {
 	justify-content: space-between;
 	transition: 250ms ease;
 	opacity: 1;
-	padding: 2rem;
-
-	h1 {
-		font-size: 40px;
-		overflow: visible;
-
-		.pink {
-			color: #fd366c;
-		}
-
-		.purple {
-			color: #8288fe;
-		}
-	}
+	overflow: visible;
 
 	&.hidden {
 		opacity: 0;
@@ -79,7 +92,7 @@ body {
 
 		.left-poster {
 			position: absolute;
-			transform: translate(-200%, 0%) rotate(0deg);
+			transform: translate(-150vw, 0%) rotate(0deg);
 			filter: blur(2px);
 			width: 40%;
 			background-image: url("/src/assets/poster1.webp");
@@ -92,7 +105,7 @@ body {
 
 		.right-poster {
 			position: absolute;
-			transform: translateX(200%) rotate(0deg);
+			transform: translateX(150vw) rotate(0deg);
 			filter: blur(4px);
 			width: 35%;
 			background-image: url("/src/assets/poster3.webp");
