@@ -270,6 +270,8 @@ body {
 .header .menu-container .menu-panel ul li a {
   color: var(--main-font-colour);
   text-decoration: none;
+  display: block;
+  width: 100%;
 }
 .header .menu-container .menu-panel ul li a:visited {
   color: var(--main-font-colour);

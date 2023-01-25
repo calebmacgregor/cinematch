@@ -293,6 +293,8 @@ body {
 					a {
 						color: var(--main-font-colour);
 						text-decoration: none;
+						display: block;
+						width: 100%;
 						&:visited {
 							color: var(--main-font-colour);
 						}

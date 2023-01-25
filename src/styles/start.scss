@@ -19,10 +19,10 @@ $animation-delay: 300ms;
 body {
 	background-color: var(--base-colour);
 	overflow-x: hidden;
-	height: 100%;
 }
 
 .start-container {
+	height: 100%;
 	padding-top: 2rem;
 	background-color: var(--base-colour);
 	display: flex;
@@ -58,7 +58,6 @@ body {
 		justify-content: center;
 		align-items: center;
 		z-index: 1;
-		padding: 3rem 0rem;
 
 		.poster {
 			aspect-ratio: 2/3;
