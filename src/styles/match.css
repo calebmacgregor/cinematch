@@ -238,8 +238,8 @@ body {
 .header .menu-container .menu-panel {
   position: absolute;
   top: 2rem;
-  right: 0;
-  width: 150px;
+  right: 1rem;
+  width: 200px;
   background-color: var(--base-colour);
   padding: 1rem;
   border-radius: 10px;
@@ -262,6 +262,10 @@ body {
 .header .menu-container .menu-panel ul li {
   width: 100%;
   font-weight: 400;
+}
+.header .menu-container .menu-panel ul li#delete-session {
+  color: hsl(0deg, 100%, 62%);
+  font-weight: 600;
 }
 .header .menu-container .menu-panel ul li a {
   color: var(--main-font-colour);

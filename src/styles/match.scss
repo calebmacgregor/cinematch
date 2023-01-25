@@ -260,8 +260,8 @@ body {
 		.menu-panel {
 			position: absolute;
 			top: 2rem;
-			right: 0;
-			width: 150px;
+			right: 1rem;
+			width: 200px;
 			background-color: var(--base-colour);
 			padding: 1rem;
 			border-radius: 10px;
@@ -285,6 +285,11 @@ body {
 				li {
 					width: 100%;
 					font-weight: 400;
+
+					&#delete-session {
+						color: hsl(0, 100%, 62%);
+						font-weight: 600;
+					}
 					a {
 						color: var(--main-font-colour);
 						text-decoration: none;

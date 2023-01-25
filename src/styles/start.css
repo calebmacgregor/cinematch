@@ -14,43 +14,51 @@
 
 body {
   background-color: var(--base-colour);
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .start-container {
-  padding-top: 4rem;
-  position: absolute;
-  height: 100%;
-  width: 100%;
+  padding-top: 2rem;
   background-color: var(--base-colour);
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: hidden;
+  justify-content: space-between;
   transition: 250ms ease;
   opacity: 1;
+  padding: 2rem;
+}
+.start-container h1 {
+  font-size: 40px;
+  overflow: visible;
+}
+.start-container h1 .pink {
+  color: #fd366c;
+}
+.start-container h1 .purple {
+  color: #8288fe;
 }
 .start-container.hidden {
   opacity: 0;
 }
 .start-container .posters {
   position: relative;
-  height: 50%;
   overflow: visible;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
+  padding: 3rem 0rem;
 }
 .start-container .posters .poster {
-  position: absolute;
   aspect-ratio: 2/3;
   border-radius: 10px;
   box-shadow: 0px 10px 64px -3px rgba(0, 0, 0, 0.1);
   width: 20%;
 }
 .start-container .posters .front-poster {
-  position: absolute;
   width: 45%;
   background-image: url("/src/assets/poster2.webp");
   background-size: cover;
@@ -93,19 +101,6 @@ body {
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 }
-.start-container .join-session {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 2;
-}
-.start-container .join-session .header {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--dark-font-colour);
-  background: none;
-  padding-bottom: 2rem;
-}
 .start-container .join-session-form {
   display: flex;
   flex-direction: column;
@@ -134,7 +129,6 @@ body {
 }
 .start-container .buttons {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
