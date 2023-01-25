@@ -1,6 +1,7 @@
 {
 	"devDependencies": {
 		"@parcel/packager-raw-url": "^2.6.2",
+		"@parcel/transformer-sass": "^2.6.2",
 		"@parcel/transformer-webmanifest": "^2.6.2",
 		"parcel": "^2.6.2",
 		"process": "^0.11.10"
@@ -16,7 +17,6 @@
 		"browserslist": "^4.21.1",
 		"buffer-from": "^1.1.2",
 		"callsites": "^3.1.0",
-		"caniuse-lite": "^1.0.30001363",
 		"chalk": "^4.1.2",
 		"chrome-trace-event": "^1.0.3",
 		"clone": "^2.1.2",

@@ -288,6 +288,11 @@ body {
   font-weight: 600;
   overflow: visible;
 }
+.poster-container.mini,
+.next-poster-container.mini {
+  top: 40%;
+  width: 50%;
+}
 .poster-container.hidden,
 .next-poster-container.hidden {
   display: none;

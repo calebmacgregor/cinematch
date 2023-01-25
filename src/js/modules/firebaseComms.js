@@ -82,6 +82,7 @@ export async function joinSession(sessionName) {
 }
 
 export async function deleteSession(sessionName) {
+	await deleteMovies(sessionName)
 	await deleteDoc(doc(db, "sessions", sessionName)).then(() => {
 		window.location.href = "../.."
 	})
@@ -175,4 +176,16 @@ export async function queryMovie(movieID, sessionName) {
 	if (querySnapshot.docs.length === 1) {
 		return querySnapshot.docs[0]
 	}
+}
+
+async function deleteMovies(sessionName) {
+	const moviesRef = collection(db, "movies")
+
+	const q = query(moviesRef, where("sessionName", "==", sessionName))
+
+	const querySnapshot = await getDocs(q)
+
+	querySnapshot.forEach((movie) => {
+		deleteDoc(doc(db, "movies", movie.id))
+	})
 }

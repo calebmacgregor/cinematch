@@ -315,6 +315,11 @@ body {
 	font-weight: 600;
 	overflow: visible;
 
+	&.mini {
+		top: 40%;
+		width: 50%;
+	}
+
 	&.hidden {
 		display: none;
 	}
