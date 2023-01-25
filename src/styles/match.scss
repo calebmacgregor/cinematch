@@ -309,6 +309,11 @@ body {
 	z-index: 2;
 }
 
+.next-poster-container {
+	background-image: url("../assets/poster1.webp");
+	background-size: cover;
+}
+
 .poster-container,
 .next-poster-container {
 	position: absolute;
@@ -321,11 +326,6 @@ body {
 	color: var(--main-font-colour);
 	font-weight: 600;
 	overflow: visible;
-
-	&.mini {
-		top: 40%;
-		width: 50%;
-	}
 
 	&.hidden {
 		display: none;

@@ -129,6 +129,7 @@ body {
 
 	.buttons {
 		display: flex;
+		flex-direction: row-reverse;
 		justify-content: center;
 		align-items: center;
 		gap: 1rem;
