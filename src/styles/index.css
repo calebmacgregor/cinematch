@@ -18,8 +18,10 @@ body {
 }
 
 section {
+  min-height: 100%;
   height: 100%;
   padding: 2rem;
+  overflow: visible;
 }
 
 h1 {
@@ -30,6 +32,10 @@ h1 .pink {
 }
 h1 .purple {
   color: #8288fe;
+}
+
+video {
+  width: 100%;
 }
 
 .description h2 {
@@ -161,6 +167,16 @@ h1 .purple {
   text-decoration: none;
   background-color: var(--secondary-button);
   color: white;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 2rem;
+  text-align: center;
+  font-size: 12px;
 }
 
 @-webkit-keyframes main-entrance {
