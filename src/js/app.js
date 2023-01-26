@@ -61,7 +61,7 @@ joinSession(session.sessionName)
 		//I may remove this later, but randomizing the order makes each
 		//persons session a bit more unique
 		movieArray = movieArray.sort(() => {
-			i = Math.random() - 0.5
+			const i = Math.random() - 0.5
 			return i
 		})
 
@@ -90,7 +90,7 @@ joinSession(session.sessionName)
 	})
 	.catch((err) => {
 		console.log(err)
-		// window.location.href = "../.."
+		window.location.href = "../.."
 	})
 
 elementState.poster.addEventListener("touchstart", (e) =>
