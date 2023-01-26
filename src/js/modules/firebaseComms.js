@@ -108,9 +108,9 @@ export async function listenToSession(sessionName, elementState) {
 				) {
 					notifyOfMatch(newMovie, elementState)
 				}
+				localStorage.setItem(`LIKED-${sessionName}`, JSON.stringify(arr))
+				populateLikedMovies(sessionName)
 			}
-			localStorage.setItem(`LIKED-${sessionName}`, JSON.stringify(arr))
-			populateLikedMovies(sessionName)
 		}
 	})
 }

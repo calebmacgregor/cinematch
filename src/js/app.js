@@ -176,7 +176,6 @@ document.addEventListener("click", (e) => {
 
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("show-likes")) return
-	populateLikedMovies(session.sessionName)
 	showLikedMovies(elementState)
 })
 

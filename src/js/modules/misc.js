@@ -123,7 +123,7 @@ export function prepareSessionEnd() {
 
 export function endSession(elementState) {
 	elementState.posterContainer.classList.add("end")
-	elementState.posterContainer.innerHTML = "All out of movies 😢 <br><br>"
+	elementState.posterContainer.innerHTML = "All out of movies 🍿 <br><br>"
 	elementState.posterContainer.innerHTML +=
 		"Check out your matches by clicking on the ❤️ below."
 	elementState.nextPosterContainer.remove()
