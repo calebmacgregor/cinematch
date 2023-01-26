@@ -19,6 +19,7 @@ body {
 	height: 100vh;
 	overflow: hidden;
 	background-color: var(--base-colour);
+	touch-action: manipulation;
 }
 
 .liked {

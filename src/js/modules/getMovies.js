@@ -1,7 +1,6 @@
-import { prepareSessionEnd } from "./misc.js"
+import { cachePosters, prepareSessionEnd } from "./misc.js"
 import { formatDate } from "./misc.js"
 import { Movie } from "./classes.js"
-import { elementState } from "./state.js"
 
 export async function getMovieArray(sessionSize, genreArray, fromDate, toDate) {
 	const API_KEY = "f1dbd004001c343c62d539bfaf7b8114"
@@ -81,19 +80,13 @@ export async function getMovieDetail(movieID) {
 	)
 }
 
-export async function getRandomMovie(movieArray, elementState) {
-	const length = movieArray.length
-
+export async function getMovie(movieArray, elementState, cachedPosters) {
 	//If this is the last movie, tag it
 	if (movieArray.length === 0) {
 		prepareSessionEnd(elementState)
 	}
-	const movies = movieArray
-	const randomNumber = Math.floor(Math.random() * length)
-	const randomMovie = movies[randomNumber]
+	const movie = movieArray.shift()
+	cachePosters(1, cachedPosters, movieArray)
 
-	movieArray.splice(randomNumber, 1)
-	return randomMovie
+	return movie
 }
-
-export async function getGenreName(genreID) {}

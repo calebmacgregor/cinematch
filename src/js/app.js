@@ -4,11 +4,15 @@ import {
 	listenToSession
 } from "./modules/firebaseComms.js"
 import { initialiseMovie } from "./modules/handleMovieElements.js"
-import { dismissNotification } from "./modules/misc.js"
+import { cachePosters, dismissNotification } from "./modules/misc.js"
 import { elementState, movieState, thresholdState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
 import { fadePageOut } from "./modules/misc.js"
-import { checkAspectRatio, clearSwipedCache } from "./modules/misc.js"
+import {
+	checkAspectRatio,
+	clearSwipedCache,
+	cachePosters
+} from "./modules/misc.js"
 import {
 	shrinkPoster,
 	expandPoster,
@@ -27,6 +31,7 @@ let session = {
 //Set up the global variables that are needed
 let coordinates = new Coordinates()
 let movieArray = []
+let cachedPosters = []
 
 checkAspectRatio()
 
@@ -53,21 +58,35 @@ joinSession(session.sessionName)
 		//Only include movies that aren't in the array
 		movieArray = data.movies.filter((movie) => !swipedMovies.includes(movie))
 
+		//I may remove this later, but randomizing the order makes each
+		//persons session a bit more unique
+		movieArray = movieArray.sort(() => {
+			i = Math.random() - 0.5
+			return i
+		})
+
 		if (movieArray.length === 0) {
+			console.log("Empty session")
 			fadePageOut("loading-container")
 		}
 	})
 	.then(() => {
-		initialiseMovie(movieArray, elementState).then((movie) => {
-			movieState.currentMovie = movie
-			elementState.poster.addEventListener("load", () => {
-				fadePageOut("loading-container")
-			})
-		})
+		initialiseMovie(movieArray, elementState, 1, cachedPosters).then(
+			(movie) => {
+				movieState.currentMovie = movie
+				elementState.poster.addEventListener("load", () => {
+					fadePageOut("loading-container")
+				})
+			}
+		)
 
-		initialiseMovie(movieArray, elementState, 2).then((movie) => {
-			movieState.nextMovie = movie
-		})
+		initialiseMovie(movieArray, elementState, 2, cachedPosters).then(
+			(movie) => {
+				movieState.nextMovie = movie
+			}
+		)
+
+		cachePosters(10, cachedPosters, movieArray)
 	})
 	.catch((err) => {
 		console.log(err)
@@ -90,7 +109,8 @@ elementState.poster.addEventListener("touchend", (e) =>
 		elementState,
 		movieArray,
 		session.sessionName,
-		session.likeThreshold
+		session.likeThreshold,
+		cachedPosters
 	)
 )
 
@@ -128,7 +148,8 @@ document.addEventListener("click", (e) => {
 		movieArray,
 		elementState,
 		session.sessionName,
-		session.likeThreshold
+		session.likeThreshold,
+		cachedPosters
 	)
 })
 

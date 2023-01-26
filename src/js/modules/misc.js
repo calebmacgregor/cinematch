@@ -60,7 +60,6 @@ export function formatDate(date) {
 export function notifyOfMatch(movieObject, elementState) {
 	const movie = getMovieDetail(movieObject)
 	movie.then((data) => {
-		console.log(data)
 		elementState.notificationTitle.innerText = data.title
 		elementState.notificationMovie.src = data.poster
 		elementState.notificationContainer.classList.add("visible")
@@ -175,4 +174,23 @@ export function updateSwipedMovies(sessionName, movieID) {
 export function clearSwipedCache(sessionName) {
 	localStorage.removeItem(sessionName)
 	location.reload()
+}
+
+export async function cachePosters(numberOfPosters, cachedPosters, movieArray) {
+	//Need to grab from the start of the array as getMovie takes
+	//the last first in the array
+	const postersToCache = movieArray.slice(
+		cachedPosters.length,
+		numberOfPosters + cachedPosters.length
+	)
+
+	postersToCache.forEach((poster) => {
+		const image = new Image()
+		cachedPosters.push(poster)
+		getMovieDetail(poster).then((data) => {
+			image.src = data.poster
+		})
+	})
+
+	return cachedPosters
 }

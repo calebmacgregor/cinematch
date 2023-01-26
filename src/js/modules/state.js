@@ -22,7 +22,8 @@ export const elementState = {
 	menuPanel: document.querySelector(".menu-panel"),
 	clearSwipeCache: document.querySelector("#clear-swipe-cache"),
 	likedMoviesContainer: document.querySelector(".liked-movies-container"),
-	deleteSession: document.querySelector("#delete-session")
+	deleteSession: document.querySelector("#delete-session"),
+	body: document.querySelector("body")
 }
 
 export const thresholdState = {

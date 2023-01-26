@@ -112,15 +112,23 @@ export function expandPoster(elementState) {
 	}, speed)
 }
 
-export function edgeSwipe(coordinates, movieState, movieArray, elementState) {
+export function edgeSwipe(
+	coordinates,
+	movieState,
+	movieArray,
+	elementState,
+	cachedPosters
+) {
 	const speed = 250
 	elementState.poster.style.transition = `${speed}ms linear`
 	elementState.poster.style.transform = `translateX(${
 		coordinates.deltaX * -5
 	}px) translateY(${coordinates.deltaY * -5}px)`
+	elementState.body.style.pointerEvents = "none"
 	setTimeout(() => {
 		instantResetCardCoordinates(coordinates, elementState)
-		rotateMovie(movieState, movieArray, elementState)
+		rotateMovie(movieState, movieArray, elementState, cachedPosters)
+		elementState.body.style.pointerEvents = "all"
 	}, speed)
 	removeBanner()
 }
@@ -132,14 +140,15 @@ export function handleSwipe(
 	elementState,
 	movieArray,
 	sessionName,
-	likeThreshold
+	likeThreshold,
+	cachedPosters
 ) {
 	if (
 		coordinates.deltaX * -0.05 > thresholdState.edgeThreshold ||
 		coordinates.deltaX * -0.05 < -thresholdState.edgeThreshold
 	) {
 		//Handle the swipe animation
-		edgeSwipe(coordinates, movieState, movieArray, elementState)
+		edgeSwipe(coordinates, movieState, movieArray, elementState, cachedPosters)
 		if (elementState.poster.getBoundingClientRect().x > 0) {
 			incrementMovie(movieState.currentMovie.id, sessionName, likeThreshold)
 		}
@@ -164,7 +173,8 @@ export function handleButtonPress(
 	movieArray,
 	elementState,
 	sessionName,
-	likeThreshold
+	likeThreshold,
+	cachedPosters
 ) {
 	if (e.target.classList.contains("like")) {
 		incrementMovie(movieState.currentMovie.id, sessionName, likeThreshold)
@@ -178,14 +188,14 @@ export function handleButtonPress(
 		elementState.poster.style.transform = "translateX(-500px) rotate(-15deg)"
 		elementState.poster.classList.remove("disliked")
 	}
-
-	sessionStorage.setItem("MATCHY-posterLock", "true")
+	elementState.body.style.pointerEvents = "none"
 	setTimeout(() => {
 		if (elementState.poster.dataset.final === "true") {
 			endSession(elementState)
 		}
-		rotateMovie(movieState, movieArray, elementState)
+		rotateMovie(movieState, movieArray, elementState, cachedPosters)
 		instantResetCardCoordinates(coordinates, elementState)
+		elementState.body.style.pointerEvents = "all"
 	}, 250)
 
 	updateSwipedMovies(sessionName, movieState.currentMovie.id)

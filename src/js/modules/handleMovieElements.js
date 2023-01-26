@@ -1,13 +1,14 @@
-import { getRandomMovie, getMovieDetail } from "./getMovies.js"
-import { elementState } from "./state.js"
+import { getMovie, getMovieDetail } from "./getMovies.js"
 
 export async function initialiseMovie(
 	movieArray,
 	elementState,
-	posterNumber = 1
+	posterNumber = 1,
+	cachedPosters
 ) {
 	//Get a random movie from the session array
-	const movieID = await getRandomMovie(movieArray, elementState)
+	const movieID = await getMovie(movieArray, elementState, cachedPosters)
+
 	//Get the detail for that movie
 	const movie = await getMovieDetail(movieID)
 
@@ -23,11 +24,16 @@ export async function initialiseMovie(
 	return movie
 }
 
-export function rotateMovie(movieState, movieArray, elementState) {
+export function rotateMovie(
+	movieState,
+	movieArray,
+	elementState,
+	cachedPosters
+) {
 	movieState.currentMovie = movieState.nextMovie
 	setImages(movieState.nextMovie, 1, elementState)
 	setMetadata(movieState.nextMovie)
-	initialiseMovie(movieArray, elementState, 2).then((movie) => {
+	initialiseMovie(movieArray, elementState, 2, cachedPosters).then((movie) => {
 		movieState.nextMovie = movie
 	})
 }
