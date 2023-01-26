@@ -86,6 +86,7 @@ export async function deleteSession(sessionName) {
 	await deleteDoc(doc(db, "sessions", sessionName)).then(() => {
 		window.location.href = "../.."
 	})
+	localStorage.removeItem(`LIKED-${sessionName}`)
 }
 
 export async function listenToSession(sessionName, elementState) {
@@ -107,9 +108,9 @@ export async function listenToSession(sessionName, elementState) {
 				) {
 					notifyOfMatch(newMovie, elementState)
 				}
-				// elementState.likedMoviesContainer.innerHTML = ""
-				populateLikedMovies(arr)
 			}
+			localStorage.setItem(`LIKED-${sessionName}`, JSON.stringify(arr))
+			populateLikedMovies(sessionName)
 		}
 	})
 }

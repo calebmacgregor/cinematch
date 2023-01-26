@@ -82,7 +82,8 @@ export async function getMovieDetail(movieID) {
 
 export async function getMovie(movieArray, elementState, cachedPosters) {
 	//If this is the last movie, tag it
-	if (movieArray.length === 0) {
+	if (movieArray.length === 0 && elementState.poster.dataset.final != "true") {
+		// console.log("Preparing")
 		prepareSessionEnd(elementState)
 	}
 	const movie = movieArray.shift()

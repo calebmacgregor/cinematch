@@ -11,7 +11,8 @@ const genreCloseButton = document.querySelector(".genre-close")
 const submitButton = document.querySelector(".submit-session")
 
 const pageOneInputs = [...document.querySelectorAll(".input-page-1  input")]
-const pageTwoInputs = [...document.querySelectorAll(".input-page-2  input")]
+
+setBodySize()
 
 setTimeout(() => {
 	fadePageIn("form-gen-container")
@@ -19,7 +20,6 @@ setTimeout(() => {
 
 const selectedGenres = []
 const sessionObject = {}
-let genreArray = ""
 
 prevButton.addEventListener("click", () => {
 	previousPage()
@@ -201,8 +201,6 @@ function convertYear(year, firstLast) {
 	return date.toISOString().split("T")[0]
 }
 
-setBodySize()
-
 function nextPage(sessionObject) {
 	// if (!validateFirstPage(sessionObject))
 	fadePageOut("form-gen-container")
@@ -247,7 +245,6 @@ document.body.addEventListener("keydown", (e) => {
 			sessionObject.likeThreshold &&
 			sessionObject.sessionSize
 		) {
-			console.log(sessionObject)
 			nextPage()
 		}
 	} else if (

@@ -4,10 +4,15 @@ import {
 	listenToSession
 } from "./modules/firebaseComms.js"
 import { initialiseMovie } from "./modules/handleMovieElements.js"
-import { cachePosters, dismissNotification } from "./modules/misc.js"
+import {
+	cachePosters,
+	dismissNotification,
+	endSession,
+	populateLikedMovies
+} from "./modules/misc.js"
 import { elementState, movieState, thresholdState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
-import { fadePageOut } from "./modules/misc.js"
+import { fadePageOut, showLikedMovies } from "./modules/misc.js"
 import {
 	checkAspectRatio,
 	clearSwipedCache,
@@ -66,7 +71,7 @@ joinSession(session.sessionName)
 		})
 
 		if (movieArray.length === 0) {
-			console.log("Empty session")
+			endSession(elementState)
 			fadePageOut("loading-container")
 		}
 	})
@@ -171,6 +176,7 @@ document.addEventListener("click", (e) => {
 
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("show-likes")) return
+	populateLikedMovies(session.sessionName)
 	showLikedMovies(elementState)
 })
 
@@ -186,9 +192,6 @@ function hideLikedMovies(elementState) {
 	}, 250)
 }
 
-function showLikedMovies(elementState) {
-	elementState.likedMoviesContainer.style.display = "block"
-	setTimeout(() => {
-		elementState.likedMoviesContainer.classList.remove("hidden")
-	}, 1)
-}
+window.addEventListener("storage", () => {
+	console.log("Storage changed")
+})

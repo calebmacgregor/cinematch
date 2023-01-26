@@ -156,6 +156,7 @@ body {
 		grid-template-columns: repeat(3, 1fr);
 		width: 100%;
 		padding: 1rem;
+		padding-bottom: 5rem;
 		gap: 1rem;
 
 		.liked-movie-container {
@@ -308,6 +309,15 @@ body {
 
 .poster-container {
 	z-index: 2;
+
+	&.end {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 3rem;
+
+		text-align: center;
+	}
 }
 
 .poster-container,

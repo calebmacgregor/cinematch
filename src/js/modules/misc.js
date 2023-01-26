@@ -76,16 +76,19 @@ export function dismissNotification(e) {
 	e.target.classList.remove("visible")
 }
 
-export async function populateLikedMovies(movieArray) {
+export async function populateLikedMovies(sessionName) {
 	const emptyMessage = document.querySelector(".empty-message")
 	if (emptyMessage) {
 		emptyMessage.remove()
 	}
 
+	const likedMovies = JSON.parse(localStorage.getItem(`LIKED-${sessionName}`))
+	console.log(likedMovies)
+
 	const likedMoviesList = document.querySelector(".liked-movies-list")
 	likedMoviesList.innerHTML = ""
 
-	movieArray.forEach((item) => {
+	likedMovies.forEach((item) => {
 		getMovieDetail(item).then((movie) => {
 			const likedMovieContainer = document.createElement("div")
 			likedMovieContainer.className = "liked-movie-container"
@@ -109,15 +112,25 @@ export async function populateLikedMovies(movieArray) {
 
 export function prepareSessionEnd() {
 	//Tag the poster as the final movie
-	const poster = document.querySelector(".poster")
-	poster.dataset.final = "true"
-	elementState.nextPoster.remove()
+	try {
+		const poster = document.querySelector(".poster")
+		poster.dataset.final = "true"
+		elementState.nextPoster.remove()
+	} catch (err) {
+		// console.log(err)
+	}
 }
 
 export function endSession(elementState) {
-	elementState.poster.remove()
-	const buttons = document.querySelector(".buttons")
-	buttons.remove()
+	elementState.posterContainer.classList.add("end")
+	elementState.posterContainer.innerHTML = "All out of movies 😢 <br><br>"
+	elementState.posterContainer.innerHTML +=
+		"Check out your matches by clicking on the ❤️ below."
+	elementState.nextPosterContainer.remove()
+	elementState.like.style.visibility = "hidden"
+	elementState.dislike.style.visibility = "hidden"
+
+	// showLikedMovies(elementState)
 }
 
 export function fadePageOut(containerClassName) {
@@ -197,4 +210,11 @@ export async function cachePosters(numberOfPosters, cachedPosters, movieArray) {
 	})
 
 	return cachedPosters
+}
+
+export function showLikedMovies(elementState) {
+	elementState.likedMoviesContainer.style.display = "block"
+	setTimeout(() => {
+		elementState.likedMoviesContainer.classList.remove("hidden")
+	}, 1)
 }

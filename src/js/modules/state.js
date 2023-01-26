@@ -16,7 +16,9 @@ export const elementState = {
 	menuPanel: document.querySelector(".menu-panel"),
 	clearSwipeCache: document.querySelector("#clear-swipe-cache"),
 	likedMoviesContainer: document.querySelector(".liked-movies-container"),
-	deleteSession: document.querySelector("#delete-session")
+	deleteSession: document.querySelector("#delete-session"),
+	like: document.querySelector(".like"),
+	dislike: document.querySelector(".dislike")
 }
 
 export const thresholdState = {

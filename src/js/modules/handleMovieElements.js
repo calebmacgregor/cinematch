@@ -39,6 +39,7 @@ export function rotateMovie(
 }
 
 export function setMetadata(movie) {
+	if (movie.id === 0) return
 	let title = document.querySelector(".title")
 	let year = document.querySelector(".year")
 	let rating = document.querySelector(".rating")
