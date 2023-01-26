@@ -113,7 +113,6 @@ body {
 			flex-direction: column;
 			justify-content: space-around;
 			position: fixed;
-			top: 50%;
 			height: 100%;
 			width: $width;
 			top: 0;
@@ -131,7 +130,7 @@ body {
 
 			.genre-li {
 				padding: 0.4rem 0rem;
-				font-size: 22px;
+				font-size: 18px;
 
 				&.selected span {
 					border-bottom: solid var(--secondary-accent-colour) 3px;

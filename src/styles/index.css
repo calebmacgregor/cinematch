@@ -41,6 +41,28 @@ video {
   width: 100%;
 }
 
+.size-warning-container {
+  display: none;
+}
+.size-warning-container.visible {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9;
+  font-weight: 600;
+  background-color: var(--base-colour);
+}
+.size-warning-container.visible h2 {
+  font-size: 28px;
+  padding-bottom: 2rem;
+}
+
 .description h2 {
   padding-top: 2rem;
 }

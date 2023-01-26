@@ -149,9 +149,13 @@ export function checkAspectRatio() {
 			sizeWarningContainer.classList.add("size-warning-container")
 			sizeWarningContainer.classList.add("visible")
 
+			const sizeWarningHeader = document.createElement("H2")
+			sizeWarningHeader.innerHTML = "Woops..."
+			sizeWarningContainer.appendChild(sizeWarningHeader)
+
 			const sizeWarning = document.createElement("p")
 			sizeWarning.innerHTML =
-				"This app was designed for phones (And tablets, although it looks best on phones). </br></br> If you are on your phone, rotate it to portrait mode. If you're on desktop, try visiting on your phone"
+				"This app was designed for phones. </br></br> If you are on your phone, rotate it to portrait mode. If you're on desktop, try visiting on your phone"
 
 			sizeWarningContainer.appendChild(sizeWarning)
 			document.body.appendChild(sizeWarningContainer)
