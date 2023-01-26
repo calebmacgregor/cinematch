@@ -401,6 +401,11 @@ body {
   z-index: 10;
   transition: opacity 200ms;
 }
+@media (display-mode: standalone) {
+  .buttons {
+    padding-bottom: 4rem;
+  }
+}
 .buttons .liked-icon {
   display: flex;
   align-items: center;

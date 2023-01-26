@@ -13,15 +13,15 @@ checkAspectRatio()
 
 window.addEventListener("resize", checkAspectRatio)
 
-setTimeout(() => {
-	fadePageIn("start-container")
-}, 250)
+// setTimeout(() => {
+// 	fadePageIn("start-container")
+// }, 250)
 
 createSessionButton.addEventListener("click", (e) => {
-	fadePageOut("start-container")
-	setTimeout(() => {
-		window.location.assign("/create.html")
-	}, 250)
+	// fadePageOut("start-container")
+	// setTimeout(() => {
+	window.location.assign("/create.html")
+	// }, 250)
 })
 
 form.addEventListener("submit", (e) => {
@@ -29,10 +29,10 @@ form.addEventListener("submit", (e) => {
 	if (input.value) {
 		checkIfSessionExists(input.value).then((result) => {
 			if (result) {
-				fadePageOut("start-container")
-				setTimeout(() => {
-					redirectToMatchy(input.value)
-				}, 250)
+				// fadePageOut("start-container")
+				// setTimeout(() => {
+				redirectToMatchy(input.value)
+				// }, 250)
 			} else {
 				const joinButton = document.querySelector(".join-session-btn")
 				joinButton.innerText = "No session exists :("

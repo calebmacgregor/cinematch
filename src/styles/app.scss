@@ -426,6 +426,10 @@ body {
 	z-index: 10;
 	transition: opacity 200ms;
 
+	@media (display-mode: standalone) {
+		padding-bottom: 4rem;
+	}
+
 	.liked-icon {
 		display: flex;
 		align-items: center;
