@@ -38,7 +38,6 @@ let movieArray = []
 let cachedPosters = []
 
 checkAspectRatio()
-setPosterSize(elementState)
 
 window.addEventListener("resize", () => {
 	checkAspectRatio()
@@ -84,6 +83,7 @@ joinSession(session.sessionName)
 				movieState.currentMovie = movie
 				elementState.poster.addEventListener("load", () => {
 					fadePageOut("loading-container")
+					setPosterSize(elementState)
 				})
 			}
 		)
