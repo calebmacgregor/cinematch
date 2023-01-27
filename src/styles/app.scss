@@ -285,6 +285,7 @@ body {
 		justify-content: center;
 		position: relative;
 		overflow: visible;
+		-webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 
 		.menu-panel {
 			position: absolute;

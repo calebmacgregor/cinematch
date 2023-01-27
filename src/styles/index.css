@@ -101,6 +101,7 @@ video {
 }
 .start-container .posters .front-poster {
   width: 45%;
+  height: 100%;
   background-image: url("/src/assets/poster2.webp");
   background-size: cover;
   z-index: 3;
