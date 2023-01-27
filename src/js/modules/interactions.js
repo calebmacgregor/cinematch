@@ -177,10 +177,10 @@ export function handleButtonPress(
 			likeThreshold
 		)
 		elementState.poster.style.transition = `250ms linear`
-		elementState.poster.style.transform = "translateX(500px) rotate(15deg)"
+		elementState.poster.style.transform = "translateX(100vw) rotate(10deg)"
 	} else if (e.target.classList.contains("dislike")) {
 		elementState.poster.style.transition = `250ms linear`
-		elementState.poster.style.transform = "translateX(-500px) rotate(-15deg)"
+		elementState.poster.style.transform = "translateX(-100vw) rotate(-10deg)"
 	}
 	elementState.body.style.pointerEvents = "none"
 	setTimeout(() => {

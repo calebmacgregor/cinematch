@@ -14,6 +14,7 @@ import { Coordinates } from "./modules/classes.js"
 import { fadePageOut, showLikedMovies } from "./modules/misc.js"
 import {
 	checkAspectRatio,
+	setPosterSize,
 	clearSwipedCache,
 	cachePosters
 } from "./modules/misc.js"
@@ -37,8 +38,12 @@ let movieArray = []
 let cachedPosters = []
 
 checkAspectRatio()
+setPosterSize(elementState)
 
-window.addEventListener("resize", checkAspectRatio)
+window.addEventListener("resize", () => {
+	checkAspectRatio()
+	setPosterSize(elementState)
+})
 
 //Import the session
 joinSession(session.sessionName)

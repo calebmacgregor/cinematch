@@ -1,5 +1,6 @@
 export const elementState = {
 	body: document.querySelector("body"),
+	header: document.querySelector(".header"),
 	posterContainer: document.querySelector(".poster-container"),
 	nextPosterContainer: document.querySelector(".next-poster-container"),
 	poster: document.querySelector(".poster"),

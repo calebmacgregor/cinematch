@@ -255,7 +255,7 @@ body {
 	color: var(--main-font-colour);
 	padding: 2rem;
 	overflow: visible;
-	z-index: 5;
+	z-index: 3;
 
 	.nav-content-centre {
 		display: flex;
@@ -351,10 +351,10 @@ body {
 .poster-container,
 .next-poster-container {
 	position: absolute;
-	top: 10%;
+	top: 75px;
 	left: 50%;
 	transform: translate(-50%);
-	width: 90%;
+	// width: 90%;
 	aspect-ratio: 2 / 3;
 	border-radius: var(--border-radius);
 	color: var(--main-font-colour);
@@ -457,12 +457,16 @@ body {
 	position: fixed;
 	display: flex;
 	width: 100%;
+	min-width: 320px;
+	max-width: 550px;
 	justify-content: space-between;
 	align-items: flex-start;
 	bottom: 0;
 	padding: 0rem 3rem 1rem 3rem;
 	z-index: 10;
 	transition: opacity 200ms;
+	left: 50%;
+	transform: translateX(-50%);
 
 	@media (display-mode: standalone) {
 		padding-bottom: 4rem;
@@ -472,8 +476,6 @@ body {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 4rem;
-		height: 4rem;
 		background-color: white;
 		padding: 1rem;
 		border-radius: 50%;
@@ -489,10 +491,10 @@ body {
 		align-items: center;
 		justify-content: center;
 		transition: 100ms ease;
-		height: 5rem;
-		width: 5rem;
 		border-radius: 50%;
 		padding: 1rem;
+		width: 100%;
+		aspect-ratio: 1/1;
 
 		&.like {
 			background-color: hsl(127, 40%, 94%);

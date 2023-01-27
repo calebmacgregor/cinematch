@@ -158,6 +158,24 @@ export function checkAspectRatio() {
 	else {
 		if (elementCheck) elementCheck.classList.remove("visible")
 	}
+
+	return { height, width, aspectRatio }
+}
+
+export function setPosterSize(elementState) {
+	const { height, width } = checkAspectRatio()
+	const buttonHeight = elementState.buttons.offsetHeight
+	const headerHeight = elementState.header.offsetHeight
+
+	const posterAspect = 2 / 3
+	const availableVerticalSpace = height * 0.95 - buttonHeight - headerHeight
+
+	const proposedWidth = availableVerticalSpace * posterAspect
+	const posterWidth =
+		proposedWidth > width * 0.95 ? width * 0.95 : proposedWidth
+
+	elementState.posterContainer.style.width = `${posterWidth}px`
+	elementState.nextPosterContainer.style.width = `${posterWidth}px`
 }
 
 export function updateSwipedMovies(sessionName, movieID) {
