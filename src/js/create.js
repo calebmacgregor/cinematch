@@ -1,6 +1,6 @@
 import { getMovieArray } from "./modules/getMovies"
 import { createSession } from "./modules/firebaseComms"
-import { redirectToMatchy, setBodySize } from "./modules/misc"
+import { createToast, redirectToMatchy, setBodySize } from "./modules/misc"
 import { fadePageIn, fadePageOut } from "./modules/misc"
 
 const prevButton = document.querySelector(".previous-page")
@@ -87,11 +87,13 @@ function submitSession(sessionObject) {
 				parseInt(sessionObject.sessionSize)
 			).then((result) => {
 				if (result.error == 1) {
-					document.querySelector(".submit-session").innerText =
-						"That name is taken 😢"
-					setTimeout(() => {
-						document.querySelector(".submit-session").innerText = "Create"
-					}, 3000)
+					createToast(
+						"error",
+						"Name already taken",
+						"Looks like that name is taken. Try picking a different one",
+						2000
+					)
+					document.querySelector(".submit-session").innerText = "Create"
 					return
 				}
 				redirectToMatchy(sessionObject.sessionName)
@@ -103,14 +105,9 @@ function submitSession(sessionObject) {
 submitButton.addEventListener("click", () => {
 	submitSession(sessionObject)
 })
-
-//Disable default form behaviour
-//TODO: Actually set this form up properly
 const form = document.querySelector(".form-gen-container")
 form.addEventListener("submit", (e) => {
 	e.preventDefault()
-	// submitSession(sessionObject)
-	// redirectToMatchy()
 })
 
 //Handle the opening and closing of the genre selector
@@ -201,8 +198,7 @@ function convertYear(year, firstLast) {
 	return date.toISOString().split("T")[0]
 }
 
-function nextPage(sessionObject) {
-	// if (!validateFirstPage(sessionObject))
+function nextPage() {
 	fadePageOut("form-gen-container")
 	setTimeout(() => {
 		secondPage.classList.remove("hidden")

@@ -1,0 +1,53 @@
+.toast-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+  z-index: 9999;
+}
+.toast-container .toast {
+  position: relative;
+  width: 80%;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid;
+  background-color: var(--base-colour);
+  box-shadow: 0px 20px 20px -5px rgba(0, 0, 0, 0.1);
+  transition: 500ms ease;
+  margin-bottom: 1rem;
+}
+.toast-container .toast.appearing {
+  transform: translateY(-50vh);
+}
+.toast-container .toast.removing {
+  transform: translateY(-50vh);
+}
+.toast-container .toast.removing.phase-two {
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+.toast-container .toast.error {
+  background-color: hsl(13deg, 74%, 95%);
+  border-color: hsl(13deg, 74%, 90%);
+}
+.toast-container .toast.warning {
+  background-color: hsl(38deg, 94%, 96%);
+  border-color: hsl(38deg, 94%, 90%);
+}
+.toast-container .toast.info {
+  background-color: hsl(214deg, 68%, 94%);
+  border-color: hsl(214deg, 68%, 90%);
+}
+.toast-container .toast .title {
+  font-size: 16px;
+  font-weight: 700;
+}
+.toast-container .toast .content {
+  font-size: 12px;
+}/*# sourceMappingURL=toast.css.map */
