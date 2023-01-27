@@ -7,10 +7,9 @@ import { initialiseMovie } from "./modules/handleMovieElements.js"
 import {
 	cachePosters,
 	dismissNotification,
-	endSession,
-	populateLikedMovies
+	endSession
 } from "./modules/misc.js"
-import { elementState, movieState, thresholdState } from "./modules/state.js"
+import { elementState, movieState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
 import { fadePageOut, showLikedMovies } from "./modules/misc.js"
 import {
@@ -19,12 +18,11 @@ import {
 	cachePosters
 } from "./modules/misc.js"
 import {
-	shrinkPoster,
-	expandPoster,
 	handleButtonPress,
 	handleSwipe,
 	handleTouchStart,
-	handleMove
+	handleMove,
+	handlePosterSizing
 } from "./modules/interactions.js"
 
 //Get the session from the URL parameters
@@ -69,6 +67,7 @@ joinSession(session.sessionName)
 			const i = Math.random() - 0.5
 			return i
 		})
+		console.log(movieArray)
 
 		if (movieArray.length === 0) {
 			endSession(elementState)
@@ -76,7 +75,7 @@ joinSession(session.sessionName)
 		}
 	})
 	.then(() => {
-		initialiseMovie(movieArray, elementState, 1, cachedPosters).then(
+		initialiseMovie(movieArray, elementState, 1, cachedPosters, 0).then(
 			(movie) => {
 				movieState.currentMovie = movie
 				elementState.poster.addEventListener("load", () => {
@@ -85,7 +84,7 @@ joinSession(session.sessionName)
 			}
 		)
 
-		initialiseMovie(movieArray, elementState, 2, cachedPosters).then(
+		initialiseMovie(movieArray, elementState, 2, cachedPosters, 1).then(
 			(movie) => {
 				movieState.nextMovie = movie
 			}
@@ -109,7 +108,6 @@ elementState.poster.addEventListener("touchmove", (e) =>
 elementState.poster.addEventListener("touchend", (e) =>
 	handleSwipe(
 		coordinates,
-		thresholdState,
 		movieState,
 		elementState,
 		movieArray,
@@ -121,15 +119,15 @@ elementState.poster.addEventListener("touchend", (e) =>
 
 elementState.poster.addEventListener("click", () => {
 	if (elementState.poster.classList.contains("shrunk")) return
-	shrinkPoster(elementState)
+	handlePosterSizing(elementState)
 })
 
 elementState.synopsis.addEventListener("click", () => {
-	expandPoster(elementState)
+	handlePosterSizing(elementState)
 })
 
 elementState.dismiss.addEventListener("click", () => {
-	expandPoster(elementState)
+	handlePosterSizing(elementState)
 })
 
 elementState.menuContainer.addEventListener("click", (e) => {

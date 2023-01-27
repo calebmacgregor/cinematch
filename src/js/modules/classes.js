@@ -7,7 +7,6 @@ export class Coordinates {
 		this.deltaX = undefined
 		this.deltaY = undefined
 		this.rotationPivot = undefined
-		this.speed = undefined
 		this.direction = undefined
 	}
 }

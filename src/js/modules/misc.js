@@ -1,39 +1,23 @@
 import { getMovieDetail } from "./getMovies"
-import { elementState } from "./state"
 
 export function renderBanner(coordinatesObject) {
 	const likedStatus = document.querySelector(".liked-status")
 	let directionCheck = coordinatesObject.deltaX / 100
 	if (directionCheck < 0) {
-		likedStatus.style.display = "block"
+		likedStatus.classList.add("liked")
+		likedStatus.classList.remove("disliked")
 		likedStatus.style.opacity = `${Math.abs(directionCheck)}`
-		likedStatus.style.right = "1rem"
-		likedStatus.style.left = ""
-		likedStatus.style.transform = "rotate(15deg)"
-		likedStatus.innerText = "Like"
-		likedStatus.style.color = "#53dd6c"
-		likedStatus.style.borderColor = "#53dd6c"
 	} else if (directionCheck > 0) {
-		likedStatus.style.display = "block"
+		likedStatus.classList.add("disliked")
+		likedStatus.classList.remove("liked")
 		likedStatus.style.opacity = `${Math.abs(directionCheck)}`
-		likedStatus.style.right = ""
-		likedStatus.style.left = "1rem"
-		likedStatus.style.transform = "rotate(-15deg)"
-		likedStatus.innerText = "Dislike"
-		likedStatus.style.color = "#FF3C38"
-		likedStatus.style.borderColor = "#FF3C38"
 	}
 }
 
 export function removeBanner() {
 	const likedStatus = document.querySelector(".liked-status")
-	likedStatus.style.display = "none"
-	likedStatus.style.opacity = `0`
-	likedStatus.style.right = ""
-	likedStatus.style.transform = ""
-	likedStatus.innerText = ""
-	likedStatus.style.color = ""
-	likedStatus.style.borderColor = ""
+	likedStatus.classList.remove("liked")
+	likedStatus.classList.remove("disliked")
 }
 
 export async function redirectToMatchy(sessionName) {
@@ -83,7 +67,6 @@ export async function populateLikedMovies(sessionName) {
 	}
 
 	const likedMovies = JSON.parse(localStorage.getItem(`LIKED-${sessionName}`))
-	console.log(likedMovies)
 
 	const likedMoviesList = document.querySelector(".liked-movies-list")
 	likedMoviesList.innerHTML = ""
@@ -110,14 +93,13 @@ export async function populateLikedMovies(sessionName) {
 	})
 }
 
-export function prepareSessionEnd() {
+export function prepareSessionEnd(elementState) {
 	//Tag the poster as the final movie
 	try {
-		const poster = document.querySelector(".poster")
-		poster.dataset.final = "true"
+		elementState.poster.dataset.final = "true"
 		elementState.nextPoster.remove()
 	} catch (err) {
-		// console.log(err)
+		console.log(err)
 	}
 }
 
@@ -129,8 +111,6 @@ export function endSession(elementState) {
 	elementState.nextPosterContainer.remove()
 	elementState.like.style.visibility = "hidden"
 	elementState.dislike.style.visibility = "hidden"
-
-	// showLikedMovies(elementState)
 }
 
 export function fadePageOut(containerClassName) {

@@ -21,7 +21,7 @@ body {
   touch-action: manipulation;
 }
 
-.liked {
+.liked-banner-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -29,15 +29,39 @@ body {
   width: 100%;
   pointer-events: none;
 }
-.liked .liked-status {
-  position: absolute;
+.liked-banner-container .liked-status {
   display: none;
+  position: absolute;
   top: 6rem;
   border: 0.5rem;
   border-style: solid;
   border-radius: 5px;
   font-size: 50px;
   z-index: 100;
+  font-weight: 700;
+  pointer-events: none;
+}
+.liked-banner-container .liked-status.liked {
+  display: block;
+  right: 1rem;
+  left: "";
+  transform: rotate(15deg);
+  color: hsl(131deg, 67%, 60%);
+  border-color: hsl(131deg, 67%, 60%);
+}
+.liked-banner-container .liked-status.liked::before {
+  content: "Liked";
+}
+.liked-banner-container .liked-status.disliked {
+  display: block;
+  right: "";
+  left: 1rem;
+  transform: rotate(-15deg);
+  color: hsl(1deg, 100%, 61%);
+  border-color: hsl(1deg, 100%, 61%);
+}
+.liked-banner-container .liked-status.disliked::before {
+  content: "Disliked";
 }
 
 .size-warning-container {

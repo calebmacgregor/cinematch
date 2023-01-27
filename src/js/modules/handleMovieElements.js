@@ -4,10 +4,11 @@ export async function initialiseMovie(
 	movieArray,
 	elementState,
 	posterNumber = 1,
-	cachedPosters
+	cachedPosters,
+	index
 ) {
 	//Get a random movie from the session array
-	const movieID = await getMovie(movieArray, elementState, cachedPosters)
+	const movieID = await getMovie(movieArray, elementState, cachedPosters, index)
 
 	//Get the detail for that movie
 	const movie = await getMovieDetail(movieID)
@@ -15,6 +16,7 @@ export async function initialiseMovie(
 	//Set the metadata if relevant
 	if (posterNumber === 1) {
 		setMetadata(movie)
+		elementState.poster.dataset.id = movie.id
 	}
 
 	//Set the images for the relevant poster
@@ -31,11 +33,15 @@ export function rotateMovie(
 	cachedPosters
 ) {
 	movieState.currentMovie = movieState.nextMovie
+	elementState.poster.dataset.id = movieState.currentMovie.id
+
 	setImages(movieState.nextMovie, 1, elementState)
 	setMetadata(movieState.nextMovie)
-	initialiseMovie(movieArray, elementState, 2, cachedPosters).then((movie) => {
-		movieState.nextMovie = movie
-	})
+	initialiseMovie(movieArray, elementState, 2, cachedPosters, 0).then(
+		(movie) => {
+			movieState.nextMovie = movie
+		}
+	)
 }
 
 export function setMetadata(movie) {

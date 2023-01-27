@@ -80,13 +80,20 @@ export async function getMovieDetail(movieID) {
 	)
 }
 
-export async function getMovie(movieArray, elementState, cachedPosters) {
+export async function getMovie(movieArray, elementState, cachedPosters, index) {
 	//If this is the last movie, tag it
 	if (movieArray.length === 0 && elementState.poster.dataset.final != "true") {
-		// console.log("Preparing")
 		prepareSessionEnd(elementState)
 	}
-	const movie = movieArray.shift()
+
+	//If there are only 2 movies available at the start of the session then
+	//I need to make sure the input index is 0, or it'll try
+	//and grab an out of range movie
+	index = movieArray.length === 1 ? 0 : index
+
+	const movie = movieArray[index]
+	movieArray.splice(index, 1)
+
 	cachePosters(1, cachedPosters, movieArray)
 
 	return movie
