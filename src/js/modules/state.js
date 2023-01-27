@@ -21,10 +21,6 @@ export const elementState = {
 	dislike: document.querySelector(".dislike")
 }
 
-export const thresholdState = {
-	edgeThreshold: 5
-}
-
 export const movieState = {
 	currentMovie: {},
 	nextMovie: {}

@@ -67,7 +67,6 @@ joinSession(session.sessionName)
 			const i = Math.random() - 0.5
 			return i
 		})
-		console.log(movieArray)
 
 		if (movieArray.length === 0) {
 			endSession(elementState)
@@ -188,7 +187,3 @@ function hideLikedMovies(elementState) {
 		elementState.likedMoviesContainer.style.display = "none"
 	}, 250)
 }
-
-window.addEventListener("storage", () => {
-	console.log("Storage changed")
-})
