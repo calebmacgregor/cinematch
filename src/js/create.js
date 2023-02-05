@@ -7,10 +7,10 @@ const prevButton = document.querySelector(".previous-page")
 const nextButton = document.querySelector(".next-page")
 const firstPage = document.querySelector(".input-page-1")
 const secondPage = document.querySelector(".input-page-2")
-const genreCloseButton = document.querySelector(".genre-close")
 const submitButton = document.querySelector(".submit-session")
 
-const pageOneInputs = [...document.querySelectorAll(".input-page-1  input")]
+const pageOneInputs = [...document.querySelectorAll(".input-page-1 input")]
+const selectorContainers = [...document.querySelectorAll(".selector-container")]
 
 setBodySize()
 
@@ -19,19 +19,20 @@ setTimeout(() => {
 }, 250)
 
 const selectedGenres = []
+const selectedProviders = []
 const sessionObject = {}
 
 prevButton.addEventListener("click", () => {
 	previousPage()
 })
 
-sessionData(selectedGenres, sessionObject)
+sessionData(selectedGenres, selectedProviders, sessionObject)
 populateGenres().then((data) => {
 	genreArray = data.genres
 })
 
 async function populateGenres() {
-	const API_KEY = "f1dbd004001c343c62d539bfaf7b8114"
+	const API_KEY = process.env.TMDB_API_KEY
 	const genre_url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
 	const genreList = document.querySelector(".genres")
 
@@ -55,13 +56,59 @@ async function populateGenres() {
 	return genres
 }
 
-function sessionData(selectedGenres, sessionObject) {
+async function populateProviders(watchRegion = "AU") {
+	const API_KEY = process.env.TMDB_API_KEY
+	const provider_url = `https://api.themoviedb.org/3/watch/providers/movie?api_key=${API_KEY}&language=en-US&watch_region=${watchRegion}`
+	const providerList = document.querySelector(".providers")
+
+	const fetched = await fetch(provider_url)
+	const providerData = await fetched.json()
+
+	providerData.results.forEach((provider) => {
+		const li = document.createElement("li")
+		li.classList = "provider-li"
+		li.id = `provider-${provider.provider_id}`
+		li.setAttribute("data-provider-id", provider.provider_id)
+		li.setAttribute("data-provider-name", provider.provider_name)
+
+		const span = document.createElement("span")
+		span.classList = "provider-span"
+		span.innerText = provider.provider_name
+		li.appendChild(span)
+
+		providerList.appendChild(li)
+	})
+}
+
+populateProviders()
+
+async function populateRegions() {
+	const API_KEY = process.env.TMDB_API_KEY
+	const region_url = `https://api.themoviedb.org/3/watch/providers/regions?api_key=${API_KEY}&language=en-US`
+	const regionList = document.querySelector("#country")
+
+	const fetched = await fetch(region_url)
+	const regionData = await fetched.json()
+
+	regionData.results.forEach((region) => {
+		const option = document.createElement("option")
+		option.value = region.iso_3166_1
+		option.innerHTML = region.native_name
+
+		regionList.appendChild(option)
+	})
+}
+
+populateRegions()
+
+function sessionData(selectedGenres, selectedProviders, sessionObject) {
 	//Get data from all inputs on the page
 	const sessionName = document.querySelector("#session-name")
 	const likeThreshold = document.querySelector("#like-threshold")
 	const sessionSize = document.querySelector("#session-size")
 	const fromYear = document.querySelector("#from-date")
 	const toYear = document.querySelector("#to-date")
+	const country = document.querySelector("#country")
 
 	sessionObject.sessionName = sessionName.value
 	sessionObject.likeThreshold = likeThreshold.value
@@ -69,17 +116,15 @@ function sessionData(selectedGenres, sessionObject) {
 	sessionObject.fromYear = convertYear(fromYear.value, "first")
 	sessionObject.toYear = convertYear(toYear.value, "last")
 	sessionObject.genres = selectedGenres
+	sessionObject.providers = selectedProviders
+	sessionObject.country =
+		country.value === "default" ? undefined : country.value
 }
 
 function submitSession(sessionObject) {
 	if (validateCompleteSession(sessionObject)) {
 		document.querySelector(".submit-session").innerText = "Loading..."
-		getMovieArray(
-			sessionObject.sessionSize,
-			sessionObject.genres,
-			sessionObject.fromYear,
-			sessionObject.toYear
-		).then((data) => {
+		getMovieArray(sessionObject).then((data) => {
 			createSession(
 				data,
 				sessionObject.sessionName,
@@ -105,32 +150,27 @@ function submitSession(sessionObject) {
 submitButton.addEventListener("click", () => {
 	submitSession(sessionObject)
 })
+
 const form = document.querySelector(".form-gen-container")
 form.addEventListener("submit", (e) => {
 	e.preventDefault()
 })
 
-//Handle the opening and closing of the genre selector
-function openGenreSelector(e) {
-	const genreTrigger = e.target.closest(".genre-trigger")
-	if (!genreTrigger) return
-	const genresContainer = document.querySelector(".genres-container")
-	genresContainer.classList.remove("hidden")
+function openSelector(e) {
+	const selectorTrigger = e.target.closest(".selector-trigger")
+	if (!selectorTrigger) return
+
+	const container = selectorTrigger.closest(".input-container")
+	const selectorContainer = container.querySelector(".selector-container")
+	selectorContainer.classList.remove("hidden")
 }
 
-function closeGenreSelector() {
-	const genresContainer = document.querySelector(".genres-container")
-	genresContainer.classList.add("hidden")
-}
-
-genreCloseButton.addEventListener("click", closeGenreSelector)
-document.addEventListener("click", openGenreSelector)
+document.addEventListener("click", openSelector)
 
 //Handle adding items to the genre list
 function addToGenreList(e, selectedGenres, sessionObject) {
 	if (!e.target.matches(".genre-li, .genre-span")) return
 	const elem = e.target.closest(".genre-li")
-	const genreTrigger = document.querySelector(".genre-trigger")
 	const genreID = elem.dataset.genreId
 	if (selectedGenres.includes(genreID)) {
 		const idIndex = selectedGenres.indexOf(genreID)
@@ -146,10 +186,32 @@ function addToGenreList(e, selectedGenres, sessionObject) {
 
 	const genreNames = document.querySelector(".genre-names")
 	genreNames.innerText = `${selectedGenres.length} selected`
-	sessionData(selectedGenres, sessionObject)
+	sessionData(selectedGenres, selectedProviders, sessionObject)
+}
+
+function addToProviderList(e, selectedProviders, sessionObject) {
+	if (!e.target.matches(".provider-li, .provider-span")) return
+	const elem = e.target.closest(".provider-li")
+	const providerID = elem.dataset.providerId
+
+	if (selectedProviders.includes(providerID)) {
+		const idIndex = selectedProviders.indexOf(providerID)
+		selectedProviders.splice(idIndex, 1)
+		elem.classList.remove("selected")
+	} else {
+		//Adjust the class to highlight the selected
+		elem.classList.add("selected")
+
+		//Add the genre id to the array
+		selectedProviders.push(providerID)
+	}
+	const providerNames = document.querySelector(".provider-names")
+	providerNames.innerText = `${selectedProviders.length} selected`
+	sessionData(selectedGenres, selectedProviders, sessionObject)
 }
 
 document.addEventListener("click", (e) => {
+	addToProviderList(e, selectedProviders, sessionObject)
 	addToGenreList(e, selectedGenres, sessionObject)
 })
 
@@ -170,7 +232,7 @@ function removeFromGenreList(e, selectedGenres, sessionObject) {
 	//Remove the tag
 	e.target.remove()
 
-	sessionData(selectedGenres, sessionObject)
+	sessionData(selectedGenres, selectedProviders, sessionObject)
 }
 
 document.addEventListener("click", (e) => {
@@ -179,7 +241,7 @@ document.addEventListener("click", (e) => {
 
 //Keep track of the inputs
 document.addEventListener("input", () => {
-	sessionData(selectedGenres, sessionObject)
+	sessionData(selectedGenres, selectedProviders, sessionObject)
 })
 
 function convertYear(year, firstLast) {
@@ -272,7 +334,8 @@ function validateCompleteSession(sessionObject) {
 		!isNaN(sessionObject.sessionSize) &&
 		Date.parse(sessionObject.fromYear) &&
 		Date.parse(sessionObject.toYear) &&
-		sessionObject.genres.length > 0
+		sessionObject.genres.length > 0 &&
+		sessionObject.providers.length > 0
 	)
 		return true
 }
@@ -284,7 +347,17 @@ function validateFirstPage(sessionObject) {
 		sessionObject.likeThreshold > 1 &&
 		!isNaN(sessionObject.likeThreshold) &&
 		sessionObject.sessionSize &&
-		!isNaN(sessionObject.sessionSize)
+		!isNaN(sessionObject.sessionSize) &&
+		sessionObject.country
 	)
 		return true
 }
+
+document.addEventListener("click", (e) => {
+	const shade = e.target.closest(".shade")
+	if (!shade) return
+
+	selectorContainers.forEach((container) => {
+		container.classList.add("hidden")
+	})
+})

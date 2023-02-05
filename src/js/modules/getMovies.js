@@ -2,23 +2,30 @@ import { cachePosters, prepareSessionEnd } from "./misc.js"
 import { formatDate } from "./misc.js"
 import { Movie } from "./classes.js"
 
-export async function getMovieArray(sessionSize, genreArray, fromDate, toDate) {
-	const API_KEY = "f1dbd004001c343c62d539bfaf7b8114"
+export async function getMovieArray(sessionObject) {
+	const { sessionSize, genres, providers, fromYear, toYear, country } =
+		sessionObject
+	const API_KEY = process.env.TMDB_API_KEY
 	const BASE_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US`
 	const adultParameter = "&include_adult=false"
-	const sinceDateParameter = `&primary_release_date.gte=${fromDate}`
-	const toDateParameter = `&primary_release_date.lte=${toDate}`
+	const sinceDateParameter = `&primary_release_date.gte=${fromYear}`
+	const toDateParameter = `&primary_release_date.lte=${toYear}`
 	const voteCountParameter = "&vote_count.gte=100"
-	const genreParameter = genreArray
-		? `&with_genres=${genreArray.join("|")}`
+	const genreParameter = genres ? `&with_genres=${genres.join("|")}` : ""
+	const providerParameter = providers
+		? `&with_watch_providers=${providers.join("|")}`
 		: ""
+	const regionParameter =
+		country === undefined ? "" : `&watch_region=${country}`
 	const URL = `${
 		BASE_URL +
 		adultParameter +
 		voteCountParameter +
 		genreParameter +
+		providerParameter +
 		sinceDateParameter +
-		toDateParameter
+		toDateParameter +
+		regionParameter
 	}`
 	const PAGE_URL = `&page=`
 	const results = []
@@ -44,10 +51,11 @@ export async function getMovieArray(sessionSize, genreArray, fromDate, toDate) {
 	return results
 }
 
-export async function getMovieDetail(movieID) {
+export async function getMovieDetail(movieID, country = "AU") {
 	if (movieID == undefined) {
 		return new Movie(
 			0,
+			undefined,
 			undefined,
 			undefined,
 			undefined,
@@ -61,11 +69,18 @@ export async function getMovieDetail(movieID) {
 	const API_KEY = process.env.TMDB_API_KEY
 	const movieURL = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=en-US`
 	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
-	const imdbBaseURL = "https://www.imdb.com/title/"
+	const providerURL = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${API_KEY}`
 
 	const fetched = await fetch(movieURL)
 	const data = await fetched.json()
 	const genres = data.genres.slice(0, 2).map((genre) => genre.name)
+
+	const fetchedProviders = await fetch(providerURL)
+	const providersData = await fetchedProviders.json()
+	const providers = []
+	providersData.results[country].flatrate.forEach((provider) => {
+		providers.push(provider.provider_name)
+	})
 
 	return new Movie(
 		data.id,
@@ -76,7 +91,8 @@ export async function getMovieDetail(movieID) {
 		genres.join(`/`),
 		data.runtime,
 		data.overview,
-		`${imdbBaseURL}${data.imdb_id}`
+		`${providersData.results[country].link}`,
+		providers.join([", "])
 	)
 }
 

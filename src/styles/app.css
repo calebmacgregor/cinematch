@@ -384,6 +384,11 @@ body {
   display: flex;
   pointer-events: all;
 }
+.poster-container .movie-metadata #providers,
+.next-poster-container .movie-metadata #providers {
+  white-space: nowrap;
+  overflow: scroll;
+}
 .poster-container .synopsis,
 .next-poster-container .synopsis {
   position: absolute;

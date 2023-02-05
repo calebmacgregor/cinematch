@@ -414,6 +414,11 @@ body {
 			display: flex;
 			pointer-events: all;
 		}
+
+		#providers {
+			white-space: nowrap;
+			overflow: scroll;
+		}
 	}
 
 	.synopsis {

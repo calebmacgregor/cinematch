@@ -32,6 +32,7 @@
 							autocomplete="off"
 						/>
 					</div>
+
 					<div class="input-container">
 						<label for="like-threshold">Number of likes</label>
 						<input
@@ -56,6 +57,12 @@
 							required
 							autocomplete="off"
 						/>
+					</div>
+					<div class="input-container">
+						<label for="country">Country</label>
+						<select name="country" id="country" required>
+							<option value="default" selected>Choose</option>
+						</select>
 					</div>
 				</div>
 				<div class="input-page-2 hidden" data-status="inactive" data-page="2">
@@ -87,15 +94,31 @@
 							autocomplete="off"
 						/>
 					</div>
-					<div class="input-container">
+					<div class="input-container multiselect">
 						<p class="label">Genres</p>
-						<div class="genre-trigger input">
+						<div class="genre-trigger selector-trigger input">
 							<span class="genre-names"></span>
+							<div
+								class="genres-container selector-container hidden"
+								id="genres-container"
+							>
+								<div class="shade"></div>
+								<ul class="genres"></ul>
+							</div>
 						</div>
 					</div>
-					<div class="genres-container hidden">
-						<ul class="genres"></ul>
-						<button class="genre-close primary">Confirm</button>
+					<div class="input-container multiselect">
+						<p class="label">Providers</p>
+						<div class="selector-trigger input">
+							<span class="provider-names"></span>
+							<div
+								class="providers-container selector-container hidden"
+								id="selector-container"
+							>
+								<div class="shade"></div>
+								<ul class="providers"></ul>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="buttons">

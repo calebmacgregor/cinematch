@@ -21,7 +21,8 @@ export class Movie {
 		genre,
 		runtime,
 		synopsis,
-		imdbLink
+		tmdbLink,
+		providers
 	) {
 		this.id = id
 		this.title = title
@@ -31,7 +32,8 @@ export class Movie {
 		this.genre = genre
 		this.runtime = runtime
 		this.synopsis = synopsis
-		this.imdbLink = imdbLink
+		this.tmdbLink = tmdbLink
 		this.likedStatus = ""
+		this.providers = providers
 	}
 }
