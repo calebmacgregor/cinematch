@@ -65,6 +65,7 @@ async function populateProviders(watchRegion = "AU") {
 	const providerData = await fetched.json()
 
 	providerData.results.forEach((provider) => {
+		console.log(provider)
 		const li = document.createElement("li")
 		li.classList = "provider-li"
 		li.id = `provider-${provider.provider_id}`

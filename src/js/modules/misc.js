@@ -78,7 +78,7 @@ export async function populateLikedMovies(sessionName) {
 
 			const likedPoster = document.createElement("a")
 			likedPoster.className = "liked-poster"
-			likedPoster.setAttribute("href", movie.imdbLink)
+			likedPoster.setAttribute("href", movie.tmdbLink)
 			likedPoster.setAttribute("target", "_blank")
 
 			//Set the poster

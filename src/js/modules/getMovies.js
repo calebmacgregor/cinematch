@@ -79,7 +79,7 @@ export async function getMovieDetail(movieID, country = "AU") {
 	const providersData = await fetchedProviders.json()
 	const providers = []
 	providersData.results[country].flatrate.forEach((provider) => {
-		providers.push(provider.provider_name)
+		providers.push(`${BASE_IMAGE_URL}${provider.logo_path}`)
 	})
 
 	return new Movie(
@@ -92,7 +92,7 @@ export async function getMovieDetail(movieID, country = "AU") {
 		data.runtime,
 		data.overview,
 		`${providersData.results[country].link}`,
-		providers.join([", "])
+		providers.join(["|"])
 	)
 }
 

@@ -390,7 +390,7 @@ body {
 		position: absolute;
 		display: flex;
 		flex-direction: column;
-		padding: 0.5rem 0rem;
+		justify-content: space-between;
 		gap: 10px;
 		top: 0;
 		right: 0;
@@ -399,6 +399,12 @@ body {
 		opacity: 0;
 		pointer-events: none;
 		font-weight: 500;
+		overflow: scroll;
+
+		.providers-header {
+			font-size: 14px;
+			font-style: italic;
+		}
 
 		a {
 			text-decoration: underline;
@@ -416,16 +422,26 @@ body {
 		}
 
 		#providers {
-			white-space: nowrap;
+			display: flex;
+			gap: 1rem;
+			min-height: 0;
 			overflow: scroll;
+
+			.provider {
+				min-width: 2rem;
+				height: 2rem;
+				background-size: cover;
+				overflow: scroll;
+				border-radius: 5px;
+			}
 		}
 	}
 
 	.synopsis {
 		position: absolute;
-		top: 50%;
+		top: 55%;
 		overflow: scroll;
-		height: 40%;
+		height: 35%;
 		transition: 150ms ease;
 		opacity: 0;
 		pointer-events: none;

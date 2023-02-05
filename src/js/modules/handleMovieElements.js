@@ -52,19 +52,28 @@ export function setMetadata(movie) {
 	let genre = document.querySelector(".genre")
 	let runtime = document.querySelector(".runtime")
 	let synopsis = document.querySelector(".synopsis")
-	// let providers = document.querySelector("#providers")
 	let tmdbLink = document.querySelector(".tmdb")
+
+	const providersArray = movie.providers.split("|")
+	const providersPlace = document.querySelector("#providers")
+	providersPlace.innerHTML = ""
+
+	providersArray.forEach((provider) => {
+		const elem = document.createElement("li")
+		elem.classList = "provider"
+		elem.style.backgroundImage = `url(${provider})`
+
+		providersPlace.appendChild(elem)
+	})
 
 	title.innerText = movie.title
 	year.innerText = movie.year
 	rating.innerText = movie.rating
 	genre.innerText = movie.genre
-	// providers.innerText = movie.providers
 	runtime.innerText = `${movie.runtime} minutes`
 	synopsis.innerText = movie.synopsis
 
 	if (movie.tmdbLink) {
-		tmdbLink.innerText = `More info`
 		tmdbLink.href = movie.tmdbLink
 	}
 }

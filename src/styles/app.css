@@ -359,7 +359,7 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 0rem;
+  justify-content: space-between;
   gap: 10px;
   top: 0;
   right: 0;
@@ -368,6 +368,12 @@ body {
   opacity: 0;
   pointer-events: none;
   font-weight: 500;
+  overflow: scroll;
+}
+.poster-container .movie-metadata .providers-header,
+.next-poster-container .movie-metadata .providers-header {
+  font-size: 14px;
+  font-style: italic;
 }
 .poster-container .movie-metadata a,
 .next-poster-container .movie-metadata a {
@@ -386,15 +392,25 @@ body {
 }
 .poster-container .movie-metadata #providers,
 .next-poster-container .movie-metadata #providers {
-  white-space: nowrap;
+  display: flex;
+  gap: 1rem;
+  min-height: 0;
   overflow: scroll;
+}
+.poster-container .movie-metadata #providers .provider,
+.next-poster-container .movie-metadata #providers .provider {
+  min-width: 2rem;
+  height: 2rem;
+  background-size: cover;
+  overflow: scroll;
+  border-radius: 5px;
 }
 .poster-container .synopsis,
 .next-poster-container .synopsis {
   position: absolute;
-  top: 50%;
+  top: 55%;
   overflow: scroll;
-  height: 40%;
+  height: 35%;
   transition: 150ms ease;
   opacity: 0;
   pointer-events: none;
