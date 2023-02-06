@@ -21,6 +21,22 @@ body {
 	overflow-x: hidden;
 }
 
+.loading {
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+	background-color: hsl(225, 100%, 99%);
+	top: 0px;
+	left: 0px;
+	z-index: 999;
+	transition: 100ms ease;
+
+	&.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
 section {
 	height: 100%;
 	padding: 2rem;

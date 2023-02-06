@@ -118,3 +118,23 @@ export async function getMovie(movieArray, elementState, cachedPosters, index) {
 
 	return movie
 }
+
+export async function getRandomPoster() {
+	const API_KEY = process.env.TMDB_API_KEY
+	const pageNumber = Math.floor(Math.random() * (10 - 1) + 1)
+	const baseURL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${pageNumber}`
+
+	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+
+	const fetched = await fetch(baseURL)
+	const data = await fetched.json()
+
+	const posters = []
+
+	data.results.slice(0, 3).forEach((result) => {
+		const url = `${BASE_IMAGE_URL}${result.poster_path}`
+		posters.push(url)
+	})
+
+	return posters
+}
