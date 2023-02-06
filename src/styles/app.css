@@ -408,8 +408,7 @@ body {
 .poster-container .movie-metadata .genres .genre,
 .next-poster-container .movie-metadata .genres .genre {
   flex-shrink: 0;
-  color: white;
-  background-color: var(--chip-colour);
+  border: 1px solid var(--chip-colour);
   border-radius: 5px;
   font-size: 12px;
   padding: 3px 8px;
