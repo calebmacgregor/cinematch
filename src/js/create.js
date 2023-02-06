@@ -8,6 +8,7 @@ const nextButton = document.querySelector(".next-page")
 const firstPage = document.querySelector(".input-page-1")
 const secondPage = document.querySelector(".input-page-2")
 const submitButton = document.querySelector(".submit-session")
+const form = document.querySelector(".form-gen-container")
 
 const pageOneInputs = [
 	...document.querySelectorAll(".input-page-1 input, #country")
@@ -27,23 +28,86 @@ const selectorContainers = [...document.querySelectorAll(".selector-container")]
 // 	"AMC+"
 // ]
 
+const selectedGenres = []
+const selectedProviders = []
+const sessionObject = {}
+
+sessionData(selectedGenres, selectedProviders, sessionObject)
 setBodySize()
+populateProviders()
+populateRegions()
+populateGenres()
 
 setTimeout(() => {
 	fadePageIn("form-gen-container")
 }, 250)
 
-const selectedGenres = []
-const selectedProviders = []
-const sessionObject = {}
-
 prevButton.addEventListener("click", () => {
 	previousPage()
 })
 
-sessionData(selectedGenres, selectedProviders, sessionObject)
-populateGenres().then((data) => {
-	genreArray = data.genres
+submitButton.addEventListener("click", () => {
+	submitSession(sessionObject)
+})
+
+form.addEventListener("submit", (e) => {
+	e.preventDefault()
+})
+
+document.addEventListener("click", openSelector)
+
+document.addEventListener("click", (e) => {
+	addToProviderList(e, selectedProviders, sessionObject)
+	addToGenreList(e, selectedGenres, sessionObject)
+})
+
+document.addEventListener("click", (e) => {
+	removeFromGenreList(e, selectedGenres, sessionObject)
+})
+
+document.addEventListener("input", () => {
+	sessionData(selectedGenres, selectedProviders, sessionObject)
+})
+
+document.body.addEventListener("keydown", (e) => {
+	if (e.key !== "Enter") return
+	const activePage = document.querySelector('[data-status="active"]')
+	e.preventDefault()
+
+	if (activePage.dataset.page == 1) {
+		if (
+			sessionObject.sessionName &&
+			sessionObject.likeThreshold &&
+			sessionObject.sessionSize
+		) {
+			nextPage()
+		}
+	} else if (
+		activePage.dataset.page == 2 &&
+		validateCompleteSession(sessionObject)
+	) {
+		submitSession(sessionObject)
+	}
+})
+
+nextButton.addEventListener("click", () => {
+	pageOneInputs.forEach((input) => {
+		input.classList.add("check-for-validation")
+	})
+	if (validateFirstPage(sessionObject)) {
+		nextPage()
+	} else {
+		console.log("incomplete")
+	}
+})
+
+document.addEventListener("click", (e) => {
+	const shade = e.target.closest(".shade")
+	if (!shade) return
+
+	selectorContainers.forEach((container) => {
+		container.classList.add("hidden")
+	})
 })
 
 async function populateGenres() {
@@ -99,8 +163,6 @@ async function populateProviders(watchRegion = "AU") {
 	})
 }
 
-populateProviders()
-
 async function populateRegions() {
 	const API_KEY = process.env.TMDB_API_KEY
 	const region_url = `https://api.themoviedb.org/3/watch/providers/regions?api_key=${API_KEY}&language=en-US`
@@ -118,7 +180,14 @@ async function populateRegions() {
 	})
 }
 
-populateRegions()
+function openSelector(e) {
+	const selectorTrigger = e.target.closest(".selector-trigger")
+	if (!selectorTrigger) return
+
+	const container = selectorTrigger.closest(".input-container")
+	const selectorContainer = container.querySelector(".selector-container")
+	selectorContainer.classList.remove("hidden")
+}
 
 function sessionData(selectedGenres, selectedProviders, sessionObject) {
 	//Get data from all inputs on the page
@@ -165,109 +234,6 @@ function submitSession(sessionObject) {
 		})
 	}
 }
-
-submitButton.addEventListener("click", () => {
-	submitSession(sessionObject)
-})
-
-const form = document.querySelector(".form-gen-container")
-form.addEventListener("submit", (e) => {
-	e.preventDefault()
-})
-
-function openSelector(e) {
-	const selectorTrigger = e.target.closest(".selector-trigger")
-	if (!selectorTrigger) return
-
-	const container = selectorTrigger.closest(".input-container")
-	const selectorContainer = container.querySelector(".selector-container")
-	selectorContainer.classList.remove("hidden")
-}
-
-document.addEventListener("click", openSelector)
-
-//Handle adding items to the genre list
-function addToGenreList(e, selectedGenres, sessionObject) {
-	if (!e.target.matches(".genre-li, .genre-span")) return
-	const elem = e.target.closest(".genre-li")
-	const genreID = elem.dataset.genreId
-	if (selectedGenres.includes(genreID)) {
-		const idIndex = selectedGenres.indexOf(genreID)
-		selectedGenres.splice(idIndex, 1)
-		elem.classList.remove("selected")
-	} else {
-		//Adjust the class to highlight the selected
-		elem.classList.add("selected")
-
-		//Add the genre id to the array
-		selectedGenres.push(genreID)
-	}
-
-	const genreNames = document.querySelector(".genre-names")
-	genreNames.innerText =
-		selectedGenres.length === 0
-			? "Required"
-			: `${selectedGenres.length} selected`
-	sessionData(selectedGenres, selectedProviders, sessionObject)
-}
-
-function addToProviderList(e, selectedProviders, sessionObject) {
-	if (!e.target.matches(".provider-li, .provider-span")) return
-	const elem = e.target.closest(".provider-li")
-	const providerID = elem.dataset.providerId
-
-	if (selectedProviders.includes(providerID)) {
-		const idIndex = selectedProviders.indexOf(providerID)
-		selectedProviders.splice(idIndex, 1)
-		elem.classList.remove("selected")
-	} else {
-		//Adjust the class to highlight the selected
-		elem.classList.add("selected")
-
-		//Add the genre id to the array
-		selectedProviders.push(providerID)
-	}
-	const providerNames = document.querySelector(".provider-names")
-	providerNames.innerText =
-		selectedProviders.length === 0
-			? "Optional"
-			: `${selectedProviders.length} selected`
-	sessionData(selectedGenres, selectedProviders, sessionObject)
-}
-
-document.addEventListener("click", (e) => {
-	addToProviderList(e, selectedProviders, sessionObject)
-	addToGenreList(e, selectedGenres, sessionObject)
-})
-
-//Handle removing items from the genre list
-function removeFromGenreList(e, selectedGenres, sessionObject) {
-	const genreTag = e.target.closest(".genre-tag")
-	if (!genreTag) return
-
-	//Remove the genre id from the array
-	const idIndex = selectedGenres.indexOf(genreTag.dataset.genreId)
-	selectedGenres.splice(idIndex, 1)
-
-	//Remove the styling on the genre selector
-	const listElement = document.querySelector(
-		`#genre-${genreTag.dataset.genreId}`
-	)
-	listElement.classList.remove("selected")
-	//Remove the tag
-	e.target.remove()
-
-	sessionData(selectedGenres, selectedProviders, sessionObject)
-}
-
-document.addEventListener("click", (e) => {
-	removeFromGenreList(e, selectedGenres, sessionObject)
-})
-
-//Keep track of the inputs
-document.addEventListener("input", () => {
-	sessionData(selectedGenres, selectedProviders, sessionObject)
-})
 
 function convertYear(year, firstLast) {
 	let date
@@ -317,37 +283,72 @@ function previousPage() {
 	}, 250)
 }
 
-document.body.addEventListener("keydown", (e) => {
-	if (e.key !== "Enter") return
-	const activePage = document.querySelector('[data-status="active"]')
-	e.preventDefault()
-
-	if (activePage.dataset.page == 1) {
-		if (
-			sessionObject.sessionName &&
-			sessionObject.likeThreshold &&
-			sessionObject.sessionSize
-		) {
-			nextPage()
-		}
-	} else if (
-		activePage.dataset.page == 2 &&
-		validateCompleteSession(sessionObject)
-	) {
-		submitSession(sessionObject)
-	}
-})
-
-nextButton.addEventListener("click", () => {
-	pageOneInputs.forEach((input) => {
-		input.classList.add("check-for-validation")
-	})
-	if (validateFirstPage(sessionObject)) {
-		nextPage()
+function addToGenreList(e, selectedGenres, sessionObject) {
+	if (!e.target.matches(".genre-li, .genre-span")) return
+	const elem = e.target.closest(".genre-li")
+	const genreID = elem.dataset.genreId
+	if (selectedGenres.includes(genreID)) {
+		const idIndex = selectedGenres.indexOf(genreID)
+		selectedGenres.splice(idIndex, 1)
+		elem.classList.remove("selected")
 	} else {
-		console.log("incomplete")
+		//Adjust the class to highlight the selected
+		elem.classList.add("selected")
+
+		//Add the genre id to the array
+		selectedGenres.push(genreID)
 	}
-})
+
+	const genreNames = document.querySelector(".genre-names")
+	genreNames.innerText =
+		selectedGenres.length === 0
+			? "Required"
+			: `${selectedGenres.length} selected`
+	sessionData(selectedGenres, selectedProviders, sessionObject)
+}
+
+function removeFromGenreList(e, selectedGenres, sessionObject) {
+	const genreTag = e.target.closest(".genre-tag")
+	if (!genreTag) return
+
+	//Remove the genre id from the array
+	const idIndex = selectedGenres.indexOf(genreTag.dataset.genreId)
+	selectedGenres.splice(idIndex, 1)
+
+	//Remove the styling on the genre selector
+	const listElement = document.querySelector(
+		`#genre-${genreTag.dataset.genreId}`
+	)
+	listElement.classList.remove("selected")
+	//Remove the tag
+	e.target.remove()
+
+	sessionData(selectedGenres, selectedProviders, sessionObject)
+}
+
+function addToProviderList(e, selectedProviders, sessionObject) {
+	if (!e.target.matches(".provider-li, .provider-span")) return
+	const elem = e.target.closest(".provider-li")
+	const providerID = elem.dataset.providerId
+
+	if (selectedProviders.includes(providerID)) {
+		const idIndex = selectedProviders.indexOf(providerID)
+		selectedProviders.splice(idIndex, 1)
+		elem.classList.remove("selected")
+	} else {
+		//Adjust the class to highlight the selected
+		elem.classList.add("selected")
+
+		//Add the genre id to the array
+		selectedProviders.push(providerID)
+	}
+	const providerNames = document.querySelector(".provider-names")
+	providerNames.innerText =
+		selectedProviders.length === 0
+			? "Optional"
+			: `${selectedProviders.length} selected`
+	sessionData(selectedGenres, selectedProviders, sessionObject)
+}
 
 function validateCompleteSession(sessionObject) {
 	if (
@@ -377,12 +378,3 @@ function validateFirstPage(sessionObject) {
 	)
 		return true
 }
-
-document.addEventListener("click", (e) => {
-	const shade = e.target.closest(".shade")
-	if (!shade) return
-
-	selectorContainers.forEach((container) => {
-		container.classList.add("hidden")
-	})
-})
