@@ -17,6 +17,7 @@ export async function getMovieArray(sessionObject) {
 		: ""
 	const regionParameter =
 		country === undefined ? "" : `&watch_region=${country}`
+
 	const URL = `${
 		BASE_URL +
 		adultParameter +

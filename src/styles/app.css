@@ -514,9 +514,11 @@ body {
 }
 .buttons .btn.like {
   background-color: hsl(127deg, 40%, 94%);
+  width: 4.5rem;
 }
 .buttons .btn.dislike {
   background-color: hsl(47deg, 37%, 94%);
+  width: 4.5rem;
 }
 .buttons .btn:active,
 .buttons .btn:focus {

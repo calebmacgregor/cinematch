@@ -9,7 +9,9 @@ const firstPage = document.querySelector(".input-page-1")
 const secondPage = document.querySelector(".input-page-2")
 const submitButton = document.querySelector(".submit-session")
 
-const pageOneInputs = [...document.querySelectorAll(".input-page-1 input")]
+const pageOneInputs = [
+	...document.querySelectorAll(".input-page-1 input, #country")
+]
 const selectorContainers = [...document.querySelectorAll(".selector-container")]
 
 setBodySize()
@@ -65,7 +67,6 @@ async function populateProviders(watchRegion = "AU") {
 	const providerData = await fetched.json()
 
 	providerData.results.forEach((provider) => {
-		console.log(provider)
 		const li = document.createElement("li")
 		li.classList = "provider-li"
 		li.id = `provider-${provider.provider_id}`
@@ -186,7 +187,10 @@ function addToGenreList(e, selectedGenres, sessionObject) {
 	}
 
 	const genreNames = document.querySelector(".genre-names")
-	genreNames.innerText = `${selectedGenres.length} selected`
+	genreNames.innerText =
+		selectedGenres.length === 0
+			? "Required"
+			: `${selectedGenres.length} selected`
 	sessionData(selectedGenres, selectedProviders, sessionObject)
 }
 
@@ -207,7 +211,10 @@ function addToProviderList(e, selectedProviders, sessionObject) {
 		selectedProviders.push(providerID)
 	}
 	const providerNames = document.querySelector(".provider-names")
-	providerNames.innerText = `${selectedProviders.length} selected`
+	providerNames.innerText =
+		selectedProviders.length === 0
+			? "Optional"
+			: `${selectedProviders.length} selected`
 	sessionData(selectedGenres, selectedProviders, sessionObject)
 }
 
@@ -335,8 +342,8 @@ function validateCompleteSession(sessionObject) {
 		!isNaN(sessionObject.sessionSize) &&
 		Date.parse(sessionObject.fromYear) &&
 		Date.parse(sessionObject.toYear) &&
-		sessionObject.genres.length > 0 &&
-		sessionObject.providers.length > 0
+		sessionObject.genres.length > 0
+		// && sessionObject.providers.length > 0
 	)
 		return true
 }

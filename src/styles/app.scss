@@ -547,10 +547,12 @@ body {
 
 		&.like {
 			background-color: hsl(127, 40%, 94%);
+			width: 4.5rem;
 		}
 
 		&.dislike {
 			background-color: hsl(47, 37%, 94%);
+			width: 4.5rem;
 		}
 	}
 
