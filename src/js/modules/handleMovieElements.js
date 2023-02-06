@@ -49,27 +49,38 @@ export function setMetadata(movie) {
 	let title = document.querySelector(".title")
 	let year = document.querySelector(".year")
 	let rating = document.querySelector(".rating")
-	let genre = document.querySelector(".genre")
+	let genres = document.querySelector(".genres")
 	let runtime = document.querySelector(".runtime")
 	let synopsis = document.querySelector(".synopsis")
 	let tmdbLink = document.querySelector(".tmdb")
 
 	const providersArray = movie.providers.split("|")
-	const providersPlace = document.querySelector("#providers")
-	providersPlace.innerHTML = ""
+	const providersContainer = document.querySelector("#providers")
+	providersContainer.innerHTML = ""
 
 	providersArray.forEach((provider) => {
 		const elem = document.createElement("li")
 		elem.classList = "provider"
 		elem.style.backgroundImage = `url(${provider})`
 
-		providersPlace.appendChild(elem)
+		providersContainer.appendChild(elem)
+	})
+
+	const genresArray = movie.genres.split("|")
+	const genresContainer = document.querySelector(".genres")
+	genresContainer.innerHTML = ""
+	genresArray.forEach((genre) => {
+		const elem = document.createElement("li")
+		elem.classList = "genre"
+		elem.innerText = genre
+
+		genresContainer.appendChild(elem)
 	})
 
 	title.innerText = movie.title
 	year.innerText = movie.year
 	rating.innerText = movie.rating
-	genre.innerText = movie.genre
+	// genres.innerText = movie.genres
 	runtime.innerText = `${movie.runtime} minutes`
 	synopsis.innerText = movie.synopsis
 

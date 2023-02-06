@@ -73,7 +73,10 @@ export async function getMovieDetail(movieID, country = "AU") {
 
 	const fetched = await fetch(movieURL)
 	const data = await fetched.json()
-	const genres = data.genres.slice(0, 2).map((genre) => genre.name)
+	const genres = []
+	data.genres.forEach((genre) => {
+		genres.push(genre.name)
+	})
 
 	const fetchedProviders = await fetch(providerURL)
 	const providersData = await fetchedProviders.json()
@@ -88,7 +91,7 @@ export async function getMovieDetail(movieID, country = "AU") {
 		`${BASE_IMAGE_URL}${data.poster_path}`,
 		formatDate(data.release_date),
 		`${data.vote_average.toFixed(1)}/10`,
-		genres.join(`/`),
+		genres.join(`|`),
 		data.runtime,
 		data.overview,
 		`${providersData.results[country].link}`,

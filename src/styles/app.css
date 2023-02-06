@@ -397,6 +397,23 @@ body {
   display: flex;
   pointer-events: all;
 }
+.poster-container .movie-metadata .genres,
+.next-poster-container .movie-metadata .genres {
+  display: flex;
+  gap: 0.5rem;
+  min-height: 1rem;
+  overflow: scroll;
+  width: 100%;
+}
+.poster-container .movie-metadata .genres .genre,
+.next-poster-container .movie-metadata .genres .genre {
+  flex-shrink: 0;
+  color: white;
+  background-color: var(--chip-colour);
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 3px 8px;
+}
 .poster-container .movie-metadata #providers,
 .next-poster-container .movie-metadata #providers {
   display: flex;
@@ -406,10 +423,10 @@ body {
 }
 .poster-container .movie-metadata #providers .provider,
 .next-poster-container .movie-metadata #providers .provider {
+  flex-shrink: 0;
   min-width: 2rem;
   height: 2rem;
   background-size: cover;
-  overflow: scroll;
   border-radius: 5px;
 }
 .poster-container .synopsis,

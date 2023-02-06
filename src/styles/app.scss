@@ -428,6 +428,23 @@ body {
 			pointer-events: all;
 		}
 
+		.genres {
+			display: flex;
+			gap: 0.5rem;
+			min-height: 1rem;
+			overflow: scroll;
+			width: 100%;
+
+			.genre {
+				flex-shrink: 0;
+				color: white;
+				background-color: var(--chip-colour);
+				border-radius: 5px;
+				font-size: 12px;
+				padding: 3px 8px;
+			}
+		}
+
 		#providers {
 			display: flex;
 			gap: 1rem;
@@ -435,10 +452,10 @@ body {
 			overflow: scroll;
 
 			.provider {
+				flex-shrink: 0;
 				min-width: 2rem;
 				height: 2rem;
 				background-size: cover;
-				overflow: scroll;
 				border-radius: 5px;
 			}
 		}

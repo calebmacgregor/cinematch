@@ -18,7 +18,7 @@ export class Movie {
 		poster,
 		year,
 		rating,
-		genre,
+		genres,
 		runtime,
 		synopsis,
 		tmdbLink,
@@ -29,7 +29,7 @@ export class Movie {
 		this.poster = poster
 		this.year = year
 		this.rating = rating
-		this.genre = genre
+		this.genres = genres
 		this.runtime = runtime
 		this.synopsis = synopsis
 		this.tmdbLink = tmdbLink
