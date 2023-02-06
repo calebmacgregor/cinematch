@@ -14,18 +14,18 @@ const pageOneInputs = [
 ]
 const selectorContainers = [...document.querySelectorAll(".selector-container")]
 
-const wantedProviders = [
-	"Netflix",
-	"Amazon Prime Video",
-	"Disney Plus",
-	"Binge",
-	"Paramount Plus",
-	"Foxtel Now",
-	"Stan",
-	"Apple TV Plus",
-	"Shudder",
-	"AMC+"
-]
+// const wantedProviders = [
+// 	"Netflix",
+// 	"Amazon Prime Video",
+// 	"Disney Plus",
+// 	"Binge",
+// 	"Paramount Plus",
+// 	"Foxtel Now",
+// 	"Stan",
+// 	"Apple TV Plus",
+// 	"Shudder",
+// 	"AMC+"
+// ]
 
 setBodySize()
 
@@ -79,11 +79,11 @@ async function populateProviders(watchRegion = "AU") {
 	const fetched = await fetch(provider_url)
 	let providerData = await fetched.json()
 
-	const filteredProviders = providerData.results.filter((provider) =>
-		wantedProviders.includes(provider.provider_name)
-	)
+	// const filteredProviders = providerData.results.filter((provider) =>
+	// 	wantedProviders.includes(provider.provider_name)
+	// )
 
-	filteredProviders.forEach((provider) => {
+	providerData.results.forEach((provider) => {
 		const li = document.createElement("li")
 		li.classList = "provider-li"
 		li.id = `provider-${provider.provider_id}`
