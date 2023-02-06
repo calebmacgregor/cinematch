@@ -410,6 +410,14 @@ body {
 			text-decoration: underline;
 			color: var(--main-font-colour);
 
+			.title {
+				font-weight: 600;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+
 			&:visited {
 				color: var(--main-font-colour);
 			}

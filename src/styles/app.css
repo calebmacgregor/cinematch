@@ -380,6 +380,14 @@ body {
   text-decoration: underline;
   color: var(--main-font-colour);
 }
+.poster-container .movie-metadata a .title,
+.next-poster-container .movie-metadata a .title {
+  font-weight: 600;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 .poster-container .movie-metadata a:visited,
 .next-poster-container .movie-metadata a:visited {
   color: var(--main-font-colour);
