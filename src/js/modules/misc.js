@@ -176,6 +176,9 @@ export function setPosterSize(elementState) {
 
 	elementState.posterContainer.style.width = `${posterWidth}px`
 	elementState.nextPosterContainer.style.width = `${posterWidth}px`
+
+	//Setting the size of the metadata in here as well
+	elementState.movieMetadata.style.height = `${posterWidth * (2 / 3)}px`
 }
 
 export function updateSwipedMovies(sessionName, movieID) {
