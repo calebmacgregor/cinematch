@@ -1,38 +1,29 @@
 import { getMovieArray } from "./modules/getMovies"
 import { createSession } from "./modules/firebaseComms"
-import { createToast, redirectToMatchy, setBodySize } from "./modules/misc"
-import { fadePageIn, fadePageOut } from "./modules/misc"
+import {
+	createToast,
+	redirectToMatchy,
+	setBodySize,
+	convertYear,
+	fadePageIn,
+	fadePageOut
+} from "./modules/misc"
 
 const prevButton = document.querySelector(".previous-page")
 const nextButton = document.querySelector(".next-page")
-const firstPage = document.querySelector(".input-page-1")
-const secondPage = document.querySelector(".input-page-2")
 const submitButton = document.querySelector(".submit-session")
 const form = document.querySelector(".form-gen-container")
 
-const pageOneInputs = [
-	...document.querySelectorAll(".input-page-1 input, #country")
-]
+const inputPages = [...document.querySelectorAll(".input-page")]
 const selectorContainers = [...document.querySelectorAll(".selector-container")]
 
-// const wantedProviders = [
-// 	"Netflix",
-// 	"Amazon Prime Video",
-// 	"Disney Plus",
-// 	"Binge",
-// 	"Paramount Plus",
-// 	"Foxtel Now",
-// 	"Stan",
-// 	"Apple TV Plus",
-// 	"Shudder",
-// 	"AMC+"
-// ]
+let ACTIVE_PAGE = 0
 
 const selectedGenres = []
 const selectedProviders = []
 const sessionObject = {}
 
-sessionData(selectedGenres, selectedProviders, sessionObject)
+setSessionData(selectedGenres, selectedProviders, sessionObject)
 setBodySize()
 populateProviders()
 populateRegions()
@@ -42,63 +33,31 @@ setTimeout(() => {
 	fadePageIn("form-gen-container")
 }, 250)
 
-prevButton.addEventListener("click", () => {
-	previousPage()
-})
+prevButton.addEventListener("click", previousPage)
+nextButton.addEventListener("click", nextPage)
 
 submitButton.addEventListener("click", () => {
 	submitSession(sessionObject)
 })
 
+document.addEventListener("click", openSelector)
+
 form.addEventListener("submit", (e) => {
 	e.preventDefault()
 })
 
-document.addEventListener("click", openSelector)
-
 document.addEventListener("click", (e) => {
-	addToProviderList(e, selectedProviders, sessionObject)
-	addToGenreList(e, selectedGenres, sessionObject)
-})
-
-document.addEventListener("click", (e) => {
-	removeFromGenreList(e, selectedGenres, sessionObject)
+	handleProviderSelections(e, selectedProviders, sessionObject)
+	handleGenreSelections(e, selectedGenres, sessionObject)
 })
 
 document.addEventListener("input", () => {
-	sessionData(selectedGenres, selectedProviders, sessionObject)
+	setSessionData(selectedGenres, selectedProviders, sessionObject)
 })
 
 document.body.addEventListener("keydown", (e) => {
 	if (e.key !== "Enter") return
-	const activePage = document.querySelector('[data-status="active"]')
-	e.preventDefault()
-
-	if (activePage.dataset.page == 1) {
-		if (
-			sessionObject.sessionName &&
-			sessionObject.likeThreshold &&
-			sessionObject.sessionSize
-		) {
-			nextPage()
-		}
-	} else if (
-		activePage.dataset.page == 2 &&
-		validateCompleteSession(sessionObject)
-	) {
-		submitSession(sessionObject)
-	}
-})
-
-nextButton.addEventListener("click", () => {
-	pageOneInputs.forEach((input) => {
-		input.classList.add("check-for-validation")
-	})
-	if (validateFirstPage(sessionObject)) {
-		nextPage()
-	} else {
-		console.log("incomplete")
-	}
+	nextPage()
 })
 
 document.addEventListener("click", (e) => {
@@ -180,16 +139,7 @@ async function populateRegions() {
 	})
 }
 
-function openSelector(e) {
-	const selectorTrigger = e.target.closest(".selector-trigger")
-	if (!selectorTrigger) return
-
-	const container = selectorTrigger.closest(".input-container")
-	const selectorContainer = container.querySelector(".selector-container")
-	selectorContainer.classList.remove("hidden")
-}
-
-function sessionData(selectedGenres, selectedProviders, sessionObject) {
+function setSessionData(selectedGenres, selectedProviders, sessionObject) {
 	//Get data from all inputs on the page
 	const sessionName = document.querySelector("#session-name")
 	const likeThreshold = document.querySelector("#like-threshold")
@@ -207,6 +157,8 @@ function sessionData(selectedGenres, selectedProviders, sessionObject) {
 	sessionObject.providers = selectedProviders
 	sessionObject.country =
 		country.value === "default" ? undefined : country.value
+
+	return sessionObject
 }
 
 function submitSession(sessionObject) {
@@ -235,34 +187,50 @@ function submitSession(sessionObject) {
 	}
 }
 
-function convertYear(year, firstLast) {
-	let date
-	const currentYear = new Date().getFullYear()
-	if (year > currentYear) {
-		year = currentYear
-	} else if (year < 1900) {
-		year = 1900
-	}
-	if (firstLast === "first") {
-		date = new Date(year, 0, 2)
-	} else if (firstLast === "last") {
-		date = new Date(year, 11, 32)
-	}
-	return date.toISOString().split("T")[0]
+function openSelector(e) {
+	const selectorTrigger = e.target.closest(".selector-trigger")
+	if (!selectorTrigger) return
+
+	const container = selectorTrigger.closest(".input-container")
+	const selectorContainer = container.querySelector(".selector-container")
+	selectorContainer.classList.remove("hidden")
 }
 
 function nextPage() {
+	if (ACTIVE_PAGE === 0) {
+		if (!validateFirstPage(sessionObject)) {
+			console.log("Invalid first page")
+			return
+		}
+	} else if (ACTIVE_PAGE === 1) {
+		if (!validateSecondPage(sessionObject)) {
+			console.log("Invalid second page")
+			return
+		}
+	}
 	fadePageOut("form-gen-container")
 	setTimeout(() => {
-		secondPage.classList.remove("hidden")
-		firstPage.classList.add("hidden")
+		//Set the new active page
+		ACTIVE_PAGE += 1
+		if (ACTIVE_PAGE > 0) {
+			prevButton.classList.remove("hidden")
+		}
 
-		secondPage.dataset.status = "active"
-		firstPage.dataset.status = "inactive"
+		if (ACTIVE_PAGE === inputPages.length - 1) {
+			nextButton.classList.add("hidden")
+		}
 
-		nextButton.classList.add("hidden")
-		submitButton.classList.remove("hidden")
-		prevButton.classList.remove("hidden")
+		if (ACTIVE_PAGE === inputPages.length - 1) {
+			submitButton.classList.remove("hidden")
+		}
+
+		//Remove the active status from every page
+		inputPages.forEach((page) => (page.dataset.status = "inactive"))
+
+		//Set the active status ont he correct page
+		inputPages[ACTIVE_PAGE].dataset.status = "active"
+
+		//Fade back in
 		fadePageIn("form-gen-container")
 	}, 250)
 }
@@ -270,23 +238,37 @@ function nextPage() {
 function previousPage() {
 	fadePageOut("form-gen-container")
 	setTimeout(() => {
-		secondPage.classList.add("hidden")
-		firstPage.classList.remove("hidden")
+		//Set the new active page
+		ACTIVE_PAGE -= 1
 
-		secondPage.dataset.status = "inactive"
-		firstPage.dataset.status = "active"
+		if (ACTIVE_PAGE === 0) {
+			prevButton.classList.add("hidden")
+		}
 
-		nextButton.classList.remove("hidden")
-		submitButton.classList.add("hidden")
-		prevButton.classList.add("hidden")
+		if (ACTIVE_PAGE < inputPages.length - 1) {
+			nextButton.classList.remove("hidden")
+		}
+
+		if (ACTIVE_PAGE < inputPages.length - 1) {
+			submitButton.classList.add("hidden")
+		}
+
+		//Remove the active status from every page
+		inputPages.forEach((page) => (page.dataset.status = "inactive"))
+
+		//Set the active status ont he correct page
+		inputPages[ACTIVE_PAGE].dataset.status = "active"
+
+		//Fade back in
 		fadePageIn("form-gen-container")
 	}, 250)
 }
 
-function addToGenreList(e, selectedGenres, sessionObject) {
+function handleGenreSelections(e, selectedGenres, sessionObject) {
 	if (!e.target.matches(".genre-li, .genre-span")) return
 	const elem = e.target.closest(".genre-li")
 	const genreID = elem.dataset.genreId
+
 	if (selectedGenres.includes(genreID)) {
 		const idIndex = selectedGenres.indexOf(genreID)
 		selectedGenres.splice(idIndex, 1)
@@ -304,29 +286,10 @@ function addToGenreList(e, selectedGenres, sessionObject) {
 		selectedGenres.length === 0
 			? "Required"
 			: `${selectedGenres.length} selected`
-	sessionData(selectedGenres, selectedProviders, sessionObject)
+	setSessionData(selectedGenres, selectedProviders, sessionObject)
 }
 
-function removeFromGenreList(e, selectedGenres, sessionObject) {
-	const genreTag = e.target.closest(".genre-tag")
-	if (!genreTag) return
-
-	//Remove the genre id from the array
-	const idIndex = selectedGenres.indexOf(genreTag.dataset.genreId)
-	selectedGenres.splice(idIndex, 1)
-
-	//Remove the styling on the genre selector
-	const listElement = document.querySelector(
-		`#genre-${genreTag.dataset.genreId}`
-	)
-	listElement.classList.remove("selected")
-	//Remove the tag
-	e.target.remove()
-
-	sessionData(selectedGenres, selectedProviders, sessionObject)
-}
-
-function addToProviderList(e, selectedProviders, sessionObject) {
+function handleProviderSelections(e, selectedProviders, sessionObject) {
 	if (!e.target.matches(".provider-li, .provider-span")) return
 	const elem = e.target.closest(".provider-li")
 	const providerID = elem.dataset.providerId
@@ -347,7 +310,28 @@ function addToProviderList(e, selectedProviders, sessionObject) {
 		selectedProviders.length === 0
 			? "Optional"
 			: `${selectedProviders.length} selected`
-	sessionData(selectedGenres, selectedProviders, sessionObject)
+	setSessionData(selectedGenres, selectedProviders, sessionObject)
+}
+
+function validateFirstPage(sessionObject) {
+	if (
+		//If all required fields exist, submit this.
+		sessionObject.sessionName &&
+		sessionObject.likeThreshold > 1 &&
+		!isNaN(sessionObject.likeThreshold) &&
+		sessionObject.sessionSize &&
+		!isNaN(sessionObject.sessionSize)
+	)
+		return true
+}
+
+function validateSecondPage(sessionObject) {
+	if (
+		Date.parse(sessionObject.fromYear) &&
+		Date.parse(sessionObject.toYear) &&
+		sessionObject.genres.length > 0
+	)
+		return true
 }
 
 function validateCompleteSession(sessionObject) {
@@ -361,20 +345,15 @@ function validateCompleteSession(sessionObject) {
 		Date.parse(sessionObject.fromYear) &&
 		Date.parse(sessionObject.toYear) &&
 		sessionObject.genres.length > 0
-		// && sessionObject.providers.length > 0
 	)
 		return true
 }
 
-function validateFirstPage(sessionObject) {
-	if (
-		//If all required fields exist, submit this.
-		sessionObject.sessionName &&
-		sessionObject.likeThreshold > 1 &&
-		!isNaN(sessionObject.likeThreshold) &&
-		sessionObject.sessionSize &&
-		!isNaN(sessionObject.sessionSize) &&
-		sessionObject.country
-	)
-		return true
+function flagIncompleteInputs() {
+	const inputs = [...document.querySelectorAll("[data-status=active] input")]
+	inputs.forEach((input) => {
+		input.classList.add("invalid")
+	})
 }
+
+// flagIncompleteInputs()

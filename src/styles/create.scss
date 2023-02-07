@@ -20,6 +20,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	background-color: var(--base-colour);
+	height: 100vh;
 }
 
 .session-generator-container {
@@ -31,7 +32,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-around;
 	transition: 250ms ease;
 
 	h2 {
@@ -46,33 +46,32 @@ body {
 		position: relative;
 		color: var(--main-font-colour);
 		width: $width;
+		height: 95%;
 		border-radius: 5px;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 3rem;
 		overflow: visible;
 		transition: 250ms ease;
 		opacity: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding-top: 4rem;
 
 		&.hidden {
 			opacity: 0;
 			pointer-events: none;
 		}
 
-		.input-page-1,
-		.input-page-2 {
-			display: flex;
-			flex-direction: column;
-			gap: 3rem;
-			width: 100%;
-			justify-content: space-between;
-			transition: 250ms ease;
-			opacity: 1;
-			overflow: visible;
+		.input-page {
+			display: none;
 
-			&.hidden {
-				display: none;
+			&[data-status="active"] {
+				display: flex;
+				gap: 3rem;
+				flex-direction: column;
+				width: 100%;
+				transition: 250ms ease;
+				opacity: 1;
+				overflow: visible;
 			}
 		}
 
@@ -188,10 +187,6 @@ button {
 	.selector-trigger {
 		position: relative;
 		overflow: visible;
-
-		&.check-for-validation:invalid {
-			border: 1px solid red;
-		}
 	}
 
 	.input {

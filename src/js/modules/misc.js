@@ -271,3 +271,19 @@ export function createToast(type, title, content, duration = 1000) {
 		}, 800)
 	}, duration)
 }
+
+export function convertYear(year, firstLast) {
+	let date
+	const currentYear = new Date().getFullYear()
+	if (year > currentYear) {
+		year = currentYear
+	} else if (year < 1900) {
+		year = 1900
+	}
+	if (firstLast === "first") {
+		date = new Date(year, 0, 2)
+	} else if (firstLast === "last") {
+		date = new Date(year, 11, 32)
+	}
+	return date.toISOString().split("T")[0]
+}

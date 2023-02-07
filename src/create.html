@@ -18,10 +18,9 @@
 	</head>
 	<body>
 		<div class="session-generator-container">
-			<h2 id="welcome">Create a session</h2>
-
 			<form class="form-gen-container hidden">
-				<div class="input-page-1" data-status="active" data-page="1">
+				<div class="input-page input-page-1" data-status="active" data-page="1">
+					<h2 id="welcome">Let's get some details</h2>
 					<div class="input-container">
 						<label for="session-name">Session name</label>
 						<input
@@ -33,7 +32,7 @@
 						/>
 					</div>
 					<div class="input-container">
-						<label for="like-threshold">Number of likes</label>
+						<label for="like-threshold">Number of likes needed</label>
 						<input
 							inputmode="numeric"
 							pattern="[0-9]*"
@@ -57,14 +56,13 @@
 							autocomplete="off"
 						/>
 					</div>
-					<div class="input-container">
-						<label for="country">Country</label>
-						<select name="country" id="country" required>
-							<option value="default" selected>Choose</option>
-						</select>
-					</div>
 				</div>
-				<div class="input-page-2 hidden" data-status="inactive" data-page="2">
+				<div
+					class="input-page input-page-2 hidden"
+					data-status="inactive"
+					data-page="2"
+				>
+					<h2 id="welcome">What kind of movies do you want?</h2>
 					<div class="input-container">
 						<label for="session-from-date">Starting year</label>
 						<input
@@ -106,6 +104,20 @@
 							</div>
 						</div>
 					</div>
+				</div>
+
+				<div
+					class="input-page input-page-3 hidden"
+					data-status="inactive"
+					data-page="3"
+				>
+					<h2 id="welcome">What streaming services do you have?</h2>
+					<div class="input-container">
+						<label for="country">Country</label>
+						<select name="country" id="country" required>
+							<option value="default" selected>Optional</option>
+						</select>
+					</div>
 					<div class="input-container multiselect">
 						<p class="label">Streaming Services</p>
 						<div class="selector-trigger input">
@@ -121,9 +133,11 @@
 					</div>
 				</div>
 				<div class="buttons">
-					<button class="previous-page hidden">Previous</button>
-					<button class="next-page primary">Next</button>
-					<button class="submit-session primary hidden">Create</button>
+					<button class="previous-page hidden" type="button">Previous</button>
+					<button class="next-page primary" type="button">Next</button>
+					<button class="submit-session primary hidden" type="submit">
+						Create
+					</button>
 				</div>
 			</form>
 		</div>
