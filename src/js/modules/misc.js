@@ -221,7 +221,6 @@ export function showLikedMovies(elementState) {
 }
 
 export function createToast(type, title, content, duration = 1000) {
-	console.log("Cooking the toast")
 	let toastContainer = document.querySelector(".toast-container")
 
 	if (!toastContainer) {
@@ -273,6 +272,7 @@ export function createToast(type, title, content, duration = 1000) {
 }
 
 export function convertYear(year, firstLast) {
+	if (!year) return undefined
 	let date
 	const currentYear = new Date().getFullYear()
 	if (year > currentYear) {

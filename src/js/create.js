@@ -24,6 +24,7 @@ const selectedProviders = []
 const sessionObject = {}
 
 setSessionData(selectedGenres, selectedProviders, sessionObject)
+
 setBodySize()
 populateProviders()
 populateRegions()
@@ -57,6 +58,7 @@ document.addEventListener("input", () => {
 
 document.body.addEventListener("keydown", (e) => {
 	if (e.key !== "Enter") return
+	if (ACTIVE_PAGE >= inputPages.length - 1) return
 	nextPage()
 })
 
@@ -158,6 +160,7 @@ function setSessionData(selectedGenres, selectedProviders, sessionObject) {
 	sessionObject.country =
 		country.value === "default" ? undefined : country.value
 
+	validateOptionals(sessionObject)
 	return sessionObject
 }
 
@@ -227,7 +230,7 @@ function nextPage() {
 		//Remove the active status from every page
 		inputPages.forEach((page) => (page.dataset.status = "inactive"))
 
-		//Set the active status ont he correct page
+		//Set the active status on the correct page
 		inputPages[ACTIVE_PAGE].dataset.status = "active"
 
 		//Fade back in
@@ -305,11 +308,13 @@ function handleProviderSelections(e, selectedProviders, sessionObject) {
 		//Add the genre id to the array
 		selectedProviders.push(providerID)
 	}
+
 	const providerNames = document.querySelector(".provider-names")
 	providerNames.innerText =
 		selectedProviders.length === 0
 			? "Optional"
 			: `${selectedProviders.length} selected`
+
 	setSessionData(selectedGenres, selectedProviders, sessionObject)
 }
 
@@ -319,7 +324,8 @@ function validateFirstPage(sessionObject) {
 		sessionObject.sessionName &&
 		sessionObject.likeThreshold > 1 &&
 		!isNaN(sessionObject.likeThreshold) &&
-		sessionObject.sessionSize &&
+		sessionObject.sessionSize > 1 &&
+		sessionObject.sessionSize <= 500 &&
 		!isNaN(sessionObject.sessionSize)
 	) {
 		return true
@@ -332,7 +338,7 @@ function validateSecondPage(sessionObject) {
 	if (
 		Date.parse(sessionObject.fromYear) &&
 		Date.parse(sessionObject.toYear) &&
-		sessionObject.genres.length > 0
+		Date.parse(sessionObject.toYear) > Date.parse(sessionObject.fromYear)
 	)
 		return true
 }
@@ -343,11 +349,26 @@ function validateCompleteSession(sessionObject) {
 		sessionObject.sessionName &&
 		sessionObject.likeThreshold > 1 &&
 		!isNaN(sessionObject.likeThreshold) &&
-		sessionObject.sessionSize &&
+		sessionObject.sessionSize > 1 &&
+		sessionObject.sessionSize <= 500 &&
 		!isNaN(sessionObject.sessionSize) &&
 		Date.parse(sessionObject.fromYear) &&
 		Date.parse(sessionObject.toYear) &&
-		sessionObject.genres.length > 0
+		validateOptionals(sessionObject)
 	)
 		return true
+}
+
+function validateOptionals(sessionObject) {
+	if (sessionObject.providers.length > 0 && !sessionObject.country) {
+		document.querySelector("#country option[value=default]").text = "Required"
+		return false
+	} else if (sessionObject.country && sessionObject.providers.length === 0) {
+		document.querySelector(".provider-names").innerText = "Required"
+		return false
+	} else {
+		document.querySelector("#country option[value=default]").text = "Optional"
+		document.querySelector(".provider-names").innerText = "Optional"
+		return true
+	}
 }

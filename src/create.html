@@ -39,7 +39,7 @@
 							type="number"
 							name="like-threshold"
 							id="like-threshold"
-							min="0"
+							min="2"
 							required
 							autocomplete="off"
 						/>
@@ -50,6 +50,8 @@
 							inputmode="numeric"
 							pattern="[0-9]*"
 							type="number"
+							min="2"
+							max="500"
 							name="session-size"
 							id="session-size"
 							required
@@ -94,7 +96,7 @@
 					<div class="input-container multiselect">
 						<p class="label">Genres</p>
 						<div class="genre-trigger selector-trigger input">
-							<span class="genre-names">Required</span>
+							<span class="genre-names">Optional</span>
 							<div
 								class="genres-container selector-container hidden"
 								id="genres-container"
@@ -114,7 +116,7 @@
 					<h2 id="welcome">Which streaming services do you have?</h2>
 					<div class="input-container">
 						<label for="country">Country</label>
-						<select name="country" id="country" required>
+						<select name="country" id="country">
 							<option value="default" selected>Optional</option>
 						</select>
 					</div>
@@ -135,7 +137,7 @@
 				<div class="buttons">
 					<button class="previous-page hidden" type="button">Previous</button>
 					<button class="next-page primary" type="button">Next</button>
-					<button class="submit-session primary hidden" type="submit">
+					<button class="submit-session primary hidden" type="button">
 						Create
 					</button>
 				</div>

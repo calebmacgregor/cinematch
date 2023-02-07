@@ -80,11 +80,11 @@ export async function getMovieDetail(movieID, country = "AU") {
 	})
 
 	const fetchedProviders = await fetch(providerURL)
-	const providersData = await fetchedProviders.json()
-	const things = providersData?.results[country]?.flatrate
+	const providersJson = await fetchedProviders.json()
+	const providersData = providersJson?.results[country]?.flatrate
 	const providers = []
-	if (things) {
-		providersData.results[country].flatrate.forEach((provider) => {
+	if (providersData) {
+		providersJson.results[country].flatrate.forEach((provider) => {
 			providers.push(`${BASE_IMAGE_URL}${provider.logo_path}`)
 		})
 	}
@@ -98,7 +98,7 @@ export async function getMovieDetail(movieID, country = "AU") {
 		genres.join(`|`),
 		data.runtime,
 		data.overview,
-		`${providersData ? providersData?.results[country]?.link : ""}`,
+		`${providersJson ? providersJson?.results[country]?.link : ""}`,
 		providers.join(["|"])
 	)
 }
