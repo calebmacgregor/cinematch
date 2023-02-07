@@ -321,8 +321,11 @@ function validateFirstPage(sessionObject) {
 		!isNaN(sessionObject.likeThreshold) &&
 		sessionObject.sessionSize &&
 		!isNaN(sessionObject.sessionSize)
-	)
+	) {
 		return true
+	} else {
+		createToast("error", "Missing Data", "Please fill in every field", 5000)
+	}
 }
 
 function validateSecondPage(sessionObject) {
@@ -348,12 +351,3 @@ function validateCompleteSession(sessionObject) {
 	)
 		return true
 }
-
-function flagIncompleteInputs() {
-	const inputs = [...document.querySelectorAll("[data-status=active] input")]
-	inputs.forEach((input) => {
-		input.classList.add("invalid")
-	})
-}
-
-// flagIncompleteInputs()
