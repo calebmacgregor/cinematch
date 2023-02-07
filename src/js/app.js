@@ -94,7 +94,7 @@ joinSession(session.sessionName)
 			}
 		)
 
-		cachePosters(10, cachedPosters, movieArray)
+		cachePosters(20, cachedPosters, movieArray)
 	})
 	.catch((err) => {
 		console.log(err)

@@ -117,7 +117,7 @@ export async function getMovie(movieArray, elementState, cachedPosters, index) {
 	const movie = movieArray[index]
 	movieArray.splice(index, 1)
 
-	cachePosters(1, cachedPosters, movieArray)
+	cachePosters(2, cachedPosters, movieArray)
 
 	return movie
 }

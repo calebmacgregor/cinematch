@@ -72,6 +72,7 @@ document.addEventListener("click", (e) => {
 })
 
 async function populateGenres() {
+	console.log("populating genres")
 	const API_KEY = process.env.TMDB_API_KEY
 	const genre_url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
 	const genreList = document.querySelector(".genres")
@@ -325,7 +326,7 @@ function validateFirstPage(sessionObject) {
 		sessionObject.likeThreshold > 1 &&
 		!isNaN(sessionObject.likeThreshold) &&
 		sessionObject.sessionSize > 1 &&
-		sessionObject.sessionSize <= 500 &&
+		sessionObject.sessionSize <= 200 &&
 		!isNaN(sessionObject.sessionSize)
 	) {
 		return true
@@ -350,10 +351,11 @@ function validateCompleteSession(sessionObject) {
 		sessionObject.likeThreshold > 1 &&
 		!isNaN(sessionObject.likeThreshold) &&
 		sessionObject.sessionSize > 1 &&
-		sessionObject.sessionSize <= 500 &&
+		sessionObject.sessionSize <= 200 &&
 		!isNaN(sessionObject.sessionSize) &&
 		Date.parse(sessionObject.fromYear) &&
 		Date.parse(sessionObject.toYear) &&
+		Date.parse(sessionObject.toYear) > Date.parse(sessionObject.fromYear) &&
 		validateOptionals(sessionObject)
 	)
 		return true
