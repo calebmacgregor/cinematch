@@ -274,12 +274,12 @@ export function createToast(type, title, content, duration = 1000) {
 export function convertYear(year, firstLast) {
 	if (!year) return undefined
 	let date
-	const currentYear = new Date().getFullYear()
-	if (year > currentYear) {
-		year = currentYear
-	} else if (year < 1900) {
-		year = 1900
-	}
+	// const currentYear = new Date().getFullYear()
+	// if (year > currentYear) {
+	// 	year = currentYear
+	// } else if (year < 1900) {
+	// 	year = 1900
+	// }
 	if (firstLast === "first") {
 		date = new Date(year, 0, 2)
 	} else if (firstLast === "last") {

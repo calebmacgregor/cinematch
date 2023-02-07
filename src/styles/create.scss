@@ -81,6 +81,12 @@ body {
 			gap: 0.3rem;
 			width: 100%;
 
+			.validator {
+				color: red;
+				font-size: 12px;
+				visibility: hidden;
+			}
+
 			label,
 			.label {
 				font-weight: 400;
