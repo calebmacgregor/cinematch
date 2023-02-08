@@ -100,7 +100,7 @@ joinSession(session.sessionName)
 	})
 	.catch((err) => {
 		console.log(err)
-		// window.location.href = "../.."
+		window.location.href = "../.."
 	})
 
 elementState.poster.addEventListener("touchstart", (e) =>

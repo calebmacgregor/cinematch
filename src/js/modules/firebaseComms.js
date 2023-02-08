@@ -1,7 +1,12 @@
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
 import { firebaseConfig } from "./firebaseConfig"
-import { onAuthStateChanged, getAuth, signInAnonymously } from "firebase/auth"
+import {
+	onAuthStateChanged,
+	getAuth,
+	signInAnonymously,
+	signOut
+} from "firebase/auth"
 import { createToast, notifyOfMatch, populateLikedMovies } from "./misc"
 import {
 	getFirestore,
@@ -32,6 +37,8 @@ export async function createSession(
 	sessionSize
 ) {
 	//Get the user
+
+	await signInAnonymously(auth)
 	const user = auth.currentUser.uid
 	//Check if the session name has already been taken
 	let sessionQueryResult = await getDoc(doc(db, "sessions", sessionName))
@@ -118,7 +125,7 @@ export async function deleteSession(sessionName) {
 export async function listenToSession(sessionName, elementState) {
 	onSnapshot(doc(db, "sessions", sessionName), (doc) => {
 		let arr = []
-		arr = doc.data().likedMovies
+		arr = doc.data()?.likedMovies
 
 		//Check if the liked movies array actually exists
 		if (arr) {

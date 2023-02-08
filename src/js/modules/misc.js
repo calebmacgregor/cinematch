@@ -263,9 +263,9 @@ export function createToast(type, title, content, duration = 1000) {
 	setTimeout(() => {
 		toast.style.transition = "750ms ease"
 		toast.classList.add("removing")
+		toast.classList.add("phase-two")
 
 		setTimeout(() => {
-			toast.classList.add("phase-two")
 			toast.remove()
 		}, 800)
 	}, duration)

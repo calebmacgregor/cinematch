@@ -363,17 +363,21 @@ function validateCompleteSession(sessionObject) {
 		!isNaN(sessionObject.sessionSize) &&
 		Date.parse(sessionObject.fromYear) &&
 		Date.parse(sessionObject.toYear) &&
-		Date.parse(sessionObject.toYear) > Date.parse(sessionObject.fromYear)
-		// validateOptionals(sessionObject)
+		Date.parse(sessionObject.toYear) > Date.parse(sessionObject.fromYear) &&
+		validateOptionals(sessionObject)
 	)
 		return true
 }
 
 function validateOptionals(sessionObject) {
-	if (sessionObject.providers.length > 0 && !sessionObject.country) {
+	if (sessionObject.providers.length > 0 && sessionObject.country) return true
+	else if (sessionObject.providers.length > 0 && !sessionObject.country) {
 		document.querySelector("#country option[value=default]").text = "Required"
 		return false
-	} else if (sessionObject.country && sessionObject.providers.length === 0) {
+	} else if (
+		sessionObject.country &&
+		(sessionObject.providers.length === 0 || !sessionObject.providers)
+	) {
 		document.querySelector(".provider-names").innerText = "Required"
 		return false
 	} else {
