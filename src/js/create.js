@@ -5,8 +5,18 @@ import {
 	redirectToMatchy,
 	convertYear
 } from "./modules/utils/misc.js"
-import { fadePageIn, fadePageOut } from "./modules/utils/render"
-import { setBodySize } from "./modules/utils/render"
+import { fadePageIn, fadePageOut, setBodySize } from "./modules/utils/render"
+import {
+	validateName,
+	validateThreshold,
+	validateSize,
+	validateStartYear,
+	validateEndYear,
+	validateOptionals,
+	validateFirstPage,
+	validateSecondPage,
+	validateCompleteSession
+} from "./modules/validation"
 
 const prevButton = document.querySelector(".previous-page")
 const nextButton = document.querySelector(".next-page")
@@ -71,7 +81,6 @@ document.addEventListener("click", (e) => {
 })
 
 async function populateGenres() {
-	console.log("populating genres")
 	const API_KEY = process.env.TMDB_API_KEY
 	const genre_url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
 	const genreList = document.querySelector(".genres")
