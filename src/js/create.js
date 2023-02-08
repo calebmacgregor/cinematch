@@ -363,8 +363,8 @@ function validateCompleteSession(sessionObject) {
 		!isNaN(sessionObject.sessionSize) &&
 		Date.parse(sessionObject.fromYear) &&
 		Date.parse(sessionObject.toYear) &&
-		Date.parse(sessionObject.toYear) > Date.parse(sessionObject.fromYear) &&
-		validateOptionals(sessionObject)
+		Date.parse(sessionObject.toYear) > Date.parse(sessionObject.fromYear)
+		// validateOptionals(sessionObject)
 	)
 		return true
 }

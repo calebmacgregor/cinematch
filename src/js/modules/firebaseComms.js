@@ -92,8 +92,6 @@ export async function joinSession(sessionName) {
 
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
-			const uid = user.uid
-			console.log("User signed in", uid)
 		} else {
 			console.log("User signed out")
 		}
