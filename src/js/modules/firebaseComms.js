@@ -83,26 +83,12 @@ export async function checkIfSessionExists(sessionName) {
 
 export async function joinSession(sessionName) {
 	signInAnonymously(auth)
-		.then(() => {
-			createToast(
-				"info",
-				"Signed in anonymously",
-				"You've been signed in anonymously",
-				3000
-			)
-		})
+		.then(() => {})
 		.catch((error) => {
 			const errorCode = error.code
 			const errorMessage = error.message
 			console.log(errorCode, errorMessage)
 		})
-
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-		} else {
-			console.log("User signed out")
-		}
-	})
 
 	let sessionQueryResult = await getDoc(doc(db, "sessions", sessionName))
 	if (!sessionQueryResult.data()) {
