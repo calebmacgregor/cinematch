@@ -8,6 +8,7 @@
 	padding-top: 1rem;
 	padding-bottom: 4rem;
 	z-index: 9999;
+	pointer-events: none;
 
 	.toast {
 		position: relative;
@@ -19,6 +20,7 @@
 		box-shadow: 0px 20px 20px -5px rgba(0, 0, 0, 0.1);
 		transition: 500ms ease;
 		margin-bottom: 1rem;
+		pointer-events: all;
 
 		&.appearing {
 			transform: translateY(-50vh);
@@ -50,7 +52,7 @@
 			border-color: hsl(214, 68%, 90%);
 		}
 
-		.title {
+		.toast-title {
 			font-size: 16px;
 			font-weight: 700;
 		}

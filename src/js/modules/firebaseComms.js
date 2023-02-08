@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
 import { firebaseConfig } from "./firebaseConfig"
-import { notifyOfMatch, populateLikedMovies } from "./misc"
+import { onAuthStateChanged, getAuth, signInAnonymously } from "firebase/auth"
+import { createToast, notifyOfMatch, populateLikedMovies } from "./misc"
 import {
 	getFirestore,
 	collection,
@@ -21,8 +22,7 @@ import {
 
 const app = initializeApp(firebaseConfig)
 const analytics = getAnalytics(app)
-
-//Set up the db connection
+export const auth = getAuth()
 const db = getFirestore()
 
 export async function createSession(
@@ -31,6 +31,8 @@ export async function createSession(
 	likeThreshold,
 	sessionSize
 ) {
+	//Get the user
+	const user = auth.currentUser.uid
 	//Check if the session name has already been taken
 	let sessionQueryResult = await getDoc(doc(db, "sessions", sessionName))
 	if (sessionQueryResult.data()) {
@@ -44,7 +46,8 @@ export async function createSession(
 		sessionSize: sessionSize,
 		likeThreshold: likeThreshold,
 		likedMovies: [],
-		expiryDate: new Date(new Date().getTime() + 86400000)
+		expiryDate: new Date(new Date().getTime() + 86400000),
+		createdBy: user
 	}
 
 	//Create it in Firestore
@@ -72,6 +75,30 @@ export async function checkIfSessionExists(sessionName) {
 }
 
 export async function joinSession(sessionName) {
+	signInAnonymously(auth)
+		.then(() => {
+			createToast(
+				"info",
+				"Signed in anonymously",
+				"You've been signed in anonymously",
+				3000
+			)
+		})
+		.catch((error) => {
+			const errorCode = error.code
+			const errorMessage = error.message
+			console.log(errorCode, errorMessage)
+		})
+
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			const uid = user.uid
+			console.log("User signed in", uid)
+		} else {
+			console.log("User signed out")
+		}
+	})
+
 	let sessionQueryResult = await getDoc(doc(db, "sessions", sessionName))
 	if (!sessionQueryResult.data()) {
 		console.log("Session not found, write error code to handle this")
@@ -82,6 +109,7 @@ export async function joinSession(sessionName) {
 }
 
 export async function deleteSession(sessionName) {
+	signOut(auth)
 	await deleteMovies(sessionName)
 	await deleteDoc(doc(db, "sessions", sessionName)).then(() => {
 		window.location.href = "../.."

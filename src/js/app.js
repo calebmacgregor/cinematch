@@ -1,8 +1,10 @@
 import {
 	joinSession,
 	deleteSession,
-	listenToSession
+	listenToSession,
+	auth
 } from "./modules/firebaseComms.js"
+import { signOut } from "firebase/auth"
 import { initialiseMovie } from "./modules/handleMovieElements.js"
 import {
 	cachePosters,
@@ -98,7 +100,7 @@ joinSession(session.sessionName)
 	})
 	.catch((err) => {
 		console.log(err)
-		window.location.href = "../.."
+		// window.location.href = "../.."
 	})
 
 elementState.poster.addEventListener("touchstart", (e) =>
@@ -192,3 +194,14 @@ function hideLikedMovies(elementState) {
 		elementState.likedMoviesContainer.style.display = "none"
 	}, 250)
 }
+
+document.querySelector("#logout").addEventListener("click", () => {
+	console.log("Attempting signout")
+	signOut(auth)
+		.then(() => {
+			window.location.href = "../.."
+		})
+		.catch((error) => {
+			console.log("Signout unsuccessful", error)
+		})
+})

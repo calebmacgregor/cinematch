@@ -235,7 +235,7 @@ export function createToast(type, title, content, duration = 1000) {
 	toast.classList.add("appearing")
 
 	const titleElement = document.createElement("p")
-	titleElement.classList.add("title")
+	titleElement.classList.add("toast-title")
 	titleElement.innerText = title
 	toast.appendChild(titleElement)
 
@@ -263,9 +263,9 @@ export function createToast(type, title, content, duration = 1000) {
 	setTimeout(() => {
 		toast.style.transition = "750ms ease"
 		toast.classList.add("removing")
-		toast.classList.add("phase-two")
 
 		setTimeout(() => {
+			toast.classList.add("phase-two")
 			toast.remove()
 		}, 800)
 	}, duration)
@@ -274,12 +274,12 @@ export function createToast(type, title, content, duration = 1000) {
 export function convertYear(year, firstLast) {
 	if (!year) return undefined
 	let date
-	// const currentYear = new Date().getFullYear()
-	// if (year > currentYear) {
-	// 	year = currentYear
-	// } else if (year < 1900) {
-	// 	year = 1900
-	// }
+	const currentYear = new Date().getFullYear()
+	if (year > currentYear) {
+		year = currentYear
+	} else if (year < 1900) {
+		year = 1900
+	}
 	if (firstLast === "first") {
 		date = new Date(year, 0, 2)
 	} else if (firstLast === "last") {
