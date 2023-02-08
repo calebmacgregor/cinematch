@@ -1,5 +1,4 @@
-import { cachePosters, prepareSessionEnd } from "./utils/misc.js"
-import { formatDate } from "./utils/misc.js"
+import { cachePosters, prepareSessionEnd, formatDate } from "./utils/misc.js"
 import { Movie } from "./classes.js"
 
 export async function getMovieArray(sessionObject) {
