@@ -1,8 +1,7 @@
 import { checkIfSessionExists } from "./modules/firebaseComms.js"
-import { redirectToMatchy } from "./modules/misc.js"
-import { createToast } from "./modules/misc.js"
-import { checkAspectRatio } from "./modules/misc.js"
-import { setBodySize } from "./modules/misc.js"
+import { createToast, redirectToMatchy } from "./modules/utils/misc.js"
+import { checkAspectRatio } from "./modules/utils/render.js"
+import { setBodySize } from "./modules/utils/render.js"
 import { getRandomPoster } from "./modules/getMovies.js"
 
 const form = document.querySelector(".join-session-form")

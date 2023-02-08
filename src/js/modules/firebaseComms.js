@@ -1,13 +1,8 @@
 import { initializeApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
 import { firebaseConfig } from "./firebaseConfig"
-import {
-	onAuthStateChanged,
-	getAuth,
-	signInAnonymously,
-	signOut
-} from "firebase/auth"
-import { createToast, notifyOfMatch, populateLikedMovies } from "./misc"
+import { getAuth, signInAnonymously, signOut } from "firebase/auth"
+import { populateLikedMovies, notifyOfMatch } from "./utils/misc.js"
 import {
 	getFirestore,
 	collection,

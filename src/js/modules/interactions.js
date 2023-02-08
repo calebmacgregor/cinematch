@@ -1,11 +1,8 @@
 import { rotateMovie } from "./handleMovieElements.js"
 import { incrementMovie } from "./firebaseComms.js"
-import {
-	renderBanner,
-	removeBanner,
-	endSession,
-	updateSwipedMovies
-} from "./misc.js"
+import { endSession, updateSwipedMovies } from "./utils/misc.js"
+
+import { renderBanner, removeBanner } from "./utils/render.js"
 
 export function handleTouchStart(e, coordinatesObject, viewportHeight) {
 	coordinatesObject.touchStartX = e.touches[0].clientX

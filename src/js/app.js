@@ -9,17 +9,18 @@ import { initialiseMovie } from "./modules/handleMovieElements.js"
 import {
 	cachePosters,
 	dismissNotification,
-	endSession
-} from "./modules/misc.js"
+	endSession,
+	clearSwipedCache,
+	cachePosters,
+	showLikedMovies
+} from "./modules/utils/misc.js"
 import { elementState, movieState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
-import { fadePageOut, showLikedMovies } from "./modules/misc.js"
 import {
-	checkAspectRatio,
+	fadePageOut,
 	setPosterSize,
-	clearSwipedCache,
-	cachePosters
-} from "./modules/misc.js"
+	checkAspectRatio
+} from "./modules/utils/render.js"
 import {
 	handleButtonPress,
 	handleSwipe,
@@ -124,7 +125,6 @@ elementState.poster.addEventListener("touchend", (e) =>
 )
 
 elementState.poster.addEventListener("click", () => {
-	if (elementState.poster.classList.contains("shrunk")) return
 	handlePosterSizing(elementState)
 })
 
@@ -169,9 +169,7 @@ document.addEventListener("click", (e) => {
 	}
 })
 
-document.addEventListener("click", (e) => {
-	dismissNotification(e)
-})
+document.addEventListener("click", dismissNotification)
 
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("close")) return
@@ -195,13 +193,13 @@ function hideLikedMovies(elementState) {
 	}, 250)
 }
 
-document.querySelector("#logout").addEventListener("click", () => {
-	console.log("Attempting signout")
-	signOut(auth)
-		.then(() => {
-			window.location.href = "../.."
-		})
-		.catch((error) => {
-			console.log("Signout unsuccessful", error)
-		})
-})
+// document.querySelector("#logout").addEventListener("click", () => {
+// 	console.log("Attempting signout")
+// 	signOut(auth)
+// 		.then(() => {
+// 			window.location.href = "../.."
+// 		})
+// 		.catch((error) => {
+// 			console.log("Signout unsuccessful", error)
+// 		})
+// })

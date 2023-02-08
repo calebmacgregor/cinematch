@@ -1,13 +1,12 @@
 import { getMovieArray } from "./modules/getMovies"
-import { createSession, checkIfSessionExists } from "./modules/firebaseComms"
+import { createSession } from "./modules/firebaseComms"
 import {
 	createToast,
 	redirectToMatchy,
-	setBodySize,
-	convertYear,
-	fadePageIn,
-	fadePageOut
-} from "./modules/misc"
+	convertYear
+} from "./modules/utils/misc.js"
+import { fadePageIn, fadePageOut } from "./modules/utils/render"
+import { setBodySize } from "./modules/utils/render"
 
 const prevButton = document.querySelector(".previous-page")
 const nextButton = document.querySelector(".next-page")
