@@ -61,6 +61,10 @@ export function prepareSessionEnd(elementState) {
 	try {
 		elementState.poster.dataset.final = "true"
 		elementState.nextPoster.remove()
+		// elementState.posterContainer.classList.add("end")
+		// elementState.nextPosterContainer.innerHTML = "All out of movies 🍿 <br><br>"
+		// elementState.nextPosterContainer.innerHTML +=
+		// 	"Check out your matches by clicking on the ❤️ below."
 	} catch (err) {
 		console.log(err)
 	}

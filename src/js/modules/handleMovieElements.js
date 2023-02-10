@@ -1,99 +1,78 @@
 import { getMovie, getMovieDetail } from "./getMovies.js"
 
-export async function initialiseMovie(
-	movieArray,
-	elementState,
-	posterNumber = 1,
-	cachedPosters,
-	index
-) {
-	//Get a random movie from the session array
-	const movieID = await getMovie(movieArray, elementState, cachedPosters, index)
+export function setMovie(movie, movieNumber = 1) {
+	//Set all the details
+	if (movieNumber === 2) {
+		let nextPoster = document.querySelector(".next-poster")
+		try {
+			nextPoster.src = movie.poster
+		} catch {
+			console.log("No movie provided")
+		}
+	} else {
+		if (movie.id === 0) return
+		let poster = document.querySelector(".poster")
+		let title = document.querySelector(".title")
+		let year = document.querySelector(".year")
+		let rating = document.querySelector(".rating")
+		let runtime = document.querySelector(".runtime")
+		let synopsis = document.querySelector(".synopsis")
+		let tmdbLink = document.querySelector(".tmdb")
 
-	//Get the detail for that movie
-	const movie = await getMovieDetail(movieID)
+		title.innerText = movie.title
+		year.innerText = movie.year
+		rating.innerText = movie.rating
+		runtime.innerText = `${movie.runtime} minutes`
+		synopsis.innerText = movie.synopsis
+		tmdbLink.href = movie.tmdbLink ? movie.tmdbLink : ""
+		poster.src = movie.poster
+		poster.dataset.id = movie.id
+		poster.style.display = "block"
 
-	//Set the metadata if relevant
-	if (posterNumber === 1) {
-		setMetadata(movie)
-		elementState.poster.dataset.id = movie.id
+		const providersArray = movie.providers.split("|")
+		const providersContainer = document.querySelector("#providers")
+		providersContainer.innerHTML = ""
+		providersArray.forEach((provider) => {
+			const elem = document.createElement("li")
+			elem.classList = "provider"
+			elem.style.backgroundImage = `url(${provider})`
+
+			providersContainer.appendChild(elem)
+		})
+
+		const genresArray = movie.genres.split("|")
+		const genresContainer = document.querySelector(".genres")
+		genresContainer.innerHTML = ""
+		genresArray.forEach((genre) => {
+			const elem = document.createElement("li")
+			elem.classList = "genre"
+			elem.innerText = genre
+
+			genresContainer.appendChild(elem)
+		})
 	}
 
-	//Set the images for the relevant poster
-	setImages(movie, posterNumber, elementState)
-
-	//Return the movie for use elsewhere
 	return movie
 }
 
-export function rotateMovie(
+export function setMovieState(movieState, movie, movieNumber) {
+	if (movieNumber === 1) {
+		movieState.currentMovie = movie
+	} else {
+		movieState.nextMovie = movie
+	}
+}
+
+export async function rotateMovie(
 	movieState,
 	movieArray,
 	elementState,
 	cachedPosters
 ) {
-	movieState.currentMovie = movieState.nextMovie
-	elementState.poster.dataset.id = movieState.currentMovie.id
+	setMovie(movieState.nextMovie, 1)
 
-	setImages(movieState.nextMovie, 1, elementState)
-	setMetadata(movieState.nextMovie)
-	initialiseMovie(movieArray, elementState, 2, cachedPosters, 0).then(
-		(movie) => {
-			movieState.nextMovie = movie
-		}
-	)
-}
-
-export function setMetadata(movie) {
-	if (movie.id === 0) return
-	let title = document.querySelector(".title")
-	let year = document.querySelector(".year")
-	let rating = document.querySelector(".rating")
-	let genres = document.querySelector(".genres")
-	let runtime = document.querySelector(".runtime")
-	let synopsis = document.querySelector(".synopsis")
-	let tmdbLink = document.querySelector(".tmdb")
-
-	const providersArray = movie.providers.split("|")
-	const providersContainer = document.querySelector("#providers")
-	providersContainer.innerHTML = ""
-
-	providersArray.forEach((provider) => {
-		const elem = document.createElement("li")
-		elem.classList = "provider"
-		elem.style.backgroundImage = `url(${provider})`
-
-		providersContainer.appendChild(elem)
-	})
-
-	const genresArray = movie.genres.split("|")
-	const genresContainer = document.querySelector(".genres")
-	genresContainer.innerHTML = ""
-	genresArray.forEach((genre) => {
-		const elem = document.createElement("li")
-		elem.classList = "genre"
-		elem.innerText = genre
-
-		genresContainer.appendChild(elem)
-	})
-
-	title.innerText = movie.title
-	year.innerText = movie.year
-	rating.innerText = movie.rating
-	// genres.innerText = movie.genres
-	runtime.innerText = `${movie.runtime} minutes`
-	synopsis.innerText = movie.synopsis
-
-	if (movie.tmdbLink) {
-		tmdbLink.href = movie.tmdbLink
-	}
-}
-
-export function setImages(movie, posterNumber, elementState) {
-	if (posterNumber === 1) {
-		elementState.poster.src = movie.poster
-	} else if (posterNumber === 2) {
-		elementState.nextPoster.src = movie.poster
-	}
-	elementState.poster.style.display = "block"
+	const nextMovieID = await getMovie(movieArray, elementState, cachedPosters, 0)
+	const nextMovie = await getMovieDetail(nextMovieID)
+	setMovieState(movieState, nextMovie, 2)
+	setMovie(nextMovie, 2)
 }

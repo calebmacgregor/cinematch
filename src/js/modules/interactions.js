@@ -2,68 +2,7 @@ import { rotateMovie } from "./handleMovieElements.js"
 import { incrementMovie } from "./firebaseComms.js"
 import { endSession, updateSwipedMovies } from "./utils/misc.js"
 
-import { renderBanner, removeBanner } from "./utils/render.js"
-
-export function handleTouchStart(e, coordinatesObject, viewportHeight) {
-	coordinatesObject.touchStartX = e.touches[0].clientX
-	coordinatesObject.touchStartY = e.touches[0].clientY
-	if (coordinatesObject.touchStartY < viewportHeight / 2) {
-		coordinatesObject.rotationPivot = 1
-	} else {
-		coordinatesObject.rotationPivot = -1
-	}
-}
-
-export function handleMove(e, coordinatesObject, elementState) {
-	if (elementState.poster.classList.contains("shrunk")) return
-	renderBanner(coordinatesObject)
-	coordinatesObject.touchCurrentX = e.touches[0].clientX
-	coordinatesObject.touchCurrentY = e.touches[0].clientY
-
-	coordinatesObject.deltaX =
-		coordinatesObject.touchStartX - coordinatesObject.touchCurrentX
-	coordinatesObject.deltaY =
-		coordinatesObject.touchStartY - coordinatesObject.touchCurrentY
-
-	if (coordinatesObject.deltaX * -0.05 > 5) {
-		elementState.poster.dataset.likedStatus = "liked"
-	} else if (coordinatesObject.deltaX * -0.05 < -5) {
-		elementState.poster.dataset.likedStatus = "disliked"
-	} else {
-		elementState.poster.removeAttribute("data-liked-status")
-	}
-
-	elementState.poster.style.transform = `rotate(${
-		coordinatesObject.deltaX * -0.03 * coordinatesObject.rotationPivot
-	}deg) translateX(${coordinatesObject.deltaX * -1}px)  translateY(${
-		coordinatesObject.deltaY * -1
-	}px)`
-}
-
-function instantResetCardCoordinates(coordinatesObject, elementState) {
-	elementState.poster.style.transition = ""
-	elementState.poster.style.transform = ""
-	elementState.poster.removeAttribute("data-liked-status")
-	removeBanner()
-	resetCoordinateTracking(coordinatesObject)
-}
-
-function smoothResetCardCoordinates(coordinatesObject, elementState) {
-	elementState.poster.style.transition = `250ms linear`
-	elementState.poster.style.transform = ""
-	elementState.poster.removeAttribute("data-liked-status")
-	removeBanner()
-	setTimeout(() => {
-		elementState.poster.style.transition = "none"
-		resetCoordinateTracking(coordinatesObject)
-	}, 250)
-}
-
-export function resetCoordinateTracking(coordinatesObject) {
-	Object.keys(coordinatesObject).forEach(
-		(i) => (coordinatesObject[i] = undefined)
-	)
-}
+import { removeBanner } from "./utils/render.js"
 
 export function handlePosterSizing(elementState) {
 	const speed = 250
@@ -130,7 +69,8 @@ export function handleSwipe(
 		elementState.body.style.pointerEvents = "none"
 
 		setTimeout(() => {
-			instantResetCardCoordinates(coordinates, elementState)
+			coordinates.instantResetCardCoordinates(coordinates, elementState)
+			// removeBanner()
 			rotateMovie(movieState, movieArray, elementState, cachedPosters)
 			elementState.body.style.pointerEvents = "all"
 		}, 250)
@@ -152,7 +92,7 @@ export function handleSwipe(
 		removeBanner()
 		//We only want to enact smooth reset if we've dragged this around
 		if (coordinates.touchCurrentX) {
-			smoothResetCardCoordinates(coordinates, elementState)
+			coordinates.smoothResetCardCoordinates(coordinates, elementState)
 		}
 	}
 }
@@ -185,7 +125,7 @@ export function handleButtonPress(
 			endSession(elementState)
 		}
 		rotateMovie(movieState, movieArray, elementState, cachedPosters)
-		instantResetCardCoordinates(coordinates, elementState)
+		coordinates.instantResetCardCoordinates(coordinates, elementState)
 		elementState.body.style.pointerEvents = "all"
 	}, 250)
 

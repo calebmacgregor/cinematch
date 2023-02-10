@@ -113,7 +113,12 @@ export async function getMovieDetail(movieID, country = "AU") {
 	)
 }
 
-export async function getMovie(movieArray, elementState, cachedPosters, index) {
+export async function getMovie(
+	movieArray,
+	elementState,
+	cachedPosters,
+	index = 0
+) {
 	//If this is the last movie, tag it
 	if (movieArray.length === 0 && elementState.poster.dataset.final != "true") {
 		prepareSessionEnd(elementState)

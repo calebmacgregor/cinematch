@@ -17,11 +17,9 @@ Sentry.init({
 import {
 	joinSession,
 	deleteSession,
-	listenToSession,
-	auth
+	listenToSession
 } from "./modules/firebaseComms.js"
-import { signOut } from "firebase/auth"
-import { initialiseMovie } from "./modules/handleMovieElements.js"
+import { setMovie, setMovieState } from "./modules/handleMovieElements.js"
 import {
 	cachePosters,
 	dismissNotification,
@@ -35,15 +33,15 @@ import { Coordinates } from "./modules/classes.js"
 import {
 	fadePageOut,
 	setPosterSize,
-	checkAspectRatio
+	checkAspectRatio,
+	renderBanner
 } from "./modules/utils/render.js"
 import {
 	handleButtonPress,
 	handleSwipe,
-	handleTouchStart,
-	handleMove,
 	handlePosterSizing
 } from "./modules/interactions.js"
+import { getMovie, getMovieDetail } from "./modules/getMovies.js"
 
 //Get the session from the URL parameters
 const params = new URLSearchParams(window.location.search)
@@ -97,21 +95,24 @@ joinSession(session.sessionName)
 		}
 	})
 	.then(() => {
-		initialiseMovie(movieArray, elementState, 1, cachedPosters, 0).then(
-			(movie) => {
-				movieState.currentMovie = movie
+		getMovie(movieArray, elementState, cachedPosters, 0).then((movieID) => {
+			getMovieDetail(movieID).then((movie) => {
+				setMovie(movie, 1)
+				setMovieState(movieState, movie, 1)
+
 				elementState.poster.addEventListener("load", () => {
 					fadePageOut("loading-container")
 					setPosterSize(elementState)
 				})
-			}
-		)
+			})
+		})
 
-		initialiseMovie(movieArray, elementState, 2, cachedPosters, 1).then(
-			(movie) => {
-				movieState.nextMovie = movie
-			}
-		)
+		getMovie(movieArray, elementState, cachedPosters, 1).then((movieID) => {
+			getMovieDetail(movieID).then((movie) => {
+				setMovie(movie, 2)
+				setMovieState(movieState, movie, 2)
+			})
+		})
 
 		cachePosters(20, cachedPosters, movieArray)
 	})
@@ -121,12 +122,13 @@ joinSession(session.sessionName)
 	})
 
 elementState.poster.addEventListener("touchstart", (e) =>
-	handleTouchStart(e, coordinates, window.innerHeight)
+	coordinates.handleTouchStart(e)
 )
 
-elementState.poster.addEventListener("touchmove", (e) =>
-	handleMove(e, coordinates, elementState)
-)
+elementState.poster.addEventListener("touchmove", (e) => {
+	coordinates.handleMove(e)
+	renderBanner(coordinates)
+})
 
 elementState.poster.addEventListener("touchend", (e) =>
 	handleSwipe(

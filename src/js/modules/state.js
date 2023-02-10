@@ -26,3 +26,11 @@ export const movieState = {
 	currentMovie: {},
 	nextMovie: {}
 }
+
+export const currentMovieElements = {
+	posterContainer: document.querySelector(".poster-container"),
+	poster: document.querySelector(".poster"),
+	movieMetadata: document.querySelector(".movie-metadata"),
+	synopsis: document.querySelector(".synopsis"),
+	dismiss: document.querySelector(".dismiss")
+}
