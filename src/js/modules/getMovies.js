@@ -66,7 +66,7 @@ export async function getMovieDetail(movieID, country = "AU") {
 			undefined
 		)
 	}
-	const API_KEY = process.env.TMDB_API_KE
+	const API_KEY = process.env.TMDB_API_KEY
 	const movieURL = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=en-US`
 	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 	const providerURL = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${API_KEY}`
