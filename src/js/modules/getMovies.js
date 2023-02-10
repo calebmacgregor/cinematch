@@ -66,7 +66,7 @@ export async function getMovieDetail(movieID, country = "AU") {
 			undefined
 		)
 	}
-	const API_KEY = process.env.TMDB_API_KEY
+	const API_KEY = process.env.TMDB_API_KE
 	const movieURL = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=en-US`
 	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 	const providerURL = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${API_KEY}`
@@ -74,9 +74,20 @@ export async function getMovieDetail(movieID, country = "AU") {
 	const fetched = await fetch(movieURL)
 	const data = await fetched.json()
 	const genres = []
-	data.genres.forEach((genre) => {
-		genres.push(genre.name)
-	})
+
+	try {
+		data.genres.forEach((genre) => {
+			genres.push(genre.name)
+		})
+	} catch (err) {
+		console.log(err)
+		injectError(
+			`Woops, something's gone wrong... Sending you home, please try again.`
+		)
+		setTimeout(() => {
+			window.location.href = "../.."
+		}, 5000)
+	}
 
 	const fetchedProviders = await fetch(providerURL)
 	const providersJson = await fetchedProviders.json()
@@ -139,4 +150,21 @@ export async function getRandomPoster() {
 	})
 
 	return posters
+}
+
+function injectError(message) {
+	//Check if an error injection already exsits
+	const errorCheck = document.querySelector(".error")
+	if (errorCheck) return
+
+	const errorElement = document.createElement("div")
+	errorElement.classList.add("error")
+
+	const errorMessage = document.createElement("p")
+	errorMessage.classList.add("error-message")
+	errorMessage.innerText = message
+
+	errorElement.appendChild(errorMessage)
+
+	document.body.appendChild(errorElement)
 }
