@@ -55,7 +55,7 @@ h1 {
 	}
 
 	.purple {
-		color: #8288fe;
+		color: hsl(237, 98%, 70%);
 	}
 }
 
@@ -132,13 +132,9 @@ video {
 		.front-poster {
 			width: 45%;
 			height: 100%;
-			background-image: url("/src/assets/poster2.webp");
 			background-size: cover;
 			z-index: 3;
 			transform: translate(200%, 0%);
-			// animation: main-entrance $animation-timing;
-			animation-delay: $animation-delay;
-			animation-fill-mode: forwards;
 		}
 
 		.left-poster {
@@ -146,12 +142,8 @@ video {
 			transform: translate(-150vw, 0%) rotate(0deg);
 			filter: blur(2px);
 			width: 40%;
-			// background-image: url("/src/assets/poster1.webp");
 			background-size: cover;
 			z-index: 2;
-			// animation: left-entrance $animation-timing;
-			animation-delay: $animation-delay;
-			animation-fill-mode: forwards;
 		}
 
 		.right-poster {
@@ -159,12 +151,8 @@ video {
 			transform: translateX(150vw) rotate(0deg);
 			filter: blur(4px);
 			width: 35%;
-			// background-image: url("/src/assets/poster3.webp");
 			background-size: cover;
 			z-index: 2;
-			// animation: right-entrance $animation-timing;
-			animation-delay: $animation-delay;
-			animation-fill-mode: forwards;
 		}
 	}
 

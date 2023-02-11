@@ -14,22 +14,20 @@ const [frontPoster, leftPoster, rightPoster] = [
 const posterBackdrops = getRandomPoster()
 
 posterBackdrops.then((data) => {
-	const images = []
+	frontPoster.src = data[0]
+	frontPoster.addEventListener("load", () => {
+		frontPoster.style.animation = "main-entrance 1000ms forwards"
+	})
 
-	for (let i = 0; i < 3; i++) {
-		const image = new Image()
-		image.src = data[i]
-		images.push(image)
-	}
+	leftPoster.src = data[1]
+	leftPoster.addEventListener("load", () => {
+		leftPoster.style.animation = "left-entrance 1000ms forwards"
+	})
 
-	frontPoster.style.backgroundImage = `url(${data[0]})`
-	leftPoster.style.backgroundImage = `url(${data[1]})`
-	rightPoster.style.backgroundImage = `url(${data[2]})`
-
-	frontPoster.style.animation = "main-entrance 1000ms 250ms forwards"
-	console.log(frontPoster.style.animation)
-	leftPoster.style.animation = "left-entrance 1000ms 250ms forwards"
-	rightPoster.style.animation = "right-entrance 1000ms 250ms forwards"
+	rightPoster.src = data[2]
+	rightPoster.addEventListener("load", () => {
+		rightPoster.style.animation = "right-entrance 1000ms forwards"
+	})
 })
 
 setBodySize()

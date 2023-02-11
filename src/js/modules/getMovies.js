@@ -114,10 +114,10 @@ export async function getMovie(
 
 export async function getRandomPoster() {
 	const apiKey = process.env.TMDB_API_KEY
-	const pageNumber = Math.floor(Math.random() * (10 - 1) + 1)
-	const baseURL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=${pageNumber}`
+	const pageNumber = Math.floor(Math.random() * 50 + 1)
+	const baseURL = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${pageNumber}&adult=false&vote_count.gte=100`
 
-	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w342"
 
 	const fetched = await fetch(baseURL)
 	const data = await fetched.json()
