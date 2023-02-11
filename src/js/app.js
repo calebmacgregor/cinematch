@@ -166,7 +166,6 @@ elementState.poster.addEventListener("touchend", () => {
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("btn")) return
 	const result = handleButtonPress(e, coordinates, elementState)
-	console.log(result)
 
 	result.liked &&
 		incrementMovie(
