@@ -148,7 +148,7 @@ elementState.poster.addEventListener("touchend", () => {
 	removeBanner()
 
 	if (result.swiped) {
-		logEvent(analytics, "Swipe")
+		logEvent(analytics, "swipe")
 		updateSwipedMovies(session.sessionName, Number.parseInt(result.movieID))
 
 		setTimeout(() => {
@@ -157,7 +157,7 @@ elementState.poster.addEventListener("touchend", () => {
 		}, 250)
 
 		if (result.liked) {
-			logEvent(analytics, "Liked movie")
+			logEvent(analytics, "liked_movie")
 			incrementMovie(
 				Number.parseInt(result.movieID),
 				session.sessionName,
@@ -169,12 +169,12 @@ elementState.poster.addEventListener("touchend", () => {
 
 //Clicking like/dislike buttons
 document.addEventListener("click", (e) => {
-	logEvent(analytics, "Button pressed")
+	logEvent(analytics, "button_press")
 	if (!e.target.classList.contains("btn")) return
 	const result = handleButtonPress(e, coordinates, elementState)
 
 	if (result.liked) {
-		logEvent(analytics, "Liked movie")
+		logEvent(analytics, "liked_movie")
 		incrementMovie(
 			Number.parseInt(result.movieID),
 			session.sessionName,
