@@ -80,16 +80,16 @@ export class Coordinates {
 
 export class Movie {
 	constructor(
-		id,
-		title,
-		poster,
-		year,
-		rating,
-		genres,
-		runtime,
-		synopsis,
-		tmdbLink,
-		providers
+		id = 0,
+		title = undefined,
+		poster = undefined,
+		year = undefined,
+		rating = undefined,
+		genres = undefined,
+		runtime = undefined,
+		synopsis = undefined,
+		tmdbLink = undefined,
+		providers = undefined
 	) {
 		this.id = id
 		this.title = title

@@ -1,9 +1,3 @@
-import { rotateMovie } from "./handleMovieElements.js"
-import { incrementMovie } from "./firebaseComms.js"
-import { endSession, updateSwipedMovies } from "./utils/misc.js"
-
-import { removeBanner } from "./utils/render.js"
-
 export function handlePosterSizing(elementState) {
 	const speed = 250
 
@@ -41,21 +35,8 @@ export function handlePosterSizing(elementState) {
 	}
 }
 
-export function handleSwipe(
-	coordinates,
-	movieState,
-	elementState,
-	movieArray,
-	sessionName,
-	likeThreshold,
-	cachedPosters
-) {
+export function handleSwipe(coordinates, elementState) {
 	if (elementState.poster.dataset.likedStatus) {
-		updateSwipedMovies(
-			sessionName,
-			Number.parseInt(elementState.poster.dataset.id)
-		)
-
 		//Handle the swipe animation
 		//Add a transition to smoothly handle the rest of the movement
 		elementState.poster.style.transition = `250ms linear`
@@ -70,49 +51,25 @@ export function handleSwipe(
 
 		setTimeout(() => {
 			coordinates.instantResetCardCoordinates(coordinates, elementState)
-			// removeBanner()
-			rotateMovie(movieState, movieArray, elementState, cachedPosters)
 			elementState.body.style.pointerEvents = "all"
 		}, 250)
 
-		removeBanner()
-
-		if (elementState.poster.dataset.likedStatus === "liked") {
-			incrementMovie(
-				Number.parseInt(elementState.poster.dataset.id),
-				sessionName,
-				likeThreshold
-			)
-		}
-
-		if (elementState.poster.dataset.final === "true") {
-			endSession(elementState)
+		return {
+			swiped: true,
+			liked: elementState.poster.dataset.likedStatus === "liked" ? true : false,
+			movieID: elementState.poster.dataset.id
 		}
 	} else {
-		removeBanner()
 		//We only want to enact smooth reset if we've dragged this around
 		if (coordinates.touchCurrentX) {
 			coordinates.smoothResetCardCoordinates(coordinates, elementState)
 		}
+		return { swiped: false }
 	}
 }
 
-export function handleButtonPress(
-	e,
-	coordinates,
-	movieState,
-	movieArray,
-	elementState,
-	sessionName,
-	likeThreshold,
-	cachedPosters
-) {
+export function handleButtonPress(e, coordinates, elementState) {
 	if (e.target.classList.contains("like")) {
-		incrementMovie(
-			Number.parseInt(elementState.poster.dataset.id),
-			sessionName,
-			likeThreshold
-		)
 		elementState.poster.style.transition = `250ms linear`
 		elementState.poster.style.transform = "translateX(100vw) rotate(10deg)"
 	} else if (e.target.classList.contains("dislike")) {
@@ -121,16 +78,12 @@ export function handleButtonPress(
 	}
 	elementState.body.style.pointerEvents = "none"
 	setTimeout(() => {
-		if (elementState.poster.dataset.final === "true") {
-			endSession(elementState)
-		}
-		rotateMovie(movieState, movieArray, elementState, cachedPosters)
 		coordinates.instantResetCardCoordinates(coordinates, elementState)
 		elementState.body.style.pointerEvents = "all"
 	}, 250)
 
-	updateSwipedMovies(
-		sessionName,
-		Number.parseInt(elementState.poster.dataset.id)
-	)
+	return {
+		liked: elementState.poster.dataset.likedStatus === "liked" ? true : false,
+		movieID: elementState.poster.dataset.id
+	}
 }

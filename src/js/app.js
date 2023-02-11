@@ -17,16 +17,22 @@ Sentry.init({
 import {
 	joinSession,
 	deleteSession,
-	listenToSession
+	listenToSession,
+	incrementMovie
 } from "./modules/firebaseComms.js"
-import { setMovie, setMovieState } from "./modules/handleMovieElements.js"
+import {
+	rotateMovie,
+	setMovie,
+	setMovieState
+} from "./modules/handleMovieElements.js"
 import {
 	cachePosters,
 	dismissNotification,
 	endSession,
 	clearSwipedCache,
 	cachePosters,
-	showLikedMovies
+	showLikedMovies,
+	updateSwipedMovies
 } from "./modules/utils/misc.js"
 import { elementState, movieState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
@@ -34,7 +40,8 @@ import {
 	fadePageOut,
 	setPosterSize,
 	checkAspectRatio,
-	renderBanner
+	renderBanner,
+	removeBanner
 } from "./modules/utils/render.js"
 import {
 	handleButtonPress,
@@ -55,6 +62,7 @@ let movieArray = []
 let cachedPosters = []
 
 checkAspectRatio()
+setPosterSize(elementState)
 
 window.addEventListener("resize", () => {
 	checkAspectRatio()
@@ -76,7 +84,9 @@ joinSession(session.sessionName)
 		}
 
 		session.likeThreshold = data.likeThreshold
-		setHeaderName(session.sessionName)
+
+		document.querySelector(".session-name").textContent = session.sessionName
+
 		listenToSession(session.sessionName, elementState)
 
 		//Only include movies that aren't in the array
@@ -99,11 +109,6 @@ joinSession(session.sessionName)
 			getMovieDetail(movieID).then((movie) => {
 				setMovie(movie, 1)
 				setMovieState(movieState, movie, 1)
-
-				elementState.poster.addEventListener("load", () => {
-					fadePageOut("loading-container")
-					setPosterSize(elementState)
-				})
 			})
 		})
 
@@ -111,6 +116,10 @@ joinSession(session.sessionName)
 			getMovieDetail(movieID).then((movie) => {
 				setMovie(movie, 2)
 				setMovieState(movieState, movie, 2)
+
+				elementState.poster.addEventListener("load", () =>
+					fadePageOut("loading-container")
+				)
 			})
 		})
 
@@ -130,56 +139,63 @@ elementState.poster.addEventListener("touchmove", (e) => {
 	renderBanner(coordinates)
 })
 
-elementState.poster.addEventListener("touchend", (e) =>
-	handleSwipe(
-		coordinates,
-		movieState,
-		elementState,
-		movieArray,
+elementState.poster.addEventListener("touchend", () => {
+	const result = handleSwipe(coordinates, elementState)
+
+	removeBanner()
+
+	if (result.swiped) {
+		updateSwipedMovies(session.sessionName, Number.parseInt(result.movieID))
+
+		setTimeout(() => {
+			elementState.poster.dataset.final && endSession(elementState)
+			rotateMovie(movieState, movieArray, elementState, cachedPosters)
+		}, 250)
+
+		result.liked &&
+			incrementMovie(
+				Number.parseInt(result.movieID),
+				session.sessionName,
+				session.likeThreshold
+			)
+	}
+})
+
+//Clicking like/dislike buttons
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("btn")) return
+	const result = handleButtonPress(e, coordinates, elementState)
+
+	result.liked &&
+		incrementMovie(result.movieID, session.sessionName, session.likeThreshold)
+
+	updateSwipedMovies(
 		session.sessionName,
-		session.likeThreshold,
-		cachedPosters
+		Number.parseInt(elementState.poster.dataset.id)
 	)
-)
 
-elementState.poster.addEventListener("click", () => {
-	handlePosterSizing(elementState)
+	setTimeout(() => {
+		elementState.poster.dataset.final && endSession(elementState)
+		rotateMovie(movieState, movieArray, elementState, cachedPosters)
+	}, 250)
 })
 
-elementState.synopsis.addEventListener("click", () => {
-	handlePosterSizing(elementState)
+//Expanding/shrinking the poster
+document.addEventListener("click", (e) => {
+	if (
+		e.target.classList.contains("poster") ||
+		e.target.classList.contains("synopsis") ||
+		e.target.classList.contains("dismiss")
+	)
+		handlePosterSizing(elementState)
 })
 
-elementState.dismiss.addEventListener("click", () => {
-	handlePosterSizing(elementState)
-})
-
-elementState.menuContainer.addEventListener("click", (e) => {
+//Toggline the menu
+elementState.menuContainer.addEventListener("click", () => {
 	elementState.menuPanel.classList.toggle("hidden")
 })
 
-elementState.clearSwipeCache.addEventListener("click", () => {
-	clearSwipedCache(session.sessionName)
-})
-
-elementState.deleteSession.addEventListener("click", () => {
-	deleteSession(session.sessionName)
-})
-
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("btn")) return
-	handleButtonPress(
-		e,
-		coordinates,
-		movieState,
-		movieArray,
-		elementState,
-		session.sessionName,
-		session.likeThreshold,
-		cachedPosters
-	)
-})
-
+//Hiding the menu when it's open and a non-menu click happens
 document.addEventListener("click", (e) => {
 	if (e.target.classList.contains("menu-icon")) return
 	if (!elementState.menuPanel.classList.contains("hidden")) {
@@ -187,28 +203,42 @@ document.addEventListener("click", (e) => {
 	}
 })
 
-document.addEventListener("click", dismissNotification)
-
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("close")) return
-	hideLikedMovies(elementState)
+//Clearing the swipe cache
+elementState.clearSwipeCache.addEventListener("click", () => {
+	clearSwipedCache(session.sessionName)
 })
 
+//Deleting the session
+elementState.deleteSession.addEventListener("click", () => {
+	deleteSession(session.sessionName)
+})
+
+//Dismissing a notification
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("notification-container")) {
+		return
+	}
+	e.target.classList.remove("visible")
+})
+
+//Showing the liked movies panel
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("show-likes")) return
 	showLikedMovies(elementState)
 })
 
-function setHeaderName(sessionName) {
-	const sessionHeaderName = document.querySelector(".session-name")
-	sessionHeaderName.textContent = sessionName
-}
-
-function hideLikedMovies(elementState) {
+//Hiding the liked movies panel
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("close")) return
 	elementState.likedMoviesContainer.classList.add("hidden")
 	setTimeout(() => {
 		elementState.likedMoviesContainer.style.display = "none"
 	}, 250)
+})
+
+function setLoadingMessage(message) {
+	const loadingContainer = document.querySelector(".loading-container")
+	loadingContainer.innerText = message
 }
 
 // document.querySelector("#logout").addEventListener("click", () => {

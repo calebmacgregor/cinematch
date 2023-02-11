@@ -53,56 +53,31 @@ export async function getMovieArray(sessionObject) {
 
 export async function getMovieDetail(movieID, country = "AU") {
 	if (movieID == undefined) {
-		return new Movie(
-			0,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined,
-			undefined
-		)
+		return new Movie()
 	}
-	const API_KEY = process.env.TMDB_API_KEY
-	const movieURL = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=en-US`
-	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
-	const providerURL = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${API_KEY}`
+
+	const apiKey = process.env.TMDB_API_KEY
+	const movieURL = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}&language=en-US`
+	const baseImageUrl = "https://image.tmdb.org/t/p/w500"
+	const providerURL = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${apiKey}`
 
 	const fetched = await fetch(movieURL)
 	const data = await fetched.json()
-	const genres = []
-
-	try {
-		data.genres.forEach((genre) => {
-			genres.push(genre.name)
-		})
-	} catch (err) {
-		console.log(err)
-		injectError(
-			`Woops, something's gone wrong... Sending you home, please try again.`
-		)
-		setTimeout(() => {
-			window.location.href = "../.."
-		}, 5000)
-	}
+	const genres = data.genres ? data.genres.map((genre) => genre.name) : []
 
 	const fetchedProviders = await fetch(providerURL)
 	const providersJson = await fetchedProviders.json()
 	const providersData = providersJson?.results[country]?.flatrate
-	const providers = []
-	if (providersData) {
-		providersJson.results[country].flatrate.forEach((provider) => {
-			providers.push(`${BASE_IMAGE_URL}${provider.logo_path}`)
-		})
-	}
+	const providers = providersData
+		? providersJson.results[country].flatrate.map(
+				(provider) => `${baseImageUrl}${provider.logo_path}`
+		  )
+		: []
 
 	return new Movie(
 		data.id,
 		data.title,
-		`${BASE_IMAGE_URL}${data.poster_path}`,
+		`${baseImageUrl}${data.poster_path}`,
 		formatDate(data.release_date),
 		`${data.vote_average.toFixed(1)}/10`,
 		genres.join(`|`),
@@ -132,15 +107,15 @@ export async function getMovie(
 	const movie = movieArray[index]
 	movieArray.splice(index, 1)
 
-	cachePosters(2, cachedPosters, movieArray)
+	cachePosters(3, cachedPosters, movieArray)
 
 	return movie
 }
 
 export async function getRandomPoster() {
-	const API_KEY = process.env.TMDB_API_KEY
+	const apiKey = process.env.TMDB_API_KEY
 	const pageNumber = Math.floor(Math.random() * (10 - 1) + 1)
-	const baseURL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${pageNumber}`
+	const baseURL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=${pageNumber}`
 
 	const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 

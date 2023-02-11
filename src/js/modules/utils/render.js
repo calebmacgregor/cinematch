@@ -73,7 +73,8 @@ export function checkAspectRatio() {
 }
 
 export function setPosterSize(elementState) {
-	const { height, width } = checkAspectRatio()
+	const height = window.innerHeight
+	const width = window.innerWidth
 	const buttonHeight = elementState.buttons.offsetHeight
 	const headerHeight = elementState.header.offsetHeight
 

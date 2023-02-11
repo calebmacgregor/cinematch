@@ -16,13 +16,6 @@ export function formatDate(date) {
 	].join("/")
 }
 
-export function dismissNotification(e) {
-	if (!e.target.classList.contains("notification-container")) {
-		return
-	}
-	e.target.classList.remove("visible")
-}
-
 export async function populateLikedMovies(sessionName) {
 	const emptyMessage = document.querySelector(".empty-message")
 	if (emptyMessage) {
@@ -61,10 +54,6 @@ export function prepareSessionEnd(elementState) {
 	try {
 		elementState.poster.dataset.final = "true"
 		elementState.nextPoster.remove()
-		// elementState.posterContainer.classList.add("end")
-		// elementState.nextPosterContainer.innerHTML = "All out of movies 🍿 <br><br>"
-		// elementState.nextPosterContainer.innerHTML +=
-		// 	"Check out your matches by clicking on the ❤️ below."
 	} catch (err) {
 		console.log(err)
 	}
