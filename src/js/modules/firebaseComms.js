@@ -21,7 +21,7 @@ import {
 } from "firebase/firestore"
 
 const app = initializeApp(firebaseConfig)
-const analytics = getAnalytics(app)
+export const analytics = getAnalytics(app)
 export const auth = getAuth()
 const db = getFirestore()
 
@@ -132,8 +132,6 @@ export async function listenToSession(sessionName, elementState) {
 export async function incrementMovie(movieID, sessionName, likeThreshold) {
 	//Query to find out if the movie exists
 	let movie = await queryMovie(movieID, sessionName)
-
-	console.log("Incrementing", movie)
 
 	//If the movie doesn't exist, create it
 	//Movies are created with a liked counter of 1,

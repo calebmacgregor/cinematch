@@ -14,11 +14,13 @@ Sentry.init({
 	integrations: [new Sentry.Replay()]
 })
 
+import { logEvent } from "firebase/analytics"
 import {
 	joinSession,
 	deleteSession,
 	listenToSession,
-	incrementMovie
+	incrementMovie,
+	analytics
 } from "./modules/firebaseComms.js"
 import {
 	rotateMovie,
@@ -146,6 +148,7 @@ elementState.poster.addEventListener("touchend", () => {
 	removeBanner()
 
 	if (result.swiped) {
+		logEvent(analytics, "Swipe")
 		updateSwipedMovies(session.sessionName, Number.parseInt(result.movieID))
 
 		setTimeout(() => {
@@ -153,26 +156,31 @@ elementState.poster.addEventListener("touchend", () => {
 			rotateMovie(movieState, movieArray, elementState, cachedPosters)
 		}, 250)
 
-		result.liked &&
+		if (result.liked) {
+			logEvent(analytics, "Liked movie")
 			incrementMovie(
 				Number.parseInt(result.movieID),
 				session.sessionName,
 				session.likeThreshold
 			)
+		}
 	}
 })
 
 //Clicking like/dislike buttons
 document.addEventListener("click", (e) => {
+	logEvent(analytics, "Button pressed")
 	if (!e.target.classList.contains("btn")) return
 	const result = handleButtonPress(e, coordinates, elementState)
 
-	result.liked &&
+	if (result.liked) {
+		logEvent(analytics, "Liked movie")
 		incrementMovie(
 			Number.parseInt(result.movieID),
 			session.sessionName,
 			session.likeThreshold
 		)
+	}
 
 	updateSwipedMovies(
 		session.sessionName,

@@ -74,8 +74,6 @@ export async function getMovieDetail(movieID, country = "AU") {
 		  )
 		: []
 
-	console.log(data)
-
 	return new Movie(
 		data.id,
 		data.title,
