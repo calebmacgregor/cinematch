@@ -116,6 +116,7 @@ joinSession(session.sessionName)
 			getMovieDetail(movieID).then((movie) => {
 				setMovie(movie, 2)
 				setMovieState(movieState, movie, 2)
+				setPosterSize(elementState)
 
 				elementState.poster.addEventListener("load", () =>
 					fadePageOut("loading-container")
