@@ -71,8 +71,15 @@ export async function rotateMovie(
 ) {
 	setMovie(movieState.nextMovie, 1)
 
+	elementState.poster.style.pointerEvents = "none"
+	elementState.buttons.pointerEvents = "none"
+
 	const nextMovieID = await getMovie(movieArray, elementState, cachedPosters, 0)
 	const nextMovie = await getMovieDetail(nextMovieID)
+
 	setMovieState(movieState, nextMovie, 2)
-	setMovie(nextMovie, 2)
+
+	await setMovie(nextMovie, 2)
+	elementState.poster.style.pointerEvents = "all"
+	elementState.buttons.pointerEvents = "all"
 }
