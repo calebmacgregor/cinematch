@@ -166,9 +166,14 @@ elementState.poster.addEventListener("touchend", () => {
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("btn")) return
 	const result = handleButtonPress(e, coordinates, elementState)
+	console.log(result)
 
 	result.liked &&
-		incrementMovie(result.movieID, session.sessionName, session.likeThreshold)
+		incrementMovie(
+			Number.parseInt(result.movieID),
+			session.sessionName,
+			session.likeThreshold
+		)
 
 	updateSwipedMovies(
 		session.sessionName,

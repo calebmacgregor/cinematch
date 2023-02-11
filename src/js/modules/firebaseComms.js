@@ -133,6 +133,8 @@ export async function incrementMovie(movieID, sessionName, likeThreshold) {
 	//Query to find out if the movie exists
 	let movie = await queryMovie(movieID, sessionName)
 
+	console.log("Incrementing", movie)
+
 	//If the movie doesn't exist, create it
 	//Movies are created with a liked counter of 1,
 	//so there's no need to increment the counter

@@ -83,7 +83,7 @@ export function handleButtonPress(e, coordinates, elementState) {
 	}, 250)
 
 	return {
-		liked: elementState.poster.dataset.likedStatus === "liked" ? true : false,
+		liked: e.target.classList.contains("like") ? true : false,
 		movieID: elementState.poster.dataset.id
 	}
 }
