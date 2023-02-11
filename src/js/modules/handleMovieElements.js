@@ -26,6 +26,7 @@ export function setMovie(movie, movieNumber = 1) {
 		synopsis.innerText = movie.synopsis
 		tmdbLink.href = movie.tmdbLink ? movie.tmdbLink : ""
 		poster.src = movie.poster
+		poster.alt = movie.title
 		poster.dataset.id = movie.id
 		poster.style.display = "block"
 
