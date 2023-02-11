@@ -3,6 +3,7 @@
 		"@parcel/packager-raw-url": "^2.6.2",
 		"@parcel/transformer-sass": "^2.6.2",
 		"@parcel/transformer-webmanifest": "^2.6.2",
+		"cypress": "^12.5.1",
 		"parcel": "^2.6.2",
 		"process": "^0.11.10"
 	},
@@ -98,9 +99,9 @@
 		"yaml": "^1.10.2"
 	},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "parcel src/*.html",
-		"build": "parcel build src/*.html"
+		"build": "parcel build src/*.html",
+		"test": "cypress open"
 	},
 	"keywords": [],
 	"author": "",

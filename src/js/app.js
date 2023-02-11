@@ -1,5 +1,4 @@
 import * as Sentry from "@sentry/browser"
-import { BrowserTracing } from "@sentry/tracing"
 
 Sentry.init({
 	dsn: "https://fcde7136bd2048e78edcf275b487250e@o4504655204319232.ingest.sentry.io/4504655205302272",
@@ -29,7 +28,6 @@ import {
 } from "./modules/handleMovieElements.js"
 import {
 	cachePosters,
-	dismissNotification,
 	endSession,
 	clearSwipedCache,
 	cachePosters,
