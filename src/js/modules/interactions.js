@@ -39,7 +39,7 @@ export function handleSwipe(coordinates, elementState) {
 	if (elementState.poster.dataset.likedStatus) {
 		//Handle the swipe animation
 		//Add a transition to smoothly handle the rest of the movement
-		elementState.poster.style.transition = `250ms linear`
+		elementState.poster.style.transition = `400ms linear`
 
 		//Apply a translate that will send the poster in the correct direction
 		elementState.poster.style.transform = `translateX(${
@@ -52,7 +52,7 @@ export function handleSwipe(coordinates, elementState) {
 		setTimeout(() => {
 			coordinates.instantResetCardCoordinates(coordinates, elementState)
 			elementState.body.style.pointerEvents = "all"
-		}, 250)
+		}, 400)
 
 		return {
 			swiped: true,

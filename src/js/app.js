@@ -152,7 +152,7 @@ elementState.poster.addEventListener("touchend", () => {
 		setTimeout(() => {
 			elementState.poster.dataset.final && endSession(elementState)
 			rotateMovie(movieState, movieArray, elementState, cachedPosters)
-		}, 250)
+		}, 400)
 
 		if (result.liked) {
 			logEvent(analytics, "liked_movie")
