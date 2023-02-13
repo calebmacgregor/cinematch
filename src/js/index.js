@@ -4,6 +4,8 @@ import { checkAspectRatio } from "./modules/utils/render.js"
 import { setBodySize } from "./modules/utils/render.js"
 import { getRandomPoster } from "./modules/getMovies.js"
 
+setBodySize()
+
 const form = document.querySelector(".join-session-form")
 const input = document.querySelector("#session-name-input")
 const createSessionButton = document.querySelector(".new-session")
@@ -30,7 +32,6 @@ posterBackdrops.then((data) => {
 	})
 })
 
-setBodySize()
 checkAspectRatio()
 
 window.addEventListener("resize", checkAspectRatio)
