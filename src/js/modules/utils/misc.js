@@ -1,6 +1,6 @@
 import { getMovieDetail } from "../getMovies"
 
-export async function redirectToMatchy(sessionName) {
+export async function redirectToApp(sessionName) {
 	window.location.href = `app.html?session=${sessionName}`
 }
 

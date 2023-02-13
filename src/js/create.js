@@ -2,7 +2,7 @@ import { getMovieArray } from "./modules/getMovies"
 import { createSession } from "./modules/firebaseComms"
 import {
 	createToast,
-	redirectToMatchy,
+	redirectToApp,
 	convertYear
 } from "./modules/utils/misc.js"
 import { fadePageIn, fadePageOut, setBodySize } from "./modules/utils/render"
@@ -193,7 +193,7 @@ function submitSession(sessionObject) {
 					document.querySelector(".submit-session").innerText = "Create"
 					return
 				}
-				redirectToMatchy(sessionObject.sessionName)
+				redirectToApp(sessionObject.sessionName)
 			})
 		})
 	}

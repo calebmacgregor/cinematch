@@ -1,5 +1,5 @@
 import { checkIfSessionExists } from "./modules/firebaseComms.js"
-import { createToast, redirectToMatchy } from "./modules/utils/misc.js"
+import { createToast, redirectToApp } from "./modules/utils/misc.js"
 import { checkAspectRatio } from "./modules/utils/render.js"
 import { setBodySize } from "./modules/utils/render.js"
 import { getRandomPoster } from "./modules/getMovies.js"
@@ -44,7 +44,7 @@ form.addEventListener("submit", (e) => {
 	if (input.value) {
 		checkIfSessionExists(input.value).then((result) => {
 			if (result) {
-				redirectToMatchy(input.value)
+				redirectToApp(input.value)
 			} else {
 				createToast(
 					"warning",
