@@ -36,10 +36,11 @@ export function handlePosterSizing(elementState) {
 }
 
 export function handleSwipe(coordinates, elementState) {
+	const speed = 400
 	if (elementState.poster.dataset.likedStatus) {
 		//Handle the swipe animation
 		//Add a transition to smoothly handle the rest of the movement
-		elementState.poster.style.transition = `200ms linear`
+		elementState.poster.style.transition = `${speed}ms linear`
 
 		//Apply a translate that will send the poster in the correct direction
 		elementState.poster.style.transform = `translateX(${
