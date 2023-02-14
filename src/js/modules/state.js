@@ -16,7 +16,6 @@ export const elementState = {
 	menuContainer: document.querySelector(".menu-container"),
 	menuPanel: document.querySelector(".menu-panel"),
 	clearSwipeCache: document.querySelector("#clear-swipe-cache"),
-	likedMoviesContainer: document.querySelector(".liked-movies-container"),
 	deleteSession: document.querySelector("#delete-session"),
 	like: document.querySelector(".like"),
 	dislike: document.querySelector(".dislike")

@@ -30,7 +30,6 @@ import {
 	cachePosters,
 	endSession,
 	clearSwipedCache,
-	cachePosters,
 	showLikedMovies,
 	updateSwipedMovies
 } from "./modules/utils/misc.js"
@@ -247,10 +246,10 @@ document.addEventListener("click", (e) => {
 	}, 250)
 })
 
-function setLoadingMessage(message) {
-	const loadingContainer = document.querySelector(".loading-container")
-	loadingContainer.innerText = message
-}
+// function setLoadingMessage(message) {
+// 	const loadingContainer = document.querySelector(".loading-container")
+// 	loadingContainer.innerText = message
+// }
 
 // document.querySelector("#logout").addEventListener("click", () => {
 // 	console.log("Attempting signout")

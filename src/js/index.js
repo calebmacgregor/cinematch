@@ -38,7 +38,7 @@ checkAspectRatio()
 
 window.addEventListener("resize", checkAspectRatio)
 
-createSessionButton.addEventListener("click", (e) => {
+createSessionButton.addEventListener("click", () => {
 	window.location.assign("/create.html")
 })
 

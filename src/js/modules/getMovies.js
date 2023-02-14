@@ -132,19 +132,19 @@ export async function getRandomPoster() {
 	return posters
 }
 
-function injectError(message) {
-	//Check if an error injection already exsits
-	const errorCheck = document.querySelector(".error")
-	if (errorCheck) return
+// function injectError(message) {
+// 	//Check if an error injection already exsits
+// 	const errorCheck = document.querySelector(".error")
+// 	if (errorCheck) return
 
-	const errorElement = document.createElement("div")
-	errorElement.classList.add("error")
+// 	const errorElement = document.createElement("div")
+// 	errorElement.classList.add("error")
 
-	const errorMessage = document.createElement("p")
-	errorMessage.classList.add("error-message")
-	errorMessage.innerText = message
+// 	const errorMessage = document.createElement("p")
+// 	errorMessage.classList.add("error-message")
+// 	errorMessage.innerText = message
 
-	errorElement.appendChild(errorMessage)
+// 	errorElement.appendChild(errorMessage)
 
-	document.body.appendChild(errorElement)
-}
+// 	document.body.appendChild(errorElement)
+// }
