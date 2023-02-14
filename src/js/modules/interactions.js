@@ -39,7 +39,7 @@ export function handleSwipe(coordinates, elementState) {
 	if (elementState.poster.dataset.likedStatus) {
 		//Handle the swipe animation
 		//Add a transition to smoothly handle the rest of the movement
-		elementState.poster.style.transition = `400ms linear`
+		elementState.poster.style.transition = `200ms linear`
 
 		//Apply a translate that will send the poster in the correct direction
 		elementState.poster.style.transform = `translateX(${
@@ -49,10 +49,15 @@ export function handleSwipe(coordinates, elementState) {
 		//Temporarily disable all interactions
 		elementState.body.style.pointerEvents = "none"
 
-		setTimeout(() => {
-			coordinates.instantResetCardCoordinates(coordinates, elementState)
-			elementState.body.style.pointerEvents = "all"
-		}, 400)
+		elementState.poster.addEventListener(
+			"load",
+			() => {
+				console.log("Loaded")
+				coordinates.instantResetCardCoordinates(coordinates, elementState)
+				elementState.body.style.pointerEvents = "all"
+			},
+			{ once: true }
+		)
 
 		return {
 			swiped: true,
@@ -71,16 +76,22 @@ export function handleSwipe(coordinates, elementState) {
 export function handleButtonPress(e, coordinates, elementState) {
 	if (e.target.classList.contains("like")) {
 		elementState.poster.style.transition = `250ms linear`
-		elementState.poster.style.transform = "translateX(100vw) rotate(10deg)"
+		elementState.poster.style.transform = "translateX(110vw) rotate(10deg)"
 	} else if (e.target.classList.contains("dislike")) {
 		elementState.poster.style.transition = `250ms linear`
-		elementState.poster.style.transform = "translateX(-100vw) rotate(-10deg)"
+		elementState.poster.style.transform = "translateX(-110vw) rotate(-10deg)"
 	}
 	elementState.body.style.pointerEvents = "none"
-	setTimeout(() => {
-		coordinates.instantResetCardCoordinates(coordinates, elementState)
-		elementState.body.style.pointerEvents = "all"
-	}, 250)
+
+	elementState.poster.addEventListener(
+		"load",
+		() => {
+			console.log("Loaded")
+			coordinates.instantResetCardCoordinates(coordinates, elementState)
+			elementState.body.style.pointerEvents = "all"
+		},
+		{ once: true }
+	)
 
 	return {
 		liked: e.target.classList.contains("like") ? true : false,
