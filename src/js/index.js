@@ -13,8 +13,6 @@ const [frontPoster, leftPoster, rightPoster] = [
 ]
 const posterBackdrops = getRandomPoster()
 
-setBodySize()
-
 posterBackdrops.then((data) => {
 	frontPoster.src = data[0]
 	frontPoster.addEventListener("load", () => {
@@ -32,6 +30,7 @@ posterBackdrops.then((data) => {
 	})
 })
 
+setBodySize()
 checkAspectRatio()
 
 window.addEventListener("resize", checkAspectRatio)
