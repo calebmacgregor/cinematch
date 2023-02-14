@@ -4,8 +4,6 @@ import { checkAspectRatio } from "./modules/utils/render.js"
 import { setBodySize } from "./modules/utils/render.js"
 import { getRandomPoster } from "./modules/getMovies.js"
 
-setBodySize()
-
 const form = document.querySelector(".join-session-form")
 const input = document.querySelector("#session-name-input")
 const createSessionButton = document.querySelector(".new-session")
@@ -14,6 +12,8 @@ const [frontPoster, leftPoster, rightPoster] = [
 	...document.querySelectorAll(".poster")
 ]
 const posterBackdrops = getRandomPoster()
+
+setBodySize()
 
 posterBackdrops.then((data) => {
 	frontPoster.src = data[0]
