@@ -16,17 +16,20 @@ const posterBackdrops = getRandomPoster()
 posterBackdrops.then((data) => {
 	frontPoster.src = data[0]
 	frontPoster.addEventListener("load", () => {
-		frontPoster.style.animation = "main-entrance 1000ms forwards"
+		frontPoster.style.transition = "1000ms ease"
+		frontPoster.classList.remove("offscreen")
 	})
 
 	leftPoster.src = data[1]
 	leftPoster.addEventListener("load", () => {
-		leftPoster.style.animation = "left-entrance 1000ms forwards"
+		leftPoster.style.transition = "1000ms ease"
+		leftPoster.classList.remove("offscreen")
 	})
 
 	rightPoster.src = data[2]
 	rightPoster.addEventListener("load", () => {
-		rightPoster.style.animation = "right-entrance 1000ms forwards"
+		rightPoster.style.transition = "1000ms ease"
+		rightPoster.classList.remove("offscreen")
 	})
 })
 

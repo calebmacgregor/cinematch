@@ -130,29 +130,41 @@ video {
 		}
 
 		.front-poster {
+			transform: translate(0%, 0%);
 			width: 45%;
 			height: 100%;
 			background-size: cover;
 			z-index: 3;
-			transform: translate(200%, 0%);
+
+			&.offscreen {
+				transform: translate(150vw, 0%);
+			}
 		}
 
 		.left-poster {
 			position: absolute;
-			transform: translate(-150vw, 0%) rotate(0deg);
+			transform: translateX(-60%) rotate(-10deg);
 			filter: blur(2px);
 			width: 40%;
 			background-size: cover;
 			z-index: 2;
+
+			&.offscreen {
+				transform: translate(-150vw, 0%) rotate(0deg);
+			}
 		}
 
 		.right-poster {
 			position: absolute;
-			transform: translateX(150vw) rotate(0deg);
+			transform: translateX(70%) rotate(10deg);
 			filter: blur(4px);
 			width: 35%;
 			background-size: cover;
 			z-index: 2;
+
+			&.offscreen {
+				transform: translate(150vw, 0%) rotate(0deg);
+			}
 		}
 	}
 
@@ -216,22 +228,4 @@ footer {
 	padding-top: 2rem;
 	text-align: center;
 	font-size: 12px;
-}
-
-@keyframes main-entrance {
-	100% {
-		transform: translate(0%, 0%);
-	}
-}
-
-@keyframes left-entrance {
-	100% {
-		transform: translateX(-60%) rotate(-10deg);
-	}
-}
-
-@keyframes right-entrance {
-	100% {
-		transform: translateX(70%) rotate(10deg);
-	}
 }
