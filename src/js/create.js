@@ -23,6 +23,13 @@ const nextButton = document.querySelector(".next-page")
 const submitButton = document.querySelector(".submit-session")
 const form = document.querySelector(".form-gen-container")
 
+const sessionName = document.querySelector("#session-name")
+const likeThreshold = document.querySelector("#like-threshold")
+const sessionSize = document.querySelector("#session-size")
+const fromYear = document.querySelector("#from-date")
+const toYear = document.querySelector("#to-date")
+const country = document.querySelector("#country")
+
 const inputPages = [...document.querySelectorAll(".input-page")]
 const selectorContainers = [...document.querySelectorAll(".selector-container")]
 
@@ -152,13 +159,6 @@ async function populateRegions() {
 
 function setSessionData(selectedGenres, selectedProviders, sessionObject) {
 	//Get data from all inputs on the page
-	let sessionName = document.querySelector("#session-name")
-	let likeThreshold = document.querySelector("#like-threshold")
-	let sessionSize = document.querySelector("#session-size")
-	let fromYear = document.querySelector("#from-date")
-	let toYear = document.querySelector("#to-date")
-	let country = document.querySelector("#country")
-
 	sessionObject.sessionName = sessionName.value
 	sessionObject.likeThreshold = likeThreshold.value
 	sessionObject.sessionSize = sessionSize.value

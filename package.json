@@ -99,7 +99,7 @@
 	},
 	"scripts": {
 		"dev": "parcel src/*.html",
-		"build": "parcel build src/*.html --no-optimize",
+		"build": "parcel build src/*.html",
 		"test": "cypress open"
 	},
 	"keywords": [],
