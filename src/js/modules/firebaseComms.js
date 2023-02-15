@@ -110,10 +110,11 @@ export async function listenToSession(sessionName, elementState) {
 
 		const stringifiedArray = JSON.stringify(arr)
 		const storedDocs = localStorage.getItem(`LIKED-${sessionName}`)
+		console.log(storedDocs)
 
 		//Only trigger a notification or rerender if the matched movie list
 		//is different to the stored movie list
-		if (stringifiedArray !== storedDocs) {
+		if (stringifiedArray !== storedDocs || !storedDocs) {
 			//Check if the liked movies array actually exists
 			if (arr) {
 				//Get the most recently liked movie in the array
