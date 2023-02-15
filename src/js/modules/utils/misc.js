@@ -67,6 +67,7 @@ export function endSession(elementState) {
 	elementState.nextPosterContainer.remove()
 	elementState.like.style.visibility = "hidden"
 	elementState.dislike.style.visibility = "hidden"
+	elementState.body.style.pointerEvents = "all"
 }
 
 export function notifyOfMatch(movieObject, elementState) {

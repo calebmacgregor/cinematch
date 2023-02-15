@@ -68,6 +68,13 @@ window.addEventListener("resize", () => {
 	setPosterSize(elementState)
 })
 
+//This needs to be set here to make sure the event is attached
+//before the image src is updated. Helps prevent issues where the
+//image loads before the listener is attached.
+elementState.poster.addEventListener("load", () =>
+	fadePageOut("loading-container")
+)
+
 //Import the session
 joinSession(session.sessionName)
 	.then((data) => {
@@ -116,10 +123,6 @@ joinSession(session.sessionName)
 				setMovie(movie, 2)
 				setMovieState(movieState, movie, 2)
 				setPosterSize(elementState)
-
-				elementState.poster.addEventListener("load", () =>
-					fadePageOut("loading-container")
-				)
 			})
 		})
 

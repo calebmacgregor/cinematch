@@ -108,22 +108,29 @@ export async function listenToSession(sessionName, elementState) {
 		let arr = []
 		arr = doc.data()?.likedMovies
 
-		//Check if the liked movies array actually exists
-		if (arr) {
-			//Get the most recently liked movie in the array
-			const newMovie = arr[arr.length - 1]
+		const stringifiedArray = JSON.stringify(arr)
+		const storedDocs = localStorage.getItem(`LIKED-${sessionName}`)
 
-			if (arr.length > 0) {
-				//If the movie was liked after the user joined the session,
-				//notify the user
-				if (
-					doc.data().lastLikedEpoch >
-					parseInt(sessionStorage.getItem("matchyJoinEpoch"))
-				) {
-					notifyOfMatch(newMovie, elementState)
+		//Only trigger a notification or rerender if the matched movie list
+		//is different to the stored movie list
+		if (stringifiedArray !== storedDocs) {
+			//Check if the liked movies array actually exists
+			if (arr) {
+				//Get the most recently liked movie in the array
+				const newMovie = arr[arr.length - 1]
+
+				if (arr.length > 0) {
+					//If the movie was liked after the user joined the session,
+					//notify the user
+					if (
+						doc.data().lastLikedEpoch >
+						parseInt(sessionStorage.getItem("matchyJoinEpoch"))
+					) {
+						notifyOfMatch(newMovie, elementState)
+					}
+					localStorage.setItem(`LIKED-${sessionName}`, JSON.stringify(arr))
+					populateLikedMovies(sessionName)
 				}
-				localStorage.setItem(`LIKED-${sessionName}`, JSON.stringify(arr))
-				populateLikedMovies(sessionName)
 			}
 		}
 	})

@@ -132,7 +132,7 @@ body {
 	width: 100vw;
 	background-color: var(--base-colour);
 	color: white;
-	z-index: 9999;
+	z-index: 999;
 	overflow: scroll;
 	transition: 250ms ease;
 	transform: translateY(0);
@@ -223,7 +223,7 @@ body {
 	align-items: center;
 	background-color: var(--transparent-base);
 	padding-top: 4rem;
-	z-index: 999;
+	z-index: 9999;
 	transition: 250ms ease;
 	color: white;
 	transform: translateY(100vh);

@@ -53,7 +53,6 @@ export function handleSwipe(coordinates, elementState) {
 		elementState.poster.addEventListener(
 			"load",
 			() => {
-				console.log("Loaded")
 				coordinates.instantResetCardCoordinates(coordinates, elementState)
 				elementState.body.style.pointerEvents = "all"
 			},
@@ -87,7 +86,6 @@ export function handleButtonPress(e, coordinates, elementState) {
 	elementState.poster.addEventListener(
 		"load",
 		() => {
-			console.log("Loaded")
 			coordinates.instantResetCardCoordinates(coordinates, elementState)
 			elementState.body.style.pointerEvents = "all"
 		},
