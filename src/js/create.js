@@ -7,11 +7,6 @@ import {
 } from "./modules/utils/misc.js"
 import { fadePageIn, fadePageOut, setBodySize } from "./modules/utils/render"
 import {
-	// validateName,
-	// validateThreshold,
-	// validateSize,
-	// validateStartYear,
-	// validateEndYear,
 	validateOptionals,
 	validateFirstPage,
 	validateSecondPage,
@@ -45,10 +40,6 @@ setBodySize()
 populateProviders()
 populateRegions()
 populateGenres()
-
-setTimeout(() => {
-	fadePageIn("form-gen-container")
-}, 250)
 
 prevButton.addEventListener("click", previousPage)
 nextButton.addEventListener("click", nextPage)
