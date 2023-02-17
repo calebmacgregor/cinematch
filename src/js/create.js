@@ -150,7 +150,7 @@ async function populateRegions() {
 
 function setSessionData(selectedGenres, selectedProviders, sessionObject) {
 	//Get data from all inputs on the page
-	sessionObject.sessionName = sessionName.value
+	sessionObject.sessionName = sessionName.value.trim()
 	sessionObject.likeThreshold = likeThreshold.value
 	sessionObject.sessionSize = sessionSize.value
 	sessionObject.fromYear = convertYear(fromYear.value, "first")
