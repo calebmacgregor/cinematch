@@ -31,7 +31,8 @@ import {
 	endSession,
 	clearSwipedCache,
 	showLikedMovies,
-	updateSwipedMovies
+	updateSwipedMovies,
+	populateLikedMovies
 } from "./modules/utils/misc.js"
 import { elementState, movieState } from "./modules/state.js"
 import { Coordinates } from "./modules/classes.js"
@@ -94,6 +95,7 @@ joinSession(session.sessionName)
 		document.querySelector(".session-name").textContent = session.sessionName
 
 		listenToSession(session.sessionName, elementState)
+		populateLikedMovies(session.sessionName)
 
 		//Only include movies that aren't in the array
 		movieArray = data.movies.filter((movie) => !swipedMovies.includes(movie))

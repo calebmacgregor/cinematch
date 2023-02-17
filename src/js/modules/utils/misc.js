@@ -17,12 +17,13 @@ export function formatDate(date) {
 }
 
 export async function populateLikedMovies(sessionName) {
+	const likedMovies = JSON.parse(localStorage.getItem(`LIKED-${sessionName}`))
+	if (likedMovies.length === 0) return
+
 	const emptyMessage = document.querySelector(".empty-message")
 	if (emptyMessage) {
 		emptyMessage.remove()
 	}
-
-	const likedMovies = JSON.parse(localStorage.getItem(`LIKED-${sessionName}`))
 
 	const likedMoviesList = document.querySelector(".liked-movies-list")
 	likedMoviesList.innerHTML = ""
