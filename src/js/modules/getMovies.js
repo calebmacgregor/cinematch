@@ -9,7 +9,7 @@ export async function getMovieArray(sessionObject) {
 	const adultParameter = "&include_adult=false"
 	const sinceDateParameter = `&primary_release_date.gte=${fromYear}`
 	const toDateParameter = `&primary_release_date.lte=${toYear}`
-	const voteCountParameter = "&vote_count.gte=100"
+	const voteCountParameter = "&vote_count.gte=10"
 	const genreParameter = genres ? `&with_genres=${genres.join("|")}` : ""
 	const providerParameter = providers
 		? `&with_watch_providers=${providers.join("|")}`
