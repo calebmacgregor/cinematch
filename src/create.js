@@ -1,5 +1,4 @@
-import { getMovieArray } from "./js/getMovies.js"
-
+import { getMovieArray } from "./js/getMovieInfo/getMovieArray.js"
 import { convertYear } from "./js/utils/misc.js"
 import { createToast } from "./js/elements/injectToast.js"
 import { fadePageOut } from "./js/elements/fadePageOut.js"
