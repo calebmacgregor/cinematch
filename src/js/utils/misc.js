@@ -12,23 +12,14 @@ export function formatDate(date) {
 	].join("/")
 }
 
-export async function cachePosters(numberOfPosters, cachedPosters, movieArray) {
-	//Need to grab from the start of the array as getMovie takes
-	//the last first in the array
-	const postersToCache = movieArray.slice(
-		cachedPosters.length,
-		numberOfPosters + cachedPosters.length
-	)
-
-	postersToCache.forEach((poster) => {
+export async function cachePosters(movieArray) {
+	movieArray.forEach((movie) => {
 		const image = new Image()
-		cachedPosters.push(poster)
-		getMovieDetail(poster).then((data) => {
+
+		getMovieDetail(movie).then((data) => {
 			image.src = data.poster
 		})
 	})
-
-	return cachedPosters
 }
 
 export function convertYear(year, firstLast) {

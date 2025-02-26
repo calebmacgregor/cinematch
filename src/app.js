@@ -20,6 +20,7 @@ import { deleteSession } from "./supabase/deleteSession.js"
 import { handleEndSession } from "./js/handlers/handleEndSession.js"
 import { populateLikedMovies } from "./js/utils/populateLikedMovies.js"
 import { getLikedMovies } from "./supabase/getLikedMovies.js"
+import { cachePosters } from "./js/utils/misc.js"
 
 //Get the session from the URL parameters
 const params = new URLSearchParams(window.location.search)
@@ -64,6 +65,8 @@ movieArray = movieArray.sort(() => {
 	const i = Math.random() - 0.5
 	return i
 })
+
+cachePosters(movieArray)
 
 movieState.currentMovie = movieArray[movieArray.length - 1]
 movieState.nextMovie = movieArray[movieArray.length - 2]
