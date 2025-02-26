@@ -12,6 +12,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "@sentry/react": "^9.2.0",
     "@supabase/supabase-js": "^2.49.1",
     "posthog-js": "^1.223.4"
   }

@@ -27,6 +27,15 @@ posthog.init("phc_wd3kAC3aF01Odr7Lv5MImezHKHroIW489CEVFgInw9t", {
 	api_host: "https://us.i.posthog.com"
 })
 
+import * as Sentry from "@sentry/react"
+Sentry.init({
+	dsn: "https://fcde7136bd2048e78edcf275b487250e@o4504655204319232.ingest.us.sentry.io/4504655205302272",
+	integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
+	tracesSampleRate: 1.0,
+	replaysSessionSampleRate: 0.1,
+	replaysOnErrorSampleRate: 1.0
+})
+
 //Get the session from the URL parameters
 const params = new URLSearchParams(window.location.search)
 let session = params.get("session")
@@ -66,10 +75,14 @@ movieArray = sessionData.movieArray
 
 document.querySelector(".session-name").textContent = session
 
-movieArray = movieArray.sort(() => {
-	const i = Math.random() - 0.5
-	return i
-})
+try {
+	movieArray = movieArray.sort(() => {
+		const i = Math.random() - 0.5
+		return i
+	})
+} catch (error) {
+	console.log("Shuffling failed")
+}
 
 cachePosters(movieArray)
 
