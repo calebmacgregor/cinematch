@@ -9,6 +9,4 @@ export function handleMovieState(movieArray, movieState) {
 			elementState.nextPoster.style.visibility = "hidden"
 		}, 400)
 	}
-
-	console.log(`${movieArray.length} movies remaining`)
 }
