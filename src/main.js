@@ -4,6 +4,11 @@ import { setBodySize } from "./js/utils/setBodySize"
 import { checkSession } from "./supabase/checkSession"
 import { createToast } from "./js/elements/injectToast"
 
+import posthog from "posthog-js"
+posthog.init("phc_wd3kAC3aF01Odr7Lv5MImezHKHroIW489CEVFgInw9t", {
+	api_host: "https://us.i.posthog.com"
+})
+
 const form = document.querySelector(".join-session-form")
 const input = document.querySelector("#session-name-input")
 const createSessionButton = document.querySelector(".new-session")

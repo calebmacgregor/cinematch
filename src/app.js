@@ -22,6 +22,11 @@ import { populateLikedMovies } from "./js/utils/populateLikedMovies.js"
 import { getLikedMovies } from "./supabase/getLikedMovies.js"
 import { cachePosters } from "./js/utils/misc.js"
 
+import posthog from "posthog-js"
+posthog.init("phc_wd3kAC3aF01Odr7Lv5MImezHKHroIW489CEVFgInw9t", {
+	api_host: "https://us.i.posthog.com"
+})
+
 //Get the session from the URL parameters
 const params = new URLSearchParams(window.location.search)
 let session = params.get("session")
