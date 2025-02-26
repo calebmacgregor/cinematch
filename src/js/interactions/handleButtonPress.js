@@ -1,5 +1,4 @@
 export function handleButtonPress(e, coordinates, elementState) {
-	console.log("running")
 	if (e.target.classList.contains("like")) {
 		elementState.poster.style.transition = `250ms linear`
 		elementState.poster.style.transform = "translateX(110vw) rotate(10deg)"
