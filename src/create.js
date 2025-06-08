@@ -167,7 +167,7 @@ async function submitSession(sessionObject) {
 	const movieArray = await getMovieArray(sessionObject)
 
 	const result = await createSession(
-		sessionObject.sessionName,
+		sessionObject.sessionName.trim(),
 		parseInt(sessionObject.likeThreshold),
 		parseInt(sessionObject.sessionSize)
 	)

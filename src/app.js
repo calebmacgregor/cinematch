@@ -64,7 +64,7 @@ elementState.poster.addEventListener("load", () => {
 	setPosterSize(elementState)
 })
 
-const sessionData = await joinSession(session)
+const sessionData = await joinSession(session.trim())
 
 if (!sessionData.sessionName) window.location.href = `/`
 

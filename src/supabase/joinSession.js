@@ -7,11 +7,11 @@ export async function joinSession(sessionName) {
 	const { data, error } = await supabase
 		.from("sessions")
 		.select(`sessionName, likeThreshold, likes ( movieId )`)
-		.eq("sessionName", sessionName)
+		.eq("sessionName", sessionName.trim())
 		.not("likes.movieId", "in", `(${swiped})`)
 
 	const sessionData = {
-		sessionName: data[0]?.sessionName,
+		sessionName: data[0]?.sessionName.trim(),
 		likeThreshold: data[0]?.likeThreshold,
 		movieArray: data[0]?.likes.map((x) => x.movieId)
 	}

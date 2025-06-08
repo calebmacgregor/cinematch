@@ -13,7 +13,7 @@ export function formatDate(date) {
 }
 
 export async function cachePosters(movieArray) {
-	movieArray.forEach((movie) => {
+	movieArray?.forEach((movie) => {
 		const image = new Image()
 
 		getMovieDetail(movie).then((data) => {

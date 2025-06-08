@@ -34,6 +34,7 @@ export async function getMovieArray(sessionObject) {
 	for (let i = 0; i < pages; i++) {
 		let fetched = await fetch(`${URL}${PAGE_URL}${i + 1}`)
 		let data = await fetched.json()
+
 		data.results.forEach((item) => {
 			results.push(item.id)
 		})
